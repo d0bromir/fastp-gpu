@@ -1,0 +1,244 @@
+================================================================================
+ CONSOLIDATED VALIDATION LOG
+ Merged from benchmark runs: 2026-04-15 through 2026-04-17
+================================================================================
+
+
+############################################################################
+# SOURCE: wgs_validation_20260415_075051.log
+############################################################################
+=== Validation Log: Wed Apr 15 07:50:51 UTC 2026 ===
+[PASS] opengene WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+[PASS] opengene WGS_SE_6.3G T=2: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2: reads_in=80314764 reads_out=77515798
+[PASS] opengene WGS_SE_6.3G T=4: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4: reads_in=80314764 reads_out=77515798
+[PASS] opengene WGS_SE_6.3G T=8: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=8: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=8: reads_in=80314764 reads_out=77515798
+[PASS] opengene WGS_SE_6.3G T=16: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16: reads_in=80314764 reads_out=77515798
+[PASS] opengene WGS_PE_12.8G T=1: reads_in=160629528 reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=1: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=1: reads_in=160629528 reads_out=152882765
+[PASS] opengene WGS_PE_12.8G T=2: reads_in=160629528 reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=2: reads_in=160629528 reads_out=152882765
+[PASS] opengene WGS_PE_12.8G T=4: reads_in=160629528 reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=4: reads_in=160629528 reads_out=152882765
+[PASS] opengene WGS_PE_12.8G T=8: reads_in=160629528 reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=8: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=8: reads_in=160629528 reads_out=152882765
+[PASS] opengene WGS_PE_12.8G T=16: reads_in=160629528 reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=16: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=16: reads_in=160629528 reads_out=152882765
+[PASS] opengene WGS_PE_18.2G T=1: reads_in=234238034 reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1: reads_in=234238034 reads_out=224315698
+[PASS] opengene WGS_PE_18.2G T=2: reads_in=234238034 reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2: reads_in=234238034 reads_out=224315698
+[PASS] opengene WGS_PE_18.2G T=4: reads_in=234238034 reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4: reads_in=234238034 reads_out=224315698
+[PASS] opengene WGS_PE_18.2G T=8: reads_in=234238034 reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=8: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=8: reads_in=234238034 reads_out=224315698
+[PASS] opengene WGS_PE_18.2G T=16: reads_in=234238034 reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16: reads_in=234238034 reads_out=224315698
+
+############################################################################
+# SOURCE: wgs_validation_20260415_203802.log
+############################################################################
+=== Validation Log: Wed Apr 15 20:38:02 UTC 2026 ===
+
+############################################################################
+# SOURCE: wgs_validation_20260415_204208.log
+############################################################################
+=== Validation Log: Wed Apr 15 20:42:08 UTC 2026 ===
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+
+############################################################################
+# SOURCE: wgs_validation_20260415_205925.log
+############################################################################
+=== Validation Log: Wed Apr 15 20:59:25 UTC 2026 ===
+
+############################################################################
+# SOURCE: wgs_validation_20260415_211006.log
+############################################################################
+=== Validation Log: Wed Apr 15 21:10:06 UTC 2026 ===
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=8: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=8: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16: reads_in=80314764 reads_out=77515798
+[PASS] d0bromir_cpu WGS_PE_12.8G T=1: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=1: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=2: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=4: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_cpu WGS_PE_12.8G T=8: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=8: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_cpu WGS_PE_12.8G T=16: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_gpu WGS_PE_12.8G T=16: reads_in=160629528 reads_out=152882765
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_cpu WGS_PE_18.2G T=8: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=8: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16: reads_in=234238034 reads_out=224315698
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16: reads_in=234238034 reads_out=224315698
+
+############################################################################
+# SOURCE: full_validation_20260416_050814.log
+############################################################################
+=== Validation Log: Thu Apr 16 05:08:14 UTC 2026 ===
+
+[PASS] d0bromir_cpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[FAIL] d0bromir_cpu WGS_PE_12.8G T=1  reads_in(test=160629528 og=160629528)  reads_out(test=152882765 og=147153690)
+BENCHMARK ABORTED — validation failure
+
+############################################################################
+# SOURCE: full_validation_20260416_064709.log
+############################################################################
+=== Validation Log: Thu Apr 16 06:47:09 UTC 2026 ===
+
+[PASS] d0bromir_cpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=8  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=8  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=16  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=16  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=8  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=8  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+
+================================================================================
+ Appended from: full_validation_20260426_044840.log
+================================================================================
+=== Validation Log: Sun Apr 26 04:48:40 UTC 2026 ===
+
+[PASS] d0bromir_cpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=1  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=8  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=32  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=32  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_PE_304M T=1  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=1  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=2  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=2  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=4  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=4  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=8  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=8  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=16  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=16  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=32  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=32  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=8  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=32  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=32  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=8  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=8  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=16  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=16  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=32  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=32  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=8  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=8  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930

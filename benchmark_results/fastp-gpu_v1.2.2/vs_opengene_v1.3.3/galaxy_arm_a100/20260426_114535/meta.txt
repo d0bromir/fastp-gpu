@@ -1,0 +1,19 @@
+Run timestamp: 20260426_114535 UTC
+Platform: galaxy_arm_a100 (see ../hardware.txt)
+fastp-gpu version: v1.2.2 (this work; binaries: fastp, fastp-cpu-profile)
+opengene fastp version: v1.3.3 (baseline)
+Datasets: Panel_SE_148M, Panel_PE_304M, Panel_PDAC_PE_1M, Panel_PDAC_PE_1.5M,
+          WGS_SE_6.3G, WGS_PE_12.8G, WGS_PE_18.2G, WGS_PE_40G
+Threads swept: 1, 2, 4, 8, 16, 32 (rep=1)
+Hard timeout: 1800s (rows with reads_in=0 = crashed/timeout)
+Notes:
+  - This run uses opengene v1.3.3, NOT the v1.1.0 baseline used by the
+    consolidated/ canonical analysis. Do not merge into v1.1.0 CSVs.
+  - Several opengene baselines crashed at high thread counts; affected rows
+    have pct_vs_opengene='crashed' (opengene) / 'N/A' (d0bromir).
+  - Panel_PE_304M opengene at T=4/8/32 crashed.
+  - WGS_PE_40G opengene at T=16 crashed.
+  - WGS_PE_12.8G opengene at T=16 originally hit the 1800s timeout; T=16
+    opengene was rerun on 2026-04-28 against the same v1.3.3 baseline
+    (see ../20260428_rerun_t16/) and merged into this CSV
+    (113.635s; pct_vs_opengene recomputed for d0bromir T=16 rows).
