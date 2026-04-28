@@ -1,31 +1,25 @@
-[![install with conda](
-https://anaconda.org/bioconda/fastp/badges/version.svg)](https://anaconda.org/bioconda/fastp)
-[![install with conda](
-https://anaconda.org/bioconda/fastp/badges/downloads.svg)](https://anaconda.org/bioconda/fastp)
-[![DebianBadge](
-https://badges.debian.net/badges/debian/unstable/fastp/version.svg)](https://packages.debian.org/unstable/fastp)
-[![European Galaxy server](https://img.shields.io/badge/usegalaxy-.eu-brightgreen?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAAsTAAALEwEAmpwYAAACC2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDx0aWZmOkNvbXByZXNzaW9uPjE8L3RpZmY6Q29tcHJlc3Npb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDx0aWZmOlBob3RvbWV0cmljSW50ZXJwcmV0YXRpb24+MjwvdGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KD0UqkwAAAn9JREFUOBGlVEuLE0EQruqZiftwDz4QYT1IYM8eFkHFw/4HYX+GB3/B4l/YP+CP8OBNTwpCwFMQXAQPKtnsg5nJZpKdni6/6kzHvAYDFtRUT71f3UwAEbkLch9ogQxcBwRKMfAnM1/CBwgrbxkgPAYqlBOy1jfovlaPsEiWPROZmqmZKKzOYCJb/AbdYLso9/9B6GppBRqCrjSYYaquZq20EUKAzVpjo1FzWRDVrNay6C/HDxT92wXrAVCH3ASqq5VqEtv1WZ13Mdwf8LFyyKECNbgHHAObWhScf4Wnj9CbQpPzWYU3UFoX3qkhlG8AY2BTQt5/EA7qaEPQsgGLWied0A8VKrHAsCC1eJ6EFoUd1v6GoPOaRAtDPViUr/wPzkIFV9AaAZGtYB568VyJfijV+ZBzlVZJ3W7XHB2RESGe4opXIGzRTdjcAupOK09RA6kzr1NTrTj7V1ugM4VgPGWEw+e39CxO6JUw5XhhKihmaDacU2GiR0Ohcc4cZ+Kq3AjlEnEeRSazLs6/9b/kh4eTC+hngE3QQD7Yyclxsrf3cpxsPXn+cFdenF9aqlBXMXaDiEyfyfawBz2RqC/O9WF1ysacOpytlUSoqNrtfbS642+4D4CS9V3xb4u8P/ACI4O810efRu6KsC0QnjHJGaq4IOGUjWTo/YDZDB3xSIxcGyNlWcTucb4T3in/3IaueNrZyX0lGOrWndstOr+w21UlVFokILjJLFhPukbVY8OmwNQ3nZgNJNmKDccusSb4UIe+gtkI+9/bSLJDjqn763f5CQ5TLApmICkqwR0QnUPKZFIUnoozWcQuRbC0Km02knj0tPYx63furGs3x/iPnz83zJDVNtdP3QAAAABJRU5ErkJggg==)](https://usegalaxy.eu/root?tool_id=fastp)
+# fastp-gpu (fork)
 
-# fastp
+> **Notice:** This is a personal **fork** of [OpenGene/fastp](https://github.com/OpenGene/fastp) with GPU/CUDA modifications. It is **not the original fastp** and is **not affiliated with or endorsed by** the upstream authors. The README below is adapted from the upstream project; some sections (e.g. distribution channels, prebuilt binaries) refer to upstream fastp and **do not apply to this fork**. Use upstream fastp if you want the official, supported tool.
+
 A tool designed to provide ultrafast all-in-one preprocessing and quality control for FastQ data.     
 
 This tool is designed for processing short reads (i.e. Illumina NovaSeq, MGI), if you are looking for tools to process long reads (i.e. Nanopore, PacBio, Cyclone), please use [fastplong](https://github.com/OpenGene/fastplong).  
 
 fastp supports batch processing of multiple FASTQ files in a folder, see - [batch processing](#batch-processing)  
 
-If you use fastp in your work, you can cite fastp as:  *Shifu Chen. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality control and preprocessing. iMeta 4.5 (2025): e70078*
+If you use fastp in your work, you can cite the upstream fastp as:  *Shifu Chen. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality control and preprocessing. iMeta 4.5 (2025): e70078*. This fork has not been independently published.
 
 
 - [features](#features)
 - [simple usage](#simple-usage)
 - [examples of report](#examples-of-report)
-- [get fastp](#get-fastp)
-  - [install with Bioconda](#install-with-bioconda)
-  - [or download the latest prebuilt binary for Linux users](#or-download-the-latest-prebuilt-binary-for-linux-users)
-  - [or compile from source](#or-compile-from-source)
+- [get fastp-gpu](#get-fastp-gpu)
+  - [compile from source](#compile-from-source)
     - [Step 1: install isa-l](#step-1-install-isa-l)
-    - [step 2: install libdeflate](#step-2-install-libdeflate)
-    - [Step 3: download and build fastp](#step-3-download-and-build-fastp)
+    - [Step 2: install libdeflate](#step-2-install-libdeflate)
+    - [Step 3: install CUDA toolkit](#step-3-install-cuda-toolkit)
+    - [Step 4: build fastp-gpu](#step-4-build-fastp-gpu)
 - [input and output](#input-and-output)
   - [output to STDOUT](#output-to-stdout)
   - [input from STDIN](#input-from-stdin)
@@ -78,7 +72,7 @@ If you use fastp in your work, you can cite fastp as:  *Shifu Chen. fastp 1.0: A
 14. support ultra-fast FASTQ-level deduplication
 15. ...
 
-If you find a bug or have additional requirement for `fastp`, please file an issue:https://github.com/OpenGene/fastp/issues/new
+If you find a bug in **upstream fastp**, please file an issue at https://github.com/OpenGene/fastp/issues/new. Issues specific to **this fork's GPU/CUDA changes** should be reported in this fork's repository, not upstream.
 
 # simple usage
 * for single end data (not compressed)
@@ -93,31 +87,14 @@ By default, the HTML report is saved to `fastp.html` (can be specified with `-h`
 
 # examples of report
 `fastp` creates reports in both HTML and JSON format.
-* HTML report: http://opengene.org/fastp/fastp.html
-* JSON report: http://opengene.org/fastp/fastp.json
+* HTML report (upstream sample): http://opengene.org/fastp/fastp.html
+* JSON report (upstream sample): http://opengene.org/fastp/fastp.json
 
-# get fastp
-## install with Bioconda
-[![install with conda](
-https://anaconda.org/bioconda/fastp/badges/version.svg)](https://anaconda.org/bioconda/fastp)
-```shell
-# note: the fastp version in bioconda may be not the latest
-conda install -c bioconda fastp
-```
-## or download the latest prebuilt binary for Linux users
-This binary was compiled on CentOS, and tested on CentOS/Ubuntu
-```shell
-# download the latest build
-wget http://opengene.org/fastp/fastp
-chmod a+x ./fastp
+# get fastp-gpu
+This fork is **not distributed via Bioconda, Debian, Galaxy, or as a prebuilt binary**. You must build it from source. If you do not need GPU acceleration, please use upstream [fastp](https://github.com/OpenGene/fastp) instead.
 
-# or download specified version, i.e. fastp v0.23.4
-wget http://opengene.org/fastp/fastp.0.23.4
-mv fastp.0.23.4 fastp
-chmod a+x ./fastp
-```
-## or compile from source
-`fastp` depends on `libdeflate` and `libisal`, while `libisal` is not compatible with gcc 4.8. If you use gcc 4.8, your fastp will fail to run. Please upgrade your gcc before you build the libraries and fastp.
+## compile from source
+`fastp-gpu` depends on `libdeflate`, `libisal`, and the **NVIDIA CUDA Toolkit** (for GPU acceleration). `libisal` is not compatible with gcc 4.8; please upgrade your gcc before building. A CUDA-capable NVIDIA GPU is required at runtime to use GPU features.
 
 ### Step 1: install isa-l
 It's recommended that to install it using your package manager, for example `apt install isa-l` on ubuntu, or `brew install isa-l` on Mac. Otherwise you can compile it from source. Please be noted that `isa-l` is not compatible with gcc 4.8 or older versions. See https://github.com/intel/isa-l
@@ -131,8 +108,8 @@ make -j
 sudo make install
 ```
 
-### step 2: install libdeflate
-It's recommended that to install it using your package manager, for example `apt install libdeflate` on ubuntu, or `brew install libdeflate` on Mac. Otherwise you can compile it from source. See https://github.com/ebiggers/libdeflate
+### Step 2: install libdeflate
+It's recommended to install it using your package manager, for example `apt install libdeflate` on ubuntu, or `brew install libdeflate` on Mac. Otherwise you can compile it from source. See https://github.com/ebiggers/libdeflate
 ```shell
 git clone https://github.com/ebiggers/libdeflate.git
 cd libdeflate
@@ -141,17 +118,18 @@ cmake --build build
 cmake --install build
 ```
 
-### Step 3: download and build fastp
+### Step 3: install CUDA toolkit
+Install the NVIDIA CUDA Toolkit (>= 10.2 recommended) and ensure `nvcc` is on your `PATH`. See https://developer.nvidia.com/cuda-downloads. The default target compute capability is `sm_61`; override it at configure time with `-DCUDA_ARCH=<cc>` (e.g. `75`, `86`, `89`).
+
+### Step 4: build fastp-gpu
 ```shell
-# get source (you can also use browser to download from master or releases)
-git clone https://github.com/OpenGene/fastp.git
+# clone this fork
+git clone https://github.com/d0bromir/fastp-gpu.git
+cd fastp-gpu
 
-# build
-cd fastp
-make -j
-
-# Install
-sudo make install
+# CMake build (recommended for GPU support)
+cmake -B build -DCUDA_ARCH=86
+cmake --build build -j
 ```
 
 # input and output
@@ -220,7 +198,7 @@ Adapter trimming is enabled by default, but you can disable it by `-A` or `--dis
 * For PE data, `fastp` will run a little slower if you specify the sequence adapters or enable the adapter auto-detection. But it may result in a slightly cleaner output (usually finds 0.1% to 0.5% more adapters), since the overlap analysis may fail due to sequencing errors.
 * For PE data, you can specify `--allow_gap_overlap_trimming` to allow up to one gap when trim adapters by overlap analysis for PE data. By default no gap is allowed. This may take more time and usually have very limited effect (finds ~0.01% more adapters).
 * The most widely used adapters are Illumina TruSeq adapters. If your data is from the TruSeq library, `fastp` should be able to detect it successfully, otherwise you can add `--adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT` to your command lines.
-* `fastp` contains some built-in known adapter sequences for better auto-detection. If you want to make some adapters to be a part of the built-in adapters, please file an issue or make a change in https://github.com/OpenGene/fastp/blob/master/src/knownadapters.h
+* `fastp` contains some built-in known adapter sequences for better auto-detection. To propose changes to the built-in adapters, please file an issue or PR upstream at https://github.com/OpenGene/fastp/blob/master/src/knownadapters.h
 
 You can also specify `--adapter_fasta` to give a FASTA file to tell `fastp` to trim multiple adapters in this FASTA file. Here is a sample of such adapter FASTA file:
 ```
@@ -382,7 +360,7 @@ fastp uses a hash algorithm to find the identical sequences. Due to the possible
 Since `v0.22.0`, fastp supports deduplication for FASTQ data. Specify `-D` or `--dedup` to enable this option. When `--dedup` is enabled, the `dup_calc_accuracy` level is default to `3`, and it can be changed to any value of 1 ~ 6.
 
 # batch processing
-[parallel.py](https://github.com/OpenGene/fastp/blob/master/parallel.py) is a script to preprocess all FASTQ files within a folder in parallel. It will automatically couple the paired-end FASTQ files.  
+[parallel.py](parallel.py) is a script to preprocess all FASTQ files within a folder in parallel. It will automatically couple the paired-end FASTQ files.  
 
 This script will generate an `overall.html` to present an aggregate summary for all processed FASTQ files.  
 
@@ -526,7 +504,9 @@ options:
 ```
 
 # citations
-### Shifu Chen. 2025. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality control and preprocessing. iMeta 2025: [https://doi.org/10.1002/imt2.107](https://doi.org/10.1002/imt2.70078)
+This fork has no separate publication. Please cite the upstream fastp papers:
+
+### Shifu Chen. 2025. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality control and preprocessing. iMeta 2025: [https://doi.org/10.1002/imt2.70078](https://doi.org/10.1002/imt2.70078)
 ### Shifu Chen. 2023. Ultrafast one-pass FASTQ data preprocessing, quality control, and deduplication using fastp. iMeta 2: e107. https://doi.org/10.1002/imt2.107
 ### Shifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu; fastp: an ultra-fast all-in-one FASTQ preprocessor, Bioinformatics, Volume 34, Issue 17, 1 September 2018, Pages i884–i890, https://doi.org/10.1093/bioinformatics/bty560
 
