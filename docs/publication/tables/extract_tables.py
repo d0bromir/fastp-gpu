@@ -49,7 +49,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT   = SCRIPT_DIR.parent.parent.parent   # docs/publication/tables -> repo root
 
-CONSOLIDATED_CSV  = REPO_ROOT / "benchmark_results" / "fastp-gpu_v1.3.3-d0bromir" / "vs_opengene_v1.3.3" / "galaxy_arm_a100" / "20260503_193146" / "full_benchmark_20260503_193146.csv"
+CONSOLIDATED_CSV  = REPO_ROOT / "benchmark_results" / "fastp-gpu_v1.2.2" / "vs_opengene_v1.1.0" / "galaxy_arm_a100" / "20260417" / "full_benchmark_20260417.csv"
 FIG2_CSV          = REPO_ROOT / "docs" / "publication" / "figures" / "fig2_kernel_speedup.csv"
 FIG4_CSV          = REPO_ROOT / "docs" / "publication" / "figures" / "fig4_transfer_overhead.csv"
 
@@ -158,12 +158,8 @@ def make_table2(outdir: Path) -> None:
     rows_raw = load_csv(CONSOLIDATED_CSV)
 
     # Index: (dataset, threads) -> {tool: walltime_s}
-    # Skip CRASH/SKIP rows: their walltime is the elapsed time before the
-    # process died and is not a valid baseline.
     index: dict[tuple, dict] = defaultdict(dict)
     for r in rows_raw:
-        if r.get("validation") in ("CRASH", "SKIP"):
-            continue
         key = (r["dataset"], int(r["threads"]))
         index[key][r["tool"]] = float(r["walltime_s"])
 
@@ -215,11 +211,6 @@ def make_table5(outdir: Path) -> None:
         "threads_tested": set()
     })
     for r in rows_raw:
-        # Skip CRASH/SKIP rows: those have reads_in=0 and would poison the
-        # canonical read-count set. Correctness is established by the
-        # successful PASS / PASS+FQ / baseline rows.
-        if r.get("validation") in ("CRASH", "SKIP"):
-            continue
         ds = r["dataset"]
         by_ds[ds]["type"] = r["type"]
         by_ds[ds]["reads_in_set"].add(int(r["reads_in"]))
@@ -232,13 +223,11 @@ def make_table5(outdir: Path) -> None:
         # Canonical values (should all be identical across tools/threads)
         reads_in_vals  = d["reads_in_set"]
         reads_out_vals = d["reads_out_set"]
-        if not reads_in_vals or not reads_out_vals:
-            continue
         result = "PASS" if len(reads_in_vals) == 1 and len(reads_out_vals) == 1 else "FAIL"
         reads_in  = sorted(reads_in_vals)[0]
         reads_out = sorted(reads_out_vals)[0]
         threads_str = ",".join(str(t) for t in sorted(d["threads_tested"]))
-        pass_rate = reads_out / reads_in * 100 if reads_in > 0 else 0.0
+        pass_rate = reads_out / reads_in * 100
         out_rows.append({
             "dataset":         ds,
             "type":            d["type"],
@@ -304,12 +293,8 @@ def make_table7(outdir: Path) -> None:
     """
     rows_raw = load_csv(CONSOLIDATED_CSV)
 
-    # Skip CRASH/SKIP rows: their walltime is invalid (process died early or
-    # baseline missing).
     index: dict[tuple, dict] = defaultdict(dict)
     for r in rows_raw:
-        if r.get("validation") in ("CRASH", "SKIP"):
-            continue
         key = (r["dataset"], int(r["threads"]))
         index[key][r["tool"]] = float(r["walltime_s"])
 
