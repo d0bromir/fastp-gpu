@@ -79,6 +79,17 @@ public:
     int sampling;
 };
 
+class LongRepeatOptions {
+public:
+    LongRepeatOptions() {
+        enabled = false;
+        minLen = 0;
+    }
+public:
+    bool enabled;
+    int minLen;
+};
+
 class PolyGTrimmerOptions {
 public:
     PolyGTrimmerOptions() {
@@ -361,6 +372,8 @@ public:
     PolyXTrimmerOptions polyXTrim;
     // for overrepresentation analysis
     OverrepresentedSequenceAnasysOptions overRepAnalysis;
+    // for long repeat analysis
+    LongRepeatOptions longRepeat;
     map<string, long> overRepSeqs1;
     map<string, long> overRepSeqs2;
     int seqLen1;
@@ -383,6 +396,10 @@ public:
     MergeOptions merge;
     // the buffer size for writer
     size_t writerBufferSize;
+
+    // GPU-Direct Storage: NVMe → GPU DMA pipeline
+    // Enabled with --use_gds; requires WITH_CUDA=1 WITH_NVCOMP=1 WITH_GDS=1
+    bool useGDS;
 
 };
 
