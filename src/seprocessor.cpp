@@ -4,13 +4,14 @@
 #include <unistd.h>
 #include <functional>
 #include <thread>
-#include <chrono>
 #include <memory.h>
+#include <chrono>
 #include "util.h"
 #include "jsonreporter.h"
 #include "htmlreporter.h"
 #include "adaptertrimmer.h"
 #include "polyx.h"
+#include "profiling.h"
 
 SingleEndProcessor::SingleEndProcessor(Options* opt){
     mOptions = opt;
@@ -77,6 +78,12 @@ bool SingleEndProcessor::process(){
     if(!mOptions->split.enabled)
         initOutput();
 
+    auto timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: loading";
+        loginfo(msg);
+    }
+
     mInputLists = new SingleProducerSingleConsumerList<ReadPack*>*[mOptions->thread];
 
     ThreadConfig** configs = new ThreadConfig*[mOptions->thread];
@@ -102,8 +109,35 @@ bool SingleEndProcessor::process(){
         failedWriterThread = new std::thread(std::bind(&SingleEndProcessor::writerTask, this, mFailedWriter));
 
     readerThread.join();
+
+    auto timeStageEnd = std::chrono::system_clock::now();
+    auto durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: loading (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: filtering";
+        loginfo(msg);
+    }
+
     for(int t=0; t<mOptions->thread; t++){
         threads[t]->join();
+    }
+
+    timeStageEnd = std::chrono::system_clock::now();
+    durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: filtering (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: writing";
+        loginfo(msg);
     }
 
     if(!mOptions->split.enabled) {
@@ -112,6 +146,22 @@ bool SingleEndProcessor::process(){
         if(failedWriterThread)
             failedWriterThread->join();
     }
+
+    timeStageEnd = std::chrono::system_clock::now();
+    durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: writing (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    // Print GPU vs CPU filter profiling stats (always in PROFILING builds)
+#ifdef FASTP_PROFILING
+    mFilter->printProfilingStats();
+#else
+    if(mOptions->verbose) {
+        mFilter->printProfilingStats();
+    }
+#endif
 
     if(mOptions->verbose)
         loginfo("start to generate reports\n");
@@ -127,6 +177,9 @@ bool SingleEndProcessor::process(){
     }
     Stats* finalPreStats = Stats::merge(preStats);
     Stats* finalPostStats = Stats::merge(postStats);
+#ifdef FASTP_PROFILING
+    g_profiling.total_reads.store(finalPreStats->getReads());
+#endif
     FilterResult* finalFilterResult = FilterResult::merge(filterResults);
 
     // read filter results to the first thread's
@@ -195,19 +248,25 @@ void SingleEndProcessor::recycleToPool(int tid, Read* r) {
 }
 
 bool SingleEndProcessor::processSingleEnd(ReadPack* pack, ThreadConfig* config){
-    // build output on stack strings, move to heap only when handing off to writers
-    string outstr, failedOut;
-    outstr.reserve(pack->count * 320);
+    string* outstr = new string();
+    string* failedOut = new string();
     int tid = config->getThreadId();
 
     int readPassed = 0;
+    
+    GPU_FPRINTF("[GPU] processSingleEnd called with pack count: %d\n", pack->count);
+    
+    // Collect reads for batch GPU processing
+    vector<Read*> readsForGPU;
+    vector<Read*> originalReads;
+    vector<bool> isDedupOut;
+    vector<bool> isAdapterDimerVec;
+    
+    // First pass: prepare reads (trimming, adapter removal, etc.)
     for(int p=0;p<pack->count;p++){
 
         // original read1
         Read* or1 = pack->data[p];
-
-        // stats the original read before trimming
-        config->getPreStats1()->statRead(or1);
 
         // handling the duplication profiling
         bool dedupOut = false;
@@ -232,14 +291,19 @@ bool SingleEndProcessor::processSingleEnd(ReadPack* pack, ThreadConfig* config){
         if(mOptions->umi.enabled)
             mUmiProcessor->process(or1);
 
+        // Pre-filter stats on raw read BEFORE any trimming modifies it in-place
+        PROF_START(_t_stat);
+        config->getPreStats1()->statReadBasic(or1);
+        PROF_END(_t_stat, cpu_statread_ns);
+
         int frontTrimmed = 0;
         // trim in head and tail, and apply quality cut in sliding window
+        // NOTE: Quality trimming and PolyG trimming now done on GPU for efficiency
+        PROF_START(_t_trim);
         Read* r1 = mFilter->trimAndCut(or1, mOptions->trim.front1, mOptions->trim.tail1, frontTrimmed);
 
-        if(r1 != NULL) {
-            if(mOptions->polyGTrim.enabled)
-                PolyX::trimPolyG(r1, config->getFilterResult(), mOptions->polyGTrim.minLen);
-        }
+        // GPU will compute PolyG and quality trimming, so skip CPU versions
+        // The GPU results will be applied during filtering phase
 
         bool isAdapterDimer = false;
         if(r1 != NULL && mOptions->adapter.enabled){
@@ -260,40 +324,85 @@ bool SingleEndProcessor::processSingleEnd(ReadPack* pack, ThreadConfig* config){
             }
         }
 
-        if(r1 != NULL) {
-            if(mOptions->polyXTrim.enabled)
-                PolyX::trimPolyX(r1, config->getFilterResult(), mOptions->polyXTrim.minLen);
-        }
+        // PolyX trimming skipped - will be computed on GPU via PolyG detection
+        // PolyG trimming skipped - will be computed on GPU
 
         if(r1 != NULL) {
             if( mOptions->trim.maxLen1 > 0 && mOptions->trim.maxLen1 < r1->length())
                 r1->resize(mOptions->trim.maxLen1);
         }
+        PROF_END(_t_trim, cpu_trim_adapter_ns);
 
-        int result = mFilter->passFilter(r1);
-
-        if(isAdapterDimer)
-            result = FAIL_ADAPTER_DIMER;
-
-        config->addFilterResult(result, 1);
-
-        if(!dedupOut) {
-            if( r1 != NULL &&  result == PASS_FILTER) {
-                r1->appendToString(&outstr);
-
-                // stats the read after filtering
-                config->getPostStats1()->statRead(r1);
-                readPassed++;
-            } else if(mFailedWriter) {
-                or1->appendToStringWithTag(&failedOut, FAILED_TYPES[result]);
-            }
-        }
-
-        recycleToPool(tid, or1);
-        // if no trimming applied, r1 should be identical to or1
-        if(r1 != or1 && r1 != NULL)
-            recycleToPool(tid, r1);
+        // Collect for GPU batch processing (NO speculative statRead here —
+        // the GPU kernel computes post-filter stats for passing reads directly)
+        readsForGPU.push_back(r1);
+        originalReads.push_back(or1);
+        isDedupOut.push_back(dedupOut);
+        isAdapterDimerVec.push_back(isAdapterDimer);
+        
+        if (p < 3) GPU_FPRINTF("[GPU] Read %d: r1=%p or1=%p\n", p, r1, or1);
     }
+    
+    GPU_FPRINTF("[GPU] Total reads collected for GPU batch: %zu\n", readsForGPU.size());
+
+    // Pre-filter stats already computed inline (before trimAndCut) for correctness.
+
+    // GPU filtering + post-filter stats
+    vector<int> filterResults;
+    if(!readsForGPU.empty()) {
+        GPU_FPRINTF("[GPU] processSingleEnd batch: %zu reads\n", readsForGPU.size());
+        PROF_START(_t_gpu);
+        mFilter->filterBatchGPUWithStats(readsForGPU, filterResults,
+                                          config->getPostStats1());
+        PROF_END(_t_gpu, cpu_filter_ns);
+    }
+
+    // Process filter results
+    if(!filterResults.empty()) {
+        for(size_t i = 0; i < readsForGPU.size(); i++) {
+            int result = filterResults[i];
+            Read* r1 = readsForGPU[i];
+            Read* or1 = originalReads[i];
+            bool dedupOut = isDedupOut[i];
+            bool isAdapterDimer = isAdapterDimerVec[i];
+            
+            if(isAdapterDimer) {
+                // GPU may have counted stats for this read — subtract if it passed GPU filter
+                if(result == PASS_FILTER && r1 != NULL) {
+                    PROF_START(_t_unstat);
+                    config->getPostStats1()->unstatRead(r1);
+                    PROF_END(_t_unstat, cpu_unstatread_ns);
+                }
+                result = FAIL_ADAPTER_DIMER;
+            }
+
+            config->addFilterResult(result, 1);
+
+            if(!dedupOut) {
+                if( r1 != NULL &&  result == PASS_FILTER) {
+                    PROF_START(_t_out);
+                    r1->appendToString(outstr);
+                    PROF_END(_t_out, cpu_output_ns);
+                    readPassed++;
+                } else {
+                    if(mFailedWriter)
+                        or1->appendToStringWithTag(failedOut, FAILED_TYPES[result]);
+                }
+            } else {
+                // GPU counted stats for this read (it passed filter), but it's a dedup → subtract
+                if(r1 != NULL && result == PASS_FILTER) {
+                    PROF_START(_t_unstat2);
+                    config->getPostStats1()->unstatRead(r1);
+                    PROF_END(_t_unstat2, cpu_unstatread_ns);
+                }
+            }
+
+            recycleToPool(tid, or1);
+            // if no trimming applied, r1 should be identical to or1
+            if(r1 != or1 && r1 != NULL)
+                recycleToPool(tid, r1);
+        }
+    } // end filter results
 
     if(mOptions->split.enabled) {
         // split output by each worker thread
@@ -302,10 +411,13 @@ bool SingleEndProcessor::processSingleEnd(ReadPack* pack, ThreadConfig* config){
     }
 
     if(mLeftWriter) {
-        mLeftWriter->input(tid, new string(std::move(outstr)));
+        mLeftWriter->input(tid, outstr);
+        outstr = NULL;
     }
     if(mFailedWriter) {
-        mFailedWriter->input(tid, new string(std::move(failedOut)));
+        // write failed data
+        mFailedWriter->input(tid, failedOut);
+        failedOut = NULL;
     }
 
     if(mOptions->split.byFileLines)
@@ -313,13 +425,15 @@ bool SingleEndProcessor::processSingleEnd(ReadPack* pack, ThreadConfig* config){
     else
         config->markProcessed(pack->count);
 
-    // stack strings auto-cleanup - no manual delete needed
+    if(outstr)
+        delete outstr;
+    if(failedOut)
+        delete failedOut;
 
     delete pack->data;
     delete pack;
 
-    mPackProcessedCounter.fetch_add(1, std::memory_order_release);
-    mBackpressureCV.notify_all();
+    mPackProcessedCounter++;
 
     return true;
 }
@@ -334,9 +448,7 @@ void SingleEndProcessor::readerTask()
     bool splitSizeReEvaluated = false;
     Read** data = new Read*[PACK_SIZE];
     memset(data, 0, sizeof(Read*)*PACK_SIZE);
-    int cpus = std::thread::hardware_concurrency();
-    int bgzfBudget = std::max(1, ((int)cpus - mOptions->thread - 3) / 1);  // -workers -reader -writer
-    FastqReader reader(mOptions->in1, true, mOptions->phred64, bgzfBudget);
+    FastqReader reader(mOptions->in1, true, mOptions->phred64, mOptions->useGDS);
     reader.setReadPool(mReadPool);
     int count=0;
     bool needToBreak = false;
@@ -349,7 +461,6 @@ void SingleEndProcessor::readerTask()
             pack->count = count;
             mInputLists[mPackReadCounter % mOptions->thread]->produce(pack);
             mPackReadCounter++;
-            mBackpressureCV.notify_all();
             data = NULL;
             if(read) {
                 delete read;
@@ -375,26 +486,22 @@ void SingleEndProcessor::readerTask()
             pack->count = count;
             mInputLists[mPackReadCounter % mOptions->thread]->produce(pack);
             mPackReadCounter++;
-            mBackpressureCV.notify_all();
             //re-initialize data for next pack
             data = new Read*[PACK_SIZE];
             memset(data, 0, sizeof(Read*)*PACK_SIZE);
             // if the processor is far behind this reader, sleep and wait to limit memory usage
-            {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
-                while( mPackReadCounter - mPackProcessedCounter.load(std::memory_order_acquire) > PACK_IN_MEM_LIMIT){
-                    slept++;
-                    mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
-                }
+            while( mPackReadCounter - mPackProcessedCounter > PACK_IN_MEM_LIMIT){
+                //cerr<<"sleep"<<endl;
+                slept++;
+                usleep(100);
             }
             readNum += count;
             // if the writer threads are far behind this reader, sleep and wait
             // check this only when necessary
             if(readNum % (PACK_SIZE * PACK_IN_MEM_LIMIT) == 0 && mLeftWriter) {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
                 while(mLeftWriter->bufferLength() > PACK_IN_MEM_LIMIT) {
                     slept++;
-                    mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
+                    usleep(1000);
                 }
             }
             // reset count to 0
@@ -420,7 +527,7 @@ void SingleEndProcessor::readerTask()
         mInputLists[t]->setProducerFinished();
 
     //std::unique_lock<std::mutex> lock(mRepo.readCounterMtx);
-    mReaderFinished.store(true, std::memory_order_release);
+    mReaderFinished = true;
     if(mOptions->verbose) {
         loginfo("Loading completed with " + to_string(mPackReadCounter) + " packs");
     }
@@ -451,13 +558,13 @@ void SingleEndProcessor::processorTask(ThreadConfig* config)
                 break;
             }
         } else {
-            std::unique_lock<std::mutex> lk(mBackpressureMtx);
-            mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
+            usleep(100);
         }
     }
     input->setConsumerFinished();
 
-    if(mFinishedThreads.fetch_add(1, std::memory_order_release) + 1 == mOptions->thread) {
+    mFinishedThreads++;
+    if(mFinishedThreads == mOptions->thread) {
         if(mLeftWriter)
             mLeftWriter->setInputCompleted();
         if(mFailedWriter)

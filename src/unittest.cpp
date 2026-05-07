@@ -9,7 +9,7 @@
 #include "polyx.h"
 #include "nucleotidetree.h"
 #include "evaluator.h"
-#include "simd.h"
+#include "cuda_unittest.h"
 #include <time.h>
 
 UnitTest::UnitTest(){
@@ -18,7 +18,6 @@ UnitTest::UnitTest(){
 
 void UnitTest::run(){
     bool passed = true;
-    passed &= report(fastp_simd::testSimd(), "fastp_simd::testSimd");
     passed &= report(Sequence::test(), "Sequence::test");
     passed &= report(Read::test(), "Read::test");
     passed &= report(FastqReader::test(), "FastqReader::test");
@@ -29,6 +28,7 @@ void UnitTest::run(){
     passed &= report(PolyX::test(), "PolyX::test");
     passed &= report(NucleotideTree::test(), "NucleotideTree::test");
     passed &= report(Evaluator::test(), "Evaluator::test");
+    passed &= report(CudaUnitTest::test(), "CudaUnitTest::test");
     printf("\n==========================\n");
     printf("%s\n\n", passed?"ALL PASSED":"FAILED");
 }
