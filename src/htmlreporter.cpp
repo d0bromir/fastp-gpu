@@ -546,6 +546,19 @@ void HtmlReporter::report(FilterResult* result, Stats* preStats1, Stats* postSta
         ofs << "</td></tr>\n";
     }
 
+    if(mOptions->longRepeat.enabled) {
+        ofs << "<tr style='height:20px;'></tr>\n";
+        ofs << "<tr style='vertical-align: top;'><td>\n";
+        if(postStats1) {
+            postStats1 -> reportHtmlLongRepeats(ofs, "After filtering", postRead1Name);
+        }
+        ofs << "</td><td>\n";
+        if(postStats2 && !mOptions->merge.enabled) {
+            postStats2 -> reportHtmlLongRepeats(ofs, "After filtering", "read2");
+        }
+        ofs << "</td></tr>\n";
+    }
+
 
     ofs << "</table>\n";
 

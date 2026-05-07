@@ -46,7 +46,7 @@ private:
 private:
     atomic_bool mLeftReaderFinished;
     atomic_bool mRightReaderFinished;
-    alignas(128) atomic_int mFinishedThreads;
+    atomic_int mFinishedThreads;
     Options* mOptions;
     Filter* mFilter;
     UmiProcessor* mUmiProcessor;
@@ -63,12 +63,10 @@ private:
     SingleProducerSingleConsumerList<ReadPack*>** mRightInputLists;
     size_t mLeftPackReadCounter;
     size_t mRightPackReadCounter;
-    alignas(128) atomic_long mPackProcessedCounter;
+    atomic_long mPackProcessedCounter;
     ReadPool* mLeftReadPool;
     ReadPool* mRightReadPool;
     atomic_bool shouldStopReading;
-    std::mutex mBackpressureMtx;
-    std::condition_variable mBackpressureCV;
 };
 
 

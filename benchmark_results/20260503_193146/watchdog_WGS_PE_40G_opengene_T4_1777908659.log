@@ -1,0 +1,24 @@
+[15:30:59] WATCHDOG START pid=1601979 fastp=2742712 hard=7200 cpu_idle=30s out_idle=180s
+[15:31:59] WATCHDOG ALIVE elapsed=60s cpu_idle=0s out_idle=0s out_size=1768571529B
+[15:33:00] WATCHDOG ALIVE elapsed=121s cpu_idle=0s out_idle=0s out_size=3615275014B
+[15:33:59] WATCHDOG ALIVE elapsed=180s cpu_idle=0s out_idle=0s out_size=5432418911B
+[15:34:59] WATCHDOG ALIVE elapsed=240s cpu_idle=0s out_idle=0s out_size=7242487792B
+[15:36:00] WATCHDOG ALIVE elapsed=301s cpu_idle=0s out_idle=0s out_size=9111082468B
+[15:37:00] WATCHDOG ALIVE elapsed=361s cpu_idle=0s out_idle=0s out_size=10907647261B
+[15:37:59] WATCHDOG ALIVE elapsed=420s cpu_idle=0s out_idle=0s out_size=12728567376B
+[15:39:00] WATCHDOG ALIVE elapsed=481s cpu_idle=0s out_idle=0s out_size=14603284181B
+[15:40:00] WATCHDOG ALIVE elapsed=541s cpu_idle=0s out_idle=0s out_size=16426695366B
+[15:40:59] WATCHDOG ALIVE elapsed=600s cpu_idle=0s out_idle=0s out_size=18230597062B
+[15:43:00] WATCHDOG ALIVE elapsed=721s cpu_idle=0s out_idle=0s out_size=21886147405B
+[15:43:59] WATCHDOG ALIVE elapsed=780s cpu_idle=0s out_idle=0s out_size=23682059176B
+[15:44:59] WATCHDOG ALIVE elapsed=840s cpu_idle=0s out_idle=0s out_size=25504059985B
+[15:46:00] WATCHDOG ALIVE elapsed=901s cpu_idle=0s out_idle=0s out_size=27384875332B
+[15:47:00] WATCHDOG ALIVE elapsed=960s cpu_idle=0s out_idle=0s out_size=29144099177B
+[15:47:59] WATCHDOG ALIVE elapsed=1020s cpu_idle=0s out_idle=0s out_size=30968729977B
+[15:49:00] WATCHDOG ALIVE elapsed=1081s cpu_idle=0s out_idle=0s out_size=32829372758B
+[15:50:00] WATCHDOG ALIVE elapsed=1141s cpu_idle=0s out_idle=0s out_size=34650476647B
+[15:50:59] WATCHDOG ALIVE elapsed=1200s cpu_idle=0s out_idle=0s out_size=36435220092B
+[15:52:01] WATCHDOG ALIVE elapsed=1261s cpu_idle=0s out_idle=0s out_size=38284779484B
+[15:53:00] WATCHDOG ALIVE elapsed=1321s cpu_idle=0s out_idle=0s out_size=40056562937B
+[15:53:59] WATCHDOG ALIVE elapsed=1380s cpu_idle=0s out_idle=0s out_size=41843696457B
+[15:54:10] WATCHDOG EXIT line=1 rc=0 elapsed=1390 idle=0 out_idle=0

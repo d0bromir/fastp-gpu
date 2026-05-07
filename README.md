@@ -1,19 +1,134 @@
-[![install with conda](
-https://anaconda.org/bioconda/fastp/badges/version.svg)](https://anaconda.org/bioconda/fastp)
-[![install with conda](
-https://anaconda.org/bioconda/fastp/badges/downloads.svg)](https://anaconda.org/bioconda/fastp)
-[![DebianBadge](
-https://badges.debian.net/badges/debian/unstable/fastp/version.svg)](https://packages.debian.org/unstable/fastp)
-[![European Galaxy server](https://img.shields.io/badge/usegalaxy-.eu-brightgreen?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAAsTAAALEwEAmpwYAAACC2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDx0aWZmOkNvbXByZXNzaW9uPjE8L3RpZmY6Q29tcHJlc3Npb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDx0aWZmOlBob3RvbWV0cmljSW50ZXJwcmV0YXRpb24+MjwvdGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KD0UqkwAAAn9JREFUOBGlVEuLE0EQruqZiftwDz4QYT1IYM8eFkHFw/4HYX+GB3/B4l/YP+CP8OBNTwpCwFMQXAQPKtnsg5nJZpKdni6/6kzHvAYDFtRUT71f3UwAEbkLch9ogQxcBwRKMfAnM1/CBwgrbxkgPAYqlBOy1jfovlaPsEiWPROZmqmZKKzOYCJb/AbdYLso9/9B6GppBRqCrjSYYaquZq20EUKAzVpjo1FzWRDVrNay6C/HDxT92wXrAVCH3ASqq5VqEtv1WZ13Mdwf8LFyyKECNbgHHAObWhScf4Wnj9CbQpPzWYU3UFoX3qkhlG8AY2BTQt5/EA7qaEPQsgGLWied0A8VKrHAsCC1eJ6EFoUd1v6GoPOaRAtDPViUr/wPzkIFV9AaAZGtYB568VyJfijV+ZBzlVZJ3W7XHB2RESGe4opXIGzRTdjcAupOK09RA6kzr1NTrTj7V1ugM4VgPGWEw+e39CxO6JUw5XhhKihmaDacU2GiR0Ohcc4cZ+Kq3AjlEnEeRSazLs6/9b/kh4eTC+hngE3QQD7Yyclxsrf3cpxsPXn+cFdenF9aqlBXMXaDiEyfyfawBz2RqC/O9WF1ysacOpytlUSoqNrtfbS642+4D4CS9V3xb4u8P/ACI4O810efRu6KsC0QnjHJGaq4IOGUjWTo/YDZDB3xSIxcGyNlWcTucb4T3in/3IaueNrZyX0lGOrWndstOr+w21UlVFokILjJLFhPukbVY8OmwNQ3nZgNJNmKDccusSb4UIe+gtkI+9/bSLJDjqn763f5CQ5TLApmICkqwR0QnUPKZFIUnoozWcQuRbC0Km02knj0tPYx63furGs3x/iPnz83zJDVNtdP3QAAAABJRU5ErkJggg==)](https://usegalaxy.eu/root?tool_id=fastp)
+# fastp-d0bromir — GPU-accelerated fastp
 
-# fastp
-A tool designed to provide ultrafast all-in-one preprocessing and quality control for FastQ data.     
+> This repository is a research fork of [OpenGene/fastp](https://github.com/OpenGene/fastp)
+> extending the upstream tool with optional CUDA / nvCOMP / GPU-Direct-Storage
+> acceleration. Upstream copyright and license remain with the original authors;
+> the fork inherits the MIT license. The CLI, JSON, and HTML report formats are
+> deliberately byte-equivalent to the upstream baseline so the GPU build is a
+> drop-in replacement.
 
-This tool is designed for processing short reads (i.e. Illumina NovaSeq, MGI), if you are looking for tools to process long reads (i.e. Nanopore, PacBio, Cyclone), please use [fastplong](https://github.com/OpenGene/fastplong).  
+**Version:** `1.3.3-d0bromir` (rebased on upstream `1.3.3`) &nbsp;|&nbsp;
+**CUDA:** 12.0+ &nbsp;|&nbsp; **Tested HW:** NVIDIA A100 80 GB on aarch64
+(Neoverse N1) and x86_64.
 
-fastp supports batch processing of multiple FASTQ files in a folder, see - [batch processing](#batch-processing)  
+## Highlights
 
-If you use fastp in your work, you can cite fastp as:  [Shifu Chen. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality control and preprocessing. iMeta 4.5 (2025): e70078 https://doi.org/10.1002/imt2.70078](https://doi.org/10.1002/imt2.70078)
+- **Drop-in compatible** with upstream fastp 1.3.3 — same flags, same JSON
+  schema, byte-equal decompressed FASTQ output on the regression suite.
+- **GPU-accelerated per-read statistics** via a warp-per-read CUDA kernel and
+  an 8-slot concurrent host-side dispatch pool.
+- **nvCOMP-based BGZF decompression** for gzip FASTQ inputs (`WITH_NVCOMP=1`).
+- **GPU-Direct Storage (GDS)** path (`WITH_GDS=1`, `--use_gds`) bypassing
+  host memory for BGZF inputs on NVMe / Lustre / GPFS; graceful fall-back if
+  `nvidia-fs` is not loaded.
+- **Reproducible benchmark suite** (eight public ENA datasets, mandatory deep
+  validation against the upstream baseline). See
+  [Reproducing the paper benchmark](#reproducing-the-paper-benchmark) below.
+
+## Quickstart
+
+### Build
+
+```bash
+# Prerequisites (Debian/Ubuntu): libisal-dev, libdeflate-dev, build-essential,
+# CUDA Toolkit 12.x, optional nvCOMP, optional libcufile / nvidia-fs (for GDS).
+
+# CPU-only build:
+make -j
+
+# GPU build (recommended):
+make WITH_CUDA=1 WITH_NVCOMP=1 -j
+
+# GPU build with GPU-Direct Storage:
+make WITH_CUDA=1 WITH_NVCOMP=1 WITH_GDS=1 -j
+
+# Build all three benchmark binaries (upstream + fork CPU + fork GPU) and run
+# the canonical regression test suite:
+scripts/build_all.sh
+```
+
+`scripts/build_all.sh` auto-detects your GPU compute capability via
+`nvidia-smi` (override with `CUDA_ARCH=XX`), clones
+`OpenGene/fastp` into a sibling directory for the baseline binary, and runs
+the full unit-test + CPU↔GPU regression suite. See
+[docs/BUILD_WITH_CUDA.md](docs/BUILD_WITH_CUDA.md) for prerequisite details
+and GDS setup.
+
+### Run
+
+```bash
+# Same CLI as upstream fastp:
+./fastp -i R1.fq.gz -I R2.fq.gz -o out_R1.fq.gz -O out_R2.fq.gz -w 8
+
+# Enable GPU-Direct Storage (BGZF inputs only):
+./fastp -i in.fq.gz -o out.fq.gz -w 8 --use_gds
+```
+
+The GPU code paths activate automatically when a CUDA device is visible at
+runtime; otherwise the binary falls back to the CPU implementation with no
+behavioural change.
+
+## Reproducing the paper benchmark
+
+The published benchmark comparing this fork against upstream fastp 1.3.3 is
+fully scripted. To reproduce on your hardware:
+
+```bash
+# 1. Build all three binaries + run regression tests (mandatory):
+scripts/build_all.sh
+
+# 2. Download the eight benchmark FASTQ datasets from ENA (~150 GB):
+scripts/download_bench_samples.sh
+
+# 3. Run the full benchmark with mandatory deep validation:
+scripts/run_benchmark.sh
+
+# 4. Regenerate paper figures from the resulting CSV:
+scripts/generate_figures.py
+```
+
+[scripts/run_benchmark.sh](scripts/run_benchmark.sh) hard-fails on any
+mismatch between the d0bromir output (decompressed FASTQ md5 + JSON biology
+fields) and the upstream baseline. Custom thread sets / dataset subsets:
+`scripts/run_benchmark.sh -d WGS_PE_18.2G -t 8 -t 16`.
+
+The canonical published results live under
+`benchmark_results/fastp-gpu_v1.3.3-d0bromir/vs_opengene_v1.3.3/<host>/<TS>/`.
+
+## Repository layout
+
+| Path | Purpose |
+|---|---|
+| `src/`              | C++ / CUDA sources (drop-in fork of upstream fastp) |
+| `scripts/`          | Canonical build / benchmark / paper-build scripts |
+| `testdata/`         | Tiny FASTQ pair used by the regression test suite |
+| `docs/`             | Architecture, CUDA acceleration, version-management docs |
+| `docs/publication/` | LaTeX sources, figures, and PDFs of the academic paper |
+| `benchmark_results/`| Published benchmark CSVs (canonical, do not hand-edit) |
+
+## Documentation
+
+- [docs/BUILD_WITH_CUDA.md](docs/BUILD_WITH_CUDA.md) — full build prerequisites, troubleshooting, GDS setup
+- [docs/CUDA_ACCELERATION.md](docs/CUDA_ACCELERATION.md) — GPU feature overview, kernel design, tuning
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — system architecture, data flow, threading
+- [docs/PERFORMANCE_SUMMARY.md](docs/PERFORMANCE_SUMMARY.md) — benchmark headline numbers
+- [docs/VERSION_MANAGEMENT.md](docs/VERSION_MANAGEMENT.md) — version-string policy and release tagging
+- [docs/UPSTREAM_REJECTED.md](docs/UPSTREAM_REJECTED.md) — upstream commits intentionally not cherry-picked
+
+## Citation
+
+If you use this fork in academic work, please cite both the upstream paper
+*and* the GPU-acceleration paper distributed under `docs/publication/`. The
+upstream citation is:
+*Shifu Chen. fastp 1.0: An ultra-fast all-round tool for FASTQ data quality
+control and preprocessing. iMeta 4.5 (2025): e70078.*
+
+---
+
+The remainder of this README is the upstream fastp user manual, kept verbatim
+so the CLI flags below all apply to this fork.
+
+---
 
 
 - [features](#features)
@@ -24,9 +139,8 @@ If you use fastp in your work, you can cite fastp as:  [Shifu Chen. fastp 1.0: A
   - [or download the latest prebuilt binary for Linux users](#or-download-the-latest-prebuilt-binary-for-linux-users)
   - [or compile from source](#or-compile-from-source)
     - [Step 1: install isa-l](#step-1-install-isa-l)
-    - [Step 2: install libdeflate](#step-2-install-libdeflate)
-    - [Step 3: install highway](#step-3-install-highway)
-    - [Step 4: download and build fastp](#step-4-download-and-build-fastp)
+    - [step 2: install libdeflate](#step-2-install-libdeflate)
+    - [Step 3: download and build fastp](#step-3-download-and-build-fastp)
 - [input and output](#input-and-output)
   - [output to STDOUT](#output-to-stdout)
   - [input from STDIN](#input-from-stdin)
@@ -112,25 +226,19 @@ This binary was compiled on CentOS, and tested on CentOS/Ubuntu
 wget http://opengene.org/fastp/fastp
 chmod a+x ./fastp
 
-# or download specified version, i.e. fastp v1.3.3
-wget http://opengene.org/fastp/fastp.1.3.3
-mv fastp.1.3.3 fastp
+# or download specified version, i.e. fastp v0.23.4
+wget http://opengene.org/fastp/fastp.0.23.4
+mv fastp.0.23.4 fastp
 chmod a+x ./fastp
 ```
 ## or compile from source
-`fastp` depends on `libisal`, `libdeflate` and `libhwy` (Google Highway >= 1.1.0). Please install all three before building.
-
-You can install all dependencies at once with conda:
-```shell
-conda install -c conda-forge isa-l libdeflate libhwy
-```
-
-Or install them individually using your system package manager:
+`fastp` depends on `libdeflate` and `libisal`, while `libisal` is not compatible with gcc 4.8. If you use gcc 4.8, your fastp will fail to run. Please upgrade your gcc before you build the libraries and fastp.
 
 ### Step 1: install isa-l
-Install via `brew install isa-l` (macOS) or `apt install libisal-dev` (Ubuntu, dynamic linking only). Note: Ubuntu's `libisal-dev` does not ship a static library (`.a`). For static linking, compile from source (requires `nasm`, `autoconf`, `automake`, `libtool`):
+It's recommended that to install it using your package manager, for example `apt install isa-l` on ubuntu, or `brew install isa-l` on Mac. Otherwise you can compile it from source. Please be noted that `isa-l` is not compatible with gcc 4.8 or older versions. See https://github.com/intel/isa-l
+`autoconf`, `automake`, `libtools`, `nasm (>=2.11.01)` and `yasm (>=1.2.0)` are required to build isa-l.
 ```shell
-git clone --depth=1 --branch v2.31.0 https://github.com/intel/isa-l.git
+git clone https://github.com/intel/isa-l.git
 cd isa-l
 ./autogen.sh
 ./configure --prefix=/usr --libdir=/usr/lib64
@@ -138,27 +246,17 @@ make -j
 sudo make install
 ```
 
-### Step 2: install libdeflate
-Install via package manager: `apt install libdeflate-dev` (Ubuntu) or `brew install libdeflate` (macOS). Or compile from source:
+### step 2: install libdeflate
+It's recommended that to install it using your package manager, for example `apt install libdeflate` on ubuntu, or `brew install libdeflate` on Mac. Otherwise you can compile it from source. See https://github.com/ebiggers/libdeflate
 ```shell
 git clone https://github.com/ebiggers/libdeflate.git
 cd libdeflate
 cmake -B build
 cmake --build build
-sudo cmake --install build
+cmake --install build
 ```
 
-### Step 3: install Highway
-[Google Highway](https://github.com/google/highway) (>= 1.1.0) provides portable SIMD acceleration. Install via `brew install highway` (macOS) or `conda install -c conda-forge libhwy`. Note: `apt install libhwy-dev` on Ubuntu 24.04 provides 1.0.7 which is too old — compile from source instead:
-```shell
-git clone --depth=1 --branch 1.3.0 https://github.com/google/highway.git
-cd highway
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DHWY_ENABLE_TESTS=OFF -DHWY_ENABLE_EXAMPLES=OFF
-cmake --build build
-sudo cmake --install build
-```
-
-### Step 4: download and build fastp
+### Step 3: download and build fastp
 ```shell
 # get source (you can also use browser to download from master or releases)
 git clone https://github.com/OpenGene/fastp.git
@@ -171,10 +269,22 @@ make -j
 sudo make install
 ```
 
-On macOS with Homebrew, you may need to specify the include and library paths:
+### Step 4 (optional): build with GPU and GDS support
 ```shell
-make -j INCLUDE_DIRS=/opt/homebrew/include LIBRARY_DIRS=/opt/homebrew/lib
+# GPU + nvCOMP decompression
+make clean && make WITH_CUDA=1 WITH_NVCOMP=1 -j$(nproc)
+
+# GPU + nvCOMP + GPU-Direct Storage
+make clean && make WITH_CUDA=1 WITH_NVCOMP=1 WITH_GDS=1 -j$(nproc)
+
+# GDS additionally requires the nvidia-fs kernel module:
+sudo apt install nvidia-fs-dkms
+sudo modprobe nvidia_fs
+
+# At runtime, use --use_gds to activate GDS I/O path
+./fastp -i input.fq.gz -o output.fq --use_gds
 ```
+See [BUILD_WITH_CUDA.md](docs/BUILD_WITH_CUDA.md) for full GPU/GDS prerequisites.
 
 # input and output
 `fastp` supports both single-end (SE) and paired-end (PE) input/output.
@@ -189,7 +299,6 @@ make -j INCLUDE_DIRS=/opt/homebrew/include LIBRARY_DIRS=/opt/homebrew/lib
 ## input from STDIN
 * specify `--stdin` if you want to read the STDIN for processing.
 * if the STDIN is an interleaved paired-end stream, specify `--interleaved_in` to indicate that.
-* adapter auto-detection is disabled for STDIN mode
 ## store the unpaired reads for PE data
 * you can specify `--unpaired1` to store the reads that read1 passes filters but its paired read2 doesn't, as well as `--unpaired2` for unpaired read2.
 * `--unpaired1` and `--unpaired2` can be the same, so the unpaired read1/read2 will be written to the same single file.
@@ -405,24 +514,10 @@ fastp uses a hash algorithm to find the identical sequences. Due to the possible
 Since `v0.22.0`, fastp supports deduplication for FASTQ data. Specify `-D` or `--dedup` to enable this option. When `--dedup` is enabled, the `dup_calc_accuracy` level is default to `3`, and it can be changed to any value of 1 ~ 6.
 
 # batch processing
-[parallel.py](https://github.com/OpenGene/fastp/blob/master/parallel.py) is a script to preprocess all FASTQ files within a folder in parallel. It will automatically couple the paired-end FASTQ files.  
 
-This script will generate an `overall.html` to present an aggregate summary for all processed FASTQ files.  
-
-## example
-```shell
-python parallel.py -i /path/to/input/folder -o /path/to/output/folder -r /path/to/reports/folder -a '-f 3 -t 2'
-```
-which means to  
-```
-. process all the FASTQ data in /path/to/input/folder
-. using fastp in PATH
-. with arguments -f 3 and -t 2, which means trimming 3bp in head and 2bp in tail
-. output all clean data to /path/to/output/folder
-. output all HTML and JSON reports to /path/to/reports/folder
-```
-
-See `python parallel.py -h` for details.
+The upstream `parallel.py` folder-batch helper script is **not shipped with
+this fork**. If you need it, fetch it from the upstream repository:
+[OpenGene/fastp/parallel.py](https://github.com/OpenGene/fastp/blob/master/parallel.py).
 
 # all options
 ```shell
@@ -442,7 +537,7 @@ options:
       --include_unmerged               in the merging mode, write the unmerged or unpaired reads to the file specified by --merge. Disabled by default.
   -6, --phred64                      indicate the input is using phred64 scoring (it'll be converted to phred33, so the output will still be phred33)
   -z, --compression                  compression level for gzip output (1 ~ 9). 1 is fastest, 9 is smallest, default is 4. (int [=4])
-      --stdin                          input from STDIN. If the STDIN is interleaved paired-end FASTQ, please also add --interleaved_in. Adapter auto-detection is disabled for STDIN mode
+      --stdin                          input from STDIN. If the STDIN is interleaved paired-end FASTQ, please also add --interleaved_in.
       --stdout                         output passing-filters reads to STDOUT. This option will result in interleaved FASTQ output for paired-end input. Disabled by default.
       --interleaved_in                 indicate that <in1> is an interleaved FASTQ which contains both read1 and read2. Disabled by default.
       --reads_to_process             specify how many reads/pairs to be processed. Default 0 means process all reads. (int [=0])
