@@ -1,9 +1,18 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define FASTP_VER "1.3.3"
+#define FASTP_VER "1.3.3-d0bromir"
 
 #define _DEBUG false
+
+// GPU debug output control (set to 1 to enable debug messages)
+#define GPU_DEBUG 0
+
+#if GPU_DEBUG
+#define GPU_FPRINTF(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define GPU_FPRINTF(...) do {} while(0)
+#endif
 
 #ifndef _WIN32
 	typedef long int64;
@@ -25,16 +34,20 @@ typedef unsigned char uint8;
 const char ATCG_BASES[] = {'A', 'T', 'C', 'G'};
 
 // how many reads one pack has
-// ~1000 reads × ~350 bytes/read ≈ 350KB, near FASTQ LZ77 saturation (~256KB),
-// so each pack compresses efficiently as a single gzip member.
-static const int PACK_SIZE = 1000;
+// Optimized for I/O efficiency: larger packs reduce synchronization overhead
+// and allow better buffering in decompression pipeline
+// Larger pack size gives the GPU a much larger batch per kernel launch.
+// 8192 reads × ~150bp avg = ~1.2 MB seq data per pack; at BLOCK_SIZE=256 and
+// 1 warp (32 threads) per read this produces 1024 blocks per kernel launch,
+// covering all 108 A100 SMs many times and driving SM utilisation to ~50–80%.
+static const int PACK_SIZE = 8192;
 
 // if one pack is produced, but not consumed, it will be kept in the memory
 // this number limit the number of in memory packs
 // if the number of in memory packs is full, the producer thread should sleep
-// Scaled down from 128 to match PACK_SIZE increase (256→1000) and maintain
-// similar peak memory: 32 × 1000 reads ≈ 32K reads in flight ≈ old 128 × 256.
-static const int PACK_IN_MEM_LIMIT = 32;
+// Reduced from 256 because each pack is now 16× larger (8192 vs 512 reads).
+// 64 × 8192 = 524 288 reads max in-flight, comparable to old 256 × 512.
+static const int PACK_IN_MEM_LIMIT = 64;
 
 
 // different filtering results, bigger number means worse

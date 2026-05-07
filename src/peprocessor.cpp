@@ -4,14 +4,16 @@
 #include <unistd.h>
 #include <functional>
 #include <thread>
-#include <chrono>
+#include <vector>
 #include <memory.h>
+#include <chrono>
 #include "util.h"
 #include "adaptertrimmer.h"
 #include "basecorrector.h"
 #include "jsonreporter.h"
 #include "htmlreporter.h"
 #include "polyx.h"
+#include "profiling.h"
 
 PairEndProcessor::PairEndProcessor(Options* opt){
     mOptions = opt;
@@ -134,9 +136,18 @@ bool PairEndProcessor::process(){
     if(!mOptions->split.enabled)
         initOutput();
 
-    std::thread* readerLeft = NULL;
-    std::thread* readerRight = NULL;
-    std::thread* readerInterveleaved = NULL;
+    auto timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: loading";
+        loginfo(msg);
+    }
+
+    std::thread readerLeft;
+    std::thread readerRight;
+    std::thread readerInterveleaved;
+    bool hasReaderLeft = false;
+    bool hasReaderRight = false;
+    bool hasReaderInterleaved = false;
 
     mLeftInputLists = new SingleProducerSingleConsumerList<ReadPack*>*[mOptions->thread];
     mRightInputLists = new SingleProducerSingleConsumerList<ReadPack*>*[mOptions->thread];
@@ -150,66 +161,125 @@ bool PairEndProcessor::process(){
         initConfig(configs[t]);
     }
 
-    if(mOptions->interleavedInput)
-        readerInterveleaved= new std::thread(std::bind(&PairEndProcessor::interleavedReaderTask, this));
-    else {
-        readerLeft = new std::thread(std::bind(&PairEndProcessor::readerTask, this, true));
-        readerRight = new std::thread(std::bind(&PairEndProcessor::readerTask, this, false));
-    }
-
-    std::thread** threads = new thread*[mOptions->thread];
-    for(int t=0; t<mOptions->thread; t++){
-        threads[t] = new std::thread(std::bind(&PairEndProcessor::processorTask, this, configs[t]));
-    }
-
-    std::thread* leftWriterThread = NULL;
-    std::thread* rightWriterThread = NULL;
-    std::thread* unpairedLeftWriterThread = NULL;
-    std::thread* unpairedRightWriterThread = NULL;
-    std::thread* mergedWriterThread = NULL;
-    std::thread* failedWriterThread = NULL;
-    std::thread* overlappedWriterThread = NULL;
-    if(mLeftWriter)
-        leftWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mLeftWriter));
-    if(mRightWriter)
-        rightWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mRightWriter));
-    if(mUnpairedLeftWriter)
-        unpairedLeftWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mUnpairedLeftWriter));
-    if(mUnpairedRightWriter)
-        unpairedRightWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mUnpairedRightWriter));
-    if(mMergedWriter)
-        mergedWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mMergedWriter));
-    if(mFailedWriter)
-        failedWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mFailedWriter));
-    if(mOverlappedWriter)
-        overlappedWriterThread = new std::thread(std::bind(&PairEndProcessor::writerTask, this, mOverlappedWriter));
-
-    if(readerInterveleaved) {
-        readerInterveleaved->join();
+    if(mOptions->interleavedInput) {
+        readerInterveleaved = std::thread(&PairEndProcessor::interleavedReaderTask, this);
+        hasReaderInterleaved = true;
     } else {
-        readerLeft->join();
-        readerRight->join();
+        readerLeft = std::thread(&PairEndProcessor::readerTask, this, true);
+        readerRight = std::thread(&PairEndProcessor::readerTask, this, false);
+        hasReaderLeft = true;
+        hasReaderRight = true;
     }
+
+    std::vector<std::thread> threads;
+    threads.reserve(mOptions->thread);
     for(int t=0; t<mOptions->thread; t++){
-        threads[t]->join();
+        threads.emplace_back(&PairEndProcessor::processorTask, this, configs[t]);
+    }
+
+    std::thread leftWriterThread;
+    std::thread rightWriterThread;
+    std::thread unpairedLeftWriterThread;
+    std::thread unpairedRightWriterThread;
+    std::thread mergedWriterThread;
+    std::thread failedWriterThread;
+    std::thread overlappedWriterThread;
+    bool hasLeftWriterThread = false;
+    bool hasRightWriterThread = false;
+    bool hasUnpairedLeftWriterThread = false;
+    bool hasUnpairedRightWriterThread = false;
+    bool hasMergedWriterThread = false;
+    bool hasFailedWriterThread = false;
+    bool hasOverlappedWriterThread = false;
+    if(mLeftWriter) {
+        leftWriterThread = std::thread(&PairEndProcessor::writerTask, this, mLeftWriter);
+        hasLeftWriterThread = true;
+    }
+    if(mRightWriter) {
+        rightWriterThread = std::thread(&PairEndProcessor::writerTask, this, mRightWriter);
+        hasRightWriterThread = true;
+    }
+    if(mUnpairedLeftWriter) {
+        unpairedLeftWriterThread = std::thread(&PairEndProcessor::writerTask, this, mUnpairedLeftWriter);
+        hasUnpairedLeftWriterThread = true;
+    }
+    if(mUnpairedRightWriter) {
+        unpairedRightWriterThread = std::thread(&PairEndProcessor::writerTask, this, mUnpairedRightWriter);
+        hasUnpairedRightWriterThread = true;
+    }
+    if(mMergedWriter) {
+        mergedWriterThread = std::thread(&PairEndProcessor::writerTask, this, mMergedWriter);
+        hasMergedWriterThread = true;
+    }
+    if(mFailedWriter) {
+        failedWriterThread = std::thread(&PairEndProcessor::writerTask, this, mFailedWriter);
+        hasFailedWriterThread = true;
+    }
+    if(mOverlappedWriter) {
+        overlappedWriterThread = std::thread(&PairEndProcessor::writerTask, this, mOverlappedWriter);
+        hasOverlappedWriterThread = true;
+    }
+
+    if(hasReaderInterleaved) {
+        if(readerInterveleaved.joinable()) readerInterveleaved.join();
+    } else {
+        if(hasReaderLeft && readerLeft.joinable()) readerLeft.join();
+        if(hasReaderRight && readerRight.joinable()) readerRight.join();
+    }
+
+    auto timeStageEnd = std::chrono::system_clock::now();
+    auto durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: loading (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: filtering";
+        loginfo(msg);
+    }
+
+    for(auto &th : threads){ if(th.joinable()) th.join(); }
+
+    timeStageEnd = std::chrono::system_clock::now();
+    durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: filtering (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    timeStageStart = std::chrono::system_clock::now();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: writing";
+        loginfo(msg);
     }
 
     if(!mOptions->split.enabled) {
-        if(leftWriterThread)
-            leftWriterThread->join();
-        if(rightWriterThread)
-            rightWriterThread->join();
-        if(unpairedLeftWriterThread)
-            unpairedLeftWriterThread->join();
-        if(unpairedRightWriterThread)
-            unpairedRightWriterThread->join();
-        if(mergedWriterThread)
-            mergedWriterThread->join();
-        if(failedWriterThread)
-            failedWriterThread->join();
-        if(overlappedWriterThread)
-            overlappedWriterThread->join();
+        if(hasLeftWriterThread && leftWriterThread.joinable()) leftWriterThread.join();
+        if(hasRightWriterThread && rightWriterThread.joinable()) rightWriterThread.join();
+        if(hasUnpairedLeftWriterThread && unpairedLeftWriterThread.joinable()) unpairedLeftWriterThread.join();
+        if(hasUnpairedRightWriterThread && unpairedRightWriterThread.joinable()) unpairedRightWriterThread.join();
+        if(hasMergedWriterThread && mergedWriterThread.joinable()) mergedWriterThread.join();
+        if(hasFailedWriterThread && failedWriterThread.joinable()) failedWriterThread.join();
+        if(hasOverlappedWriterThread && overlappedWriterThread.joinable()) overlappedWriterThread.join();
     }
+
+    timeStageEnd = std::chrono::system_clock::now();
+    durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(timeStageEnd - timeStageStart).count();
+    if(mOptions->verbose) {
+        string msg = "[fastp " + string(FASTP_VER) + "] Stage: writing (" + to_string(durationMs) + " ms)";
+        loginfo(msg);
+    }
+
+    // Print GPU vs CPU filter profiling stats (always in PROFILING builds)
+#ifdef FASTP_PROFILING
+    mFilter->printProfilingStats();
+#else
+    if(mOptions->verbose) {
+        mFilter->printProfilingStats();
+    }
+#endif
 
     if(mOptions->verbose)
         loginfo("start to generate reports\n");
@@ -232,6 +302,9 @@ bool PairEndProcessor::process(){
     Stats* finalPreStats2 = Stats::merge(preStats2);
     Stats* finalPostStats2 = Stats::merge(postStats2);
     FilterResult* finalFilterResult = FilterResult::merge(filterResults);
+#ifdef FASTP_PROFILING
+    g_profiling.total_reads.store(finalPreStats1->getReads());
+#endif
 
     cerr << "Read1 before filtering:"<<endl;
     finalPreStats1->print();
@@ -292,17 +365,8 @@ bool PairEndProcessor::process(){
 
     // clean up
     for(int t=0; t<mOptions->thread; t++){
-        delete threads[t];
-        threads[t] = NULL;
         delete configs[t];
         configs[t] = NULL;
-    }
-
-    if(readerInterveleaved) {
-        delete readerInterveleaved;
-    } else {
-        delete readerLeft;
-        delete readerRight;
     }
 
     delete finalPreStats1;
@@ -311,23 +375,9 @@ bool PairEndProcessor::process(){
     delete finalPostStats2;
     delete finalFilterResult;
 
-    delete[] threads;
     delete[] configs;
 
-    if(leftWriterThread)
-        delete leftWriterThread;
-    if(rightWriterThread)
-        delete rightWriterThread;
-    if(unpairedLeftWriterThread)
-        delete unpairedLeftWriterThread;
-    if(unpairedRightWriterThread)
-        delete unpairedRightWriterThread;
-    if(mergedWriterThread)
-        delete mergedWriterThread;
-    if(failedWriterThread)
-        delete failedWriterThread;
-    if(overlappedWriterThread)
-        delete overlappedWriterThread;
+    // thread objects are RAII-managed (joined above)
 
     if(!mOptions->split.enabled)
         closeOutput();
@@ -370,28 +420,32 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
     }
     int tid = config->getThreadId();
 
-    // build output on stack strings, move to heap only when handing off to writers
-    string outstr1, outstr2, unpairedOut1, unpairedOut2;
-    string singleOutput, mergedOutput, failedOut, overlappedOut;
-    // reserve capacity for main outputs to avoid repeated reallocation
-    const size_t estimatedCapacity = leftPack->count * 320;
-    outstr1.reserve(estimatedCapacity);
-    outstr2.reserve(estimatedCapacity);
+    string* outstr1 = new string();
+    string* outstr2 = new string();
+    string* unpairedOut1 = new string();
+    string* unpairedOut2 = new string();
+    string* singleOutput = new string();
+    string* mergedOutput = new string();
+    string* failedOut = new string();
+    string* overlappedOut = new string();
 
     int readPassed = 0;
     int mergedCount = 0;
+    
+    // Pre-filtering stage: trimming and UMI processing
+    vector<Read*> trimmedReads1;
+    vector<Read*> trimmedReads2;
+    vector<Read*> originalReads1;
+    vector<Read*> originalReads2;
+    vector<bool> isDedupOutVec;
+    vector<bool> isAdapterDimerVec;
+    
+    GPU_FPRINTF("[GPU] processPairEnd called with pack count: %d\n", leftPack->count);
+    
+    // First pass: trim and preprocess reads
     for(int p=0;p<leftPack->count && p<rightPack->count;p++){
         Read* or1 = leftPack->data[p];
         Read* or2 = rightPack->data[p];
-
-        int lowQualNum1 = 0;
-        int nBaseNum1 = 0;
-        int lowQualNum2 = 0;
-        int nBaseNum2 = 0;
-
-        // stats the original read before trimming
-        config->getPreStats1()->statRead(or1);
-        config->getPreStats2()->statRead(or2);
 
         // handling the duplication profiling
         bool dedupOut = false;
@@ -404,9 +458,7 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
         // filter by index
         if(mOptions->indexFilter.enabled && mFilter->filterByIndex(or1, or2)) {
             recycleToPool1(tid, or1);
-            or1 = NULL;
             recycleToPool2(tid, or2);
-            or2 = NULL;
             continue;
         }
 
@@ -419,43 +471,39 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
         if(mOptions->umi.enabled)
             mUmiProcessor->process(or1, or2);
 
+        // Pre-filter stats on raw reads BEFORE any trimming modifies them in-place
+        PROF_START(_t_stat);
+        config->getPreStats1()->statReadBasic(or1);
+        config->getPreStats2()->statReadBasic(or2);
+        PROF_END(_t_stat, cpu_statread_ns);
+
         // trim in head and tail, and apply quality cut in sliding window
         int frontTrimmed1 = 0;
         int frontTrimmed2 = 0;
-        Read* r1 = mFilter->trimAndCut(or1, mOptions->trim.front1, mOptions->trim.tail1, frontTrimmed1);
-        Read* r2 = mFilter->trimAndCut(or2, mOptions->trim.front2, mOptions->trim.tail2, frontTrimmed2);
+        PROF_START(_t_trim);
+        Read* r1 = mFilter->trimAndCutGPU(or1, mOptions->trim.front1, mOptions->trim.tail1, frontTrimmed1);
+        Read* r2 = mFilter->trimAndCutGPU(or2, mOptions->trim.front2, mOptions->trim.tail2, frontTrimmed2);
 
         if(r1 != NULL && r2!=NULL) {
             if(mOptions->polyGTrim.enabled)
-                PolyX::trimPolyG(r1, r2, config->getFilterResult(), mOptions->polyGTrim.minLen);
+                mFilter->trimPolyGGPU(r1, r2);
         }
+        
         bool isizeEvaluated = false;
         bool isAdapterDimer = false;
-
-        // Cache overlap result: compute once, reuse for adapter trimming, correction, isize, and merge
-        OverlapResult ov = {};
-        bool ovComputed = false;
-        if(r1 != NULL && r2!=NULL && (mOptions->adapter.enabled || mOptions->correction.enabled || config->getThreadId() == 0 || mOptions->merge.enabled)){
-            ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0);
-            ovComputed = true;
-        }
-
         if(r1 != NULL && r2!=NULL && (mOptions->adapter.enabled || mOptions->correction.enabled)){
-            // For gap-aware adapter trimming, compute a separate overlap if needed
-            OverlapResult ovForAdapter = mOptions->adapter.allowGapOverlapTrimming
-                ? OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0, true)
-                : ov;
-            // we only use thread 0 to evaluate ISIZE
+            OverlapResult ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0, mOptions->adapter.allowGapOverlapTrimming);
+            // we only use thread 0 to evaluae ISIZE
             if(config->getThreadId() == 0) {
                 statInsertSize(r1, r2, ov, frontTrimmed1, frontTrimmed2);
                 isizeEvaluated = true;
             }
-            if(mOptions->correction.enabled && !ovForAdapter.hasGap) {
+            if(mOptions->correction.enabled && !ov.hasGap) {
                 // no gap allowed for overlap correction
-                BaseCorrector::correctByOverlapAnalysis(r1, r2, config->getFilterResult(), ovForAdapter);
+                BaseCorrector::correctByOverlapAnalysis(r1, r2, config->getFilterResult(), ov);
             }
             if(mOptions->adapter.enabled) {
-                bool trimmed = AdapterTrimmer::trimByOverlapAnalysis(r1, r2, config->getFilterResult(), ovForAdapter, frontTrimmed1, frontTrimmed2);
+                bool trimmed = AdapterTrimmer::trimByOverlapAnalysis(r1, r2, config->getFilterResult(), ov, frontTrimmed1, frontTrimmed2);
                 bool trimmed1 = trimmed;
                 bool trimmed2 = trimmed;
                 if(!trimmed){
@@ -486,19 +534,16 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
         }
 
         if(r1 != NULL && r2!=NULL && mOverlappedWriter) {
-            OverlapResult ovForOverlapped = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, 0);
-            if(ovForOverlapped.overlapped) {
-                Read* overlappedRead = new Read(new string(*r1->mName), new string(r1->mSeq->substr(max(0,ovForOverlapped.offset)), ovForOverlapped.overlap_len), new string(*r1->mStrand), new string(r1->mQuality->substr(max(0,ovForOverlapped.offset)), ovForOverlapped.overlap_len));
-                overlappedRead->appendToString(&overlappedOut);
+            OverlapResult ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, 0);
+            if(ov.overlapped) {
+                Read* overlappedRead = new Read(new string(*r1->mName), new string(r1->mSeq->substr(max(0,ov.offset)), ov.overlap_len), new string(*r1->mStrand), new string(r1->mQuality->substr(max(0,ov.offset)), ov.overlap_len));
+                overlappedRead->appendToString(overlappedOut);
                 recycleToPool1(tid, overlappedRead);
             }
         }
 
         if(config->getThreadId() == 0 && !isizeEvaluated && r1 != NULL && r2!=NULL) {
-            if(!ovComputed) {
-                ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0);
-                ovComputed = true;
-            }
+            OverlapResult ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0);
             statInsertSize(r1, r2, ov, frontTrimmed1, frontTrimmed2);
             isizeEvaluated = true;
         }
@@ -514,20 +559,59 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
             if( mOptions->trim.maxLen2 > 0 && mOptions->trim.maxLen2 < r2->length())
                 r2->resize(mOptions->trim.maxLen2);
         }
+        PROF_END(_t_trim, cpu_trim_adapter_ns);
+        
+        // Collect for GPU batch processing (NO speculative statRead here —
+        // GPU kernel computes post-filter stats for passing reads directly)
+        trimmedReads1.push_back(r1);
+        trimmedReads2.push_back(r2);
+        originalReads1.push_back(or1);
+        originalReads2.push_back(or2);
+        isDedupOutVec.push_back(dedupOut);
+        isAdapterDimerVec.push_back(isAdapterDimer);
+    }
+    
+    int pack_size = trimmedReads1.size();
+    GPU_FPRINTF("[GPU] processPairEnd batch: %d read pairs\n", pack_size);
+
+    // Pre-filter stats already computed inline (before trimAndCut) for correctness.
+
+    // GPU filtering + post-filter stats
+    vector<int> filterResults1, filterResults2;
+    if(pack_size > 0) {
+        PROF_START(_t_gpu);
+        if(!mOptions->merge.enabled) {
+            mFilter->filterBatchGPUWithStats(trimmedReads1, trimmedReads2,
+                                              filterResults1, filterResults2,
+                                              config->getPostStats1(), config->getPostStats2());
+        } else {
+            mFilter->filterBatchGPU(trimmedReads1, trimmedReads2, filterResults1, filterResults2);
+        }
+        PROF_END(_t_gpu, cpu_filter_ns);
+    }
+
+    // Third pass: apply results and output
+    PROF_START(_t_out_pe);
+    for(int p=0; p<pack_size; p++){
+        Read* or1 = originalReads1[p];
+        Read* or2 = originalReads2[p];
+        Read* r1 = trimmedReads1[p];
+        Read* r2 = trimmedReads2[p];
+        
+        bool dedupOut = isDedupOutVec[p];
+        bool isAdapterDimer = isAdapterDimerVec[p];
 
         Read* merged = NULL;
         // merging mode
         bool mergeProcessed = false;
         if(mOptions->merge.enabled && r1 && r2) {
-            // Always recompute overlap on post-trim reads for merge (fixes #675)
-            ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0);
-            ovComputed = true;
+            OverlapResult ov = OverlapAnalysis::analyze(r1, r2, mOptions->overlapDiffLimit, mOptions->overlapRequire, mOptions->overlapDiffPercentLimit/100.0);
             if(ov.overlapped) {
                 merged = OverlapAnalysis::merge(r1, r2, ov);
                 int result = mFilter->passFilter(merged);
                 config->addFilterResult(result, 2);
                 if(result == PASS_FILTER) {
-                    merged->appendToString(&mergedOutput);
+                    merged->appendToString(mergedOutput);
                     config->getPostStats1()->statRead(merged);
                     readPassed++;
                     mergedCount++;
@@ -535,8 +619,8 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
                 recycleToPool1(tid, merged);
                 mergeProcessed = true;
             } else if(mOptions->merge.includeUnmerged){
-                int result1 = mFilter->passFilter(r1);
-                int result2 = mFilter->passFilter(r2);
+                int result1 = filterResults1[p];
+                int result2 = filterResults2[p];
 
                 if(isAdapterDimer) {
                     result1 = FAIL_ADAPTER_DIMER;
@@ -545,13 +629,13 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
 
                 config->addFilterResult(result1, 1);
                 if(result1 == PASS_FILTER && !dedupOut) {
-                    r1->appendToString(&mergedOutput);
+                    r1->appendToString(mergedOutput);
                     config->getPostStats1()->statRead(r1);
                 }
 
                 config->addFilterResult(result2, 1);
                 if(result2 == PASS_FILTER && !dedupOut) {
-                    r2->appendToString(&mergedOutput);
+                    r2->appendToString(mergedOutput);
                     config->getPostStats1()->statRead(r2);
                 }
                 if(result1 == PASS_FILTER && result2 == PASS_FILTER )
@@ -562,10 +646,17 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
 
         if(!mergeProcessed) {
 
-            int result1 = mFilter->passFilter(r1);
-            int result2 = mFilter->passFilter(r2);
+            int result1 = filterResults1[p];
+            int result2 = filterResults2[p];
 
             if(isAdapterDimer) {
+                // GPU may have counted stats for these reads — subtract if they passed GPU filter
+                if(!mOptions->merge.enabled) {
+                    if(result1 == PASS_FILTER && r1 != NULL)
+                        config->getPostStats1()->unstatRead(r1);
+                    if(result2 == PASS_FILTER && r2 != NULL)
+                        config->getPostStats2()->unstatRead(r2);
+                }
                 result1 = FAIL_ADAPTER_DIMER;
                 result2 = FAIL_ADAPTER_DIMER;
             }
@@ -575,48 +666,68 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
             if(!dedupOut) {
 
                 if( r1 != NULL &&  result1 == PASS_FILTER && r2 != NULL && result2 == PASS_FILTER ) {
-
+                    
                     if(mOptions->outputToSTDOUT && !mOptions->merge.enabled) {
-                        r1->appendToString(&singleOutput);
-                        r2->appendToString(&singleOutput);
+                        r1->appendToString(singleOutput);
+                        r2->appendToString(singleOutput);
                     } else {
-                        r1->appendToString(&outstr1);
-                        r2->appendToString(&outstr2);
-                    }
-
-                    // stats the read after filtering
-                    if(!mOptions->merge.enabled) {
-                        config->getPostStats1()->statRead(r1);
-                        config->getPostStats2()->statRead(r2);
+                        r1->appendToString(outstr1);
+                        r2->appendToString(outstr2);
                     }
 
                     readPassed++;
-                } else if( r1 != NULL &&  result1 == PASS_FILTER) {
-                    if(mUnpairedLeftWriter) {
-                        r1->appendToString(&unpairedOut1);
-                        if(mFailedWriter)
-                            or2->appendToStringWithTag(&failedOut, FAILED_TYPES[result2]);
+                } else {
+                    if( r1 != NULL &&  result1 == PASS_FILTER) {
+                        if(mUnpairedLeftWriter) {
+                            r1->appendToString(unpairedOut1);
+                            if(mFailedWriter)
+                                or2->appendToStringWithTag(failedOut, FAILED_TYPES[result2]);
+                        } else {
+                            // r1 passed filter individually but its partner failed and there
+                            // is no unpaired output — r1 will not be written.
+                            // filterBatchGPUWithStats already counted r1 in postStats1, so
+                            // we must remove it to keep after_filtering counts accurate.
+                            config->getPostStats1()->unstatRead(r1);
+                            if(mFailedWriter) {
+                                or1->appendToStringWithTag(failedOut, "paired_read_is_failing");
+                                or2->appendToStringWithTag(failedOut, FAILED_TYPES[result2]);
+                            }
+                        }
+                    } else if( r2 != NULL && result2 == PASS_FILTER) {
+                        if(mUnpairedRightWriter) {
+                            r2->appendToString(unpairedOut2);
+                            if(mFailedWriter)
+                                or1->appendToStringWithTag(failedOut,FAILED_TYPES[result1]);
+                        } else if(mUnpairedLeftWriter) {
+                            r2->appendToString(unpairedOut1);
+                            if(mFailedWriter)
+                                or1->appendToStringWithTag(failedOut,FAILED_TYPES[result1]);
+                        }  else {
+                            // r2 passed filter individually but its partner failed and there
+                            // is no unpaired output — r2 will not be written.
+                            // filterBatchGPUWithStats already counted r2 in postStats2, so
+                            // we must remove it to keep after_filtering counts accurate.
+                            config->getPostStats2()->unstatRead(r2);
+                            if(mFailedWriter) {
+                                or1->appendToStringWithTag(failedOut, FAILED_TYPES[result1]);
+                                or2->appendToStringWithTag(failedOut, "paired_read_is_failing");
+                            }
+                        }
                     } else {
+                        // Both reads failed
                         if(mFailedWriter) {
-                            or1->appendToStringWithTag(&failedOut, "paired_read_is_failing");
-                            or2->appendToStringWithTag(&failedOut, FAILED_TYPES[result2]);
+                            or1->appendToStringWithTag(failedOut, FAILED_TYPES[result1]);
+                            or2->appendToStringWithTag(failedOut, FAILED_TYPES[result2]);
                         }
                     }
-                } else if( r2 != NULL && result2 == PASS_FILTER) {
-                    if(mUnpairedRightWriter) {
-                        r2->appendToString(&unpairedOut2);
-                        if(mFailedWriter)
-                            or1->appendToStringWithTag(&failedOut,FAILED_TYPES[result1]);
-                    } else if(mUnpairedLeftWriter) {
-                        r2->appendToString(&unpairedOut1);
-                        if(mFailedWriter)
-                            or1->appendToStringWithTag(&failedOut,FAILED_TYPES[result1]);
-                    }  else {
-                        if(mFailedWriter) {
-                            or1->appendToStringWithTag(&failedOut, FAILED_TYPES[result1]);
-                            or2->appendToStringWithTag(&failedOut, "paired_read_is_failing");
-                        }
-                    }
+                }
+            } else {
+                // dedupOut: GPU counted stats for passing reads, but they should be excluded
+                if(!mOptions->merge.enabled) {
+                    if(r1 != NULL && result1 == PASS_FILTER)
+                        config->getPostStats1()->unstatRead(r1);
+                    if(r2 != NULL && result2 == PASS_FILTER)
+                        config->getPostStats2()->unstatRead(r2);
                 }
             }
         }
@@ -640,44 +751,59 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
             recycleToPool2(tid, or2);
             or2 = NULL;
         }
-    }
+    }  // End of third pass loop
+    PROF_END(_t_out_pe, cpu_output_ns);
 
 	if(mOptions->split.enabled) {
         // split output by each worker thread
-        if(!mOptions->out1.empty())
+        if(!mOptions->out1.empty()) 
             config->getWriter1()->writeString(outstr1);
         if(!mOptions->out2.empty())
             config->getWriter2()->writeString(outstr2);
-    }
+    } 
 
     if(mMergedWriter) {
-        // move to heap for writer thread ownership
-        mMergedWriter->input(tid, new string(std::move(mergedOutput)));
+        // write merged data
+        mMergedWriter->input(tid, mergedOutput);
+        mergedOutput = NULL;
     }
 
     if(mFailedWriter) {
-        mFailedWriter->input(tid, new string(std::move(failedOut)));
+        // write failed data
+        mFailedWriter->input(tid, failedOut);
+        failedOut = NULL;
     }
 
     if(mOverlappedWriter) {
-        mOverlappedWriter->input(tid, new string(std::move(overlappedOut)));
+        // write failed data
+        mOverlappedWriter->input(tid, overlappedOut);
+        overlappedOut = NULL;
     }
 
     // normal output by left/right writer thread
     if(mRightWriter && mLeftWriter) {
-        // write PE - move to heap for writer thread ownership
-        mLeftWriter->input(tid, new string(std::move(outstr1)));
-        mRightWriter->input(tid, new string(std::move(outstr2)));
+        // write PE
+        mLeftWriter->input(tid, outstr1);
+        outstr1 = NULL;
+
+        mRightWriter->input(tid, outstr2);
+        outstr2 = NULL;
     } else if(mLeftWriter) {
         // write singleOutput
-        mLeftWriter->input(tid, new string(std::move(singleOutput)));
+        mLeftWriter->input(tid, singleOutput);
+        singleOutput = NULL;
     }
     // output unpaired reads
     if(mUnpairedLeftWriter && mUnpairedRightWriter) {
-        mUnpairedLeftWriter->input(tid, new string(std::move(unpairedOut1)));
-        mUnpairedRightWriter->input(tid, new string(std::move(unpairedOut2)));
+        // write PE
+        mUnpairedLeftWriter->input(tid, unpairedOut1);
+        unpairedOut1 = NULL;
+
+        mUnpairedRightWriter->input(tid, unpairedOut2);
+        unpairedOut2 = NULL;
     } else if(mUnpairedLeftWriter) {
-        mUnpairedLeftWriter->input(tid, new string(std::move(unpairedOut1)));
+        mUnpairedLeftWriter->input(tid, unpairedOut1);
+        unpairedOut1 = NULL;
     }
 
     if(mOptions->split.byFileLines)
@@ -689,19 +815,33 @@ bool PairEndProcessor::processPairEnd(ReadPack* leftPack, ReadPack* rightPack, T
         config->addMergedPairs(mergedCount);
     }
 
-    // stack strings auto-cleanup - no manual delete needed
+    if(outstr1)
+        delete outstr1;
+    if(outstr2)
+        delete outstr2;
+    if(unpairedOut1)
+        delete unpairedOut1;
+    if(unpairedOut2)
+        delete unpairedOut2;
+    if(singleOutput)
+        delete singleOutput;
+    if(mergedOutput)
+        delete mergedOutput;
+    if(failedOut)
+        delete failedOut;
+    if(overlappedOut)
+        delete overlappedOut;
 
     delete[] leftPack->data;
     delete[] rightPack->data;
     delete leftPack;
     delete rightPack;
 
-    mPackProcessedCounter.fetch_add(1, std::memory_order_release);
-    mBackpressureCV.notify_all();
+    mPackProcessedCounter++;
 
     return true;
 }
-
+    
 void PairEndProcessor::statInsertSize(Read* r1, Read* r2, OverlapResult& ov, int frontTrimmed1, int frontTrimmed2) {
     int isize = mOptions->insertSizeMax;
     if(ov.overlapped) {
@@ -731,22 +871,13 @@ void PairEndProcessor::readerTask(bool isLeft)
     bool splitSizeReEvaluated = false;
     Read** data = new Read*[PACK_SIZE];
     memset(data, 0, sizeof(Read*)*PACK_SIZE);
-    // BGZF decompress thread budget per reader:
-    // (total CPU cores - worker threads - reader threads - writer threads) / number of gz inputs
-    int cpus = std::thread::hardware_concurrency();
-    int existingThreads = mOptions->thread + 4;  // workers + 2 readers + 2 writers
-    int gzInputs = (ends_with(mOptions->in1, ".gz") ? 1 : 0) + (ends_with(mOptions->in2, ".gz") ? 1 : 0);
-    int bgzfBudget = 0;
-    if (gzInputs > 0)
-        bgzfBudget = std::max(1, ((int)cpus - existingThreads) / gzInputs);
-
     FastqReader* reader = NULL;
     if(isLeft) {
-        reader = new FastqReader(mOptions->in1, true, mOptions->phred64, bgzfBudget);
+        reader = new FastqReader(mOptions->in1, true, mOptions->phred64, mOptions->useGDS);
         reader->setReadPool(mLeftReadPool);
     }
     else {
-        reader = new FastqReader(mOptions->in2, true, mOptions->phred64, bgzfBudget);
+        reader = new FastqReader(mOptions->in2, true, mOptions->phred64, mOptions->useGDS);
         reader->setReadPool(mRightReadPool);
     }
 
@@ -769,7 +900,6 @@ void PairEndProcessor::readerTask(bool isLeft)
                 mRightInputLists[mRightPackReadCounter % mOptions->thread]->produce(pack);
                 mRightPackReadCounter++;
             }
-            mBackpressureCV.notify_all();
             data = NULL;
             if(read) {
                 delete read;
@@ -806,34 +936,31 @@ void PairEndProcessor::readerTask(bool isLeft)
                 mRightInputLists[mRightPackReadCounter % mOptions->thread]->produce(pack);
                 mRightPackReadCounter++;
             }
-            mBackpressureCV.notify_all();
 
             //re-initialize data for next pack
             data = new Read*[PACK_SIZE];
             memset(data, 0, sizeof(Read*)*PACK_SIZE);
             // if the processor is far behind this reader, sleep and wait to limit memory usage
-            {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
-                if(isLeft) {
-                    while(mLeftPackReadCounter - mPackProcessedCounter.load(std::memory_order_acquire) > PACK_IN_MEM_LIMIT){
-                        slept++;
-                        mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
-                    }
-                } else {
-                    while(mRightPackReadCounter - mPackProcessedCounter.load(std::memory_order_acquire) > PACK_IN_MEM_LIMIT){
-                        slept++;
-                        mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
-                    }
+            if(isLeft) {
+                while(mLeftPackReadCounter - mPackProcessedCounter > PACK_IN_MEM_LIMIT){
+                    //cerr<<"sleep"<<endl;
+                    slept++;
+                    usleep(100);
+                }
+            } else {
+                while(mRightPackReadCounter - mPackProcessedCounter > PACK_IN_MEM_LIMIT){
+                    //cerr<<"sleep"<<endl;
+                    slept++;
+                    usleep(100);
                 }
             }
             readNum += count;
             // if the writer threads are far behind this producer, sleep and wait
             // check this only when necessary
             if(readNum % (PACK_SIZE * PACK_IN_MEM_LIMIT) == 0 && mLeftWriter) {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
                 while( (mLeftWriter && mLeftWriter->bufferLength() > PACK_IN_MEM_LIMIT) || (mRightWriter && mRightWriter->bufferLength() > PACK_IN_MEM_LIMIT) ){
                     slept++;
-                    mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
+                    usleep(1000);
                 }
             }
             // reset count to 0
@@ -861,15 +988,14 @@ void PairEndProcessor::readerTask(bool isLeft)
         else
             mRightInputLists[t]->setProducerFinished();
     }
-    mBackpressureCV.notify_all();
 
     if(mOptions->verbose) {
         if(isLeft) {
-            mLeftReaderFinished.store(true, std::memory_order_release);
+            mLeftReaderFinished = true;
             loginfo("Read1: loading completed with " + to_string(mLeftPackReadCounter) + " packs");
         }
         else {
-            mRightReaderFinished.store(true, std::memory_order_release);
+            mRightReaderFinished = true;
             loginfo("Read2: loading completed with " + to_string(mRightPackReadCounter) + " packs");
         }
     }
@@ -894,7 +1020,7 @@ void PairEndProcessor::interleavedReaderTask()
     Read** dataRight = new Read*[PACK_SIZE];
     memset(dataLeft, 0, sizeof(Read*)*PACK_SIZE);
     memset(dataRight, 0, sizeof(Read*)*PACK_SIZE);
-    FastqReaderPair reader(mOptions->in1, mOptions->in2, true, mOptions->phred64,true);
+    FastqReaderPair reader(mOptions->in1, mOptions->in2, true, mOptions->phred64, true, mOptions->useGDS);
     int count=0;
     bool needToBreak = false;
     ReadPair* pair = new ReadPair();
@@ -916,7 +1042,6 @@ void PairEndProcessor::interleavedReaderTask()
             mRightInputLists[mRightPackReadCounter % mOptions->thread]->produce(packRight);
             mRightPackReadCounter++;
 
-            mBackpressureCV.notify_all();
             dataLeft = NULL;
             dataRight = NULL;
             break;
@@ -947,7 +1072,6 @@ void PairEndProcessor::interleavedReaderTask()
 
             mRightInputLists[mRightPackReadCounter % mOptions->thread]->produce(packRight);
             mRightPackReadCounter++;
-            mBackpressureCV.notify_all();
 
             //re-initialize data for next pack
             dataLeft = new Read*[PACK_SIZE];
@@ -955,21 +1079,18 @@ void PairEndProcessor::interleavedReaderTask()
             memset(dataLeft, 0, sizeof(Read*)*PACK_SIZE);
             memset(dataRight, 0, sizeof(Read*)*PACK_SIZE);
             // if the consumer is far behind this producer, sleep and wait to limit memory usage
-            {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
-                while(mLeftPackReadCounter - mPackProcessedCounter.load(std::memory_order_acquire) > PACK_IN_MEM_LIMIT){
-                    slept++;
-                    mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
-                }
+            while(mLeftPackReadCounter - mPackProcessedCounter > PACK_IN_MEM_LIMIT){
+                //cerr<<"sleep"<<endl;
+                slept++;
+                usleep(100);
             }
             readNum += count;
             // if the writer threads are far behind this producer, sleep and wait
             // check this only when necessary
             if(readNum % (PACK_SIZE * PACK_IN_MEM_LIMIT) == 0 && mLeftWriter) {
-                std::unique_lock<std::mutex> lk(mBackpressureMtx);
                 while( (mLeftWriter && mLeftWriter->bufferLength() > PACK_IN_MEM_LIMIT) || (mRightWriter && mRightWriter->bufferLength() > PACK_IN_MEM_LIMIT) ){
                     slept++;
-                    mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
+                    usleep(1000);
                 }
             }
             // reset count to 0
@@ -997,14 +1118,13 @@ void PairEndProcessor::interleavedReaderTask()
         mLeftInputLists[t]->setProducerFinished();
         mRightInputLists[t]->setProducerFinished();
     }
-    mBackpressureCV.notify_all();
 
     if(mOptions->verbose) {
         loginfo("interleaved: loading completed with " + to_string(mLeftPackReadCounter) + " packs");
     }
 
-    mLeftReaderFinished.store(true, std::memory_order_release);
-    mRightReaderFinished.store(true, std::memory_order_release);
+    mLeftReaderFinished = true;
+    mRightReaderFinished = true;
 
     // if the last data initialized is not used, free it
     if(dataLeft != NULL)
@@ -1031,20 +1151,19 @@ void PairEndProcessor::processorTask(ThreadConfig* config)
         } else if(inputRight->isProducerFinished() && !inputRight->canBeConsumed()) {
             break;
         } else {
-            std::unique_lock<std::mutex> lk(mBackpressureMtx);
-            mBackpressureCV.wait_for(lk, std::chrono::milliseconds(1));
+            usleep(100);
         }
     }
     inputLeft->setConsumerFinished();
     inputRight->setConsumerFinished();
 
-    int finishedCount = mFinishedThreads.fetch_add(1, std::memory_order_release) + 1;
+    mFinishedThreads++;
     if(mOptions->verbose) {
         string msg = "thread " + to_string(config->getThreadId() + 1) + " data processing completed";
         loginfo(msg);
     }
 
-    if(finishedCount == mOptions->thread) {
+    if(mFinishedThreads == mOptions->thread) {
         if(mLeftWriter)
             mLeftWriter->setInputCompleted();
         if(mRightWriter)
