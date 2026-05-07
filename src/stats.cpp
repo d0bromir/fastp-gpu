@@ -1,0 +1,1281 @@
+#include "stats.h"
+#include "cuda_stats_wrapper.h"  // for GpuBatchPostStats
+#include <memory.h>
+#include <sstream>
+#include <algorithm>
+#include "util.h"
+#include "repeatfinder.h"
+
+#define KMER_LEN 5
+static const size_t LONG_REPEAT_MAX_RESULTS = 20;
+
+static bool passRepeatComplexity(const string& seq, double threshold) {
+    if(seq.size() <= 1) {
+        return false;
+    }
+    int diff = 0;
+    for(size_t i = 0; i + 1 < seq.size(); i++) {
+        if(seq[i] != seq[i + 1]) {
+            diff++;
+        }
+    }
+    double ratio = (double)diff / (double)(seq.size() - 1);
+    return ratio >= threshold;
+}
+
+Stats::Stats(Options* opt, bool isRead2, int guessedCycles, int bufferMargin){
+    mOptions = opt;
+    mIsRead2 = isRead2;
+    mReads = 0;
+    mLengthSum = 0;
+
+    mEvaluatedSeqLen = mOptions->seqLen1;
+    if(mIsRead2)
+        mEvaluatedSeqLen = mOptions->seqLen2;
+
+    if(guessedCycles == 0) {
+        guessedCycles = mEvaluatedSeqLen;
+    }
+
+    mCycles = guessedCycles;
+    mBases = 0;
+    mQ20Total = 0;
+    mQ30Total = 0;
+    mQ40Total = 0;
+    summarized = false;
+    mKmerMin = 0;
+    mKmerMax = 0;
+
+    // extend the buffer to make sure it's long enough
+    mBufLen = guessedCycles + bufferMargin;
+
+    for(int i=0; i<8; i++){
+        mQ20Bases[i] = 0;
+        mQ30Bases[i] = 0;
+        mBaseContents[i] = 0;
+
+        mCycleQ30Bases[i] = new long[mBufLen];
+        memset(mCycleQ30Bases[i], 0, sizeof(long) * mBufLen);
+
+        mCycleQ20Bases[i] = new long[mBufLen];
+        memset(mCycleQ20Bases[i], 0, sizeof(long) * mBufLen);
+
+        mCycleBaseContents[i] = new long[mBufLen];
+        memset(mCycleBaseContents[i], 0, sizeof(long) * mBufLen);
+
+        mCycleBaseQual[i] = new long[mBufLen];
+        memset(mCycleBaseQual[i], 0, sizeof(long) * mBufLen);
+    }
+    mCycleTotalBase = new long[mBufLen];
+    memset(mCycleTotalBase, 0, sizeof(long)*mBufLen);
+
+    mCycleTotalQual = new long[mBufLen];
+    memset(mCycleTotalQual, 0, sizeof(long)*mBufLen);
+
+    mKmerBufLen = 2<<(KMER_LEN * 2);
+    mKmer = new long[mKmerBufLen];
+    memset(mKmer, 0, sizeof(long)*mKmerBufLen);
+
+    memset(mBaseQualHistogram, 0, sizeof(long)*128);
+
+    initOverRepSeq();
+
+    mLongestRepeat.length = 0;
+    mLongestRepeat.pos1 = 0;
+    mLongestRepeat.pos2 = 0;
+    mLongRepeatEnabled = mOptions->longRepeat.enabled;
+}
+
+void Stats::extendBuffer(int newBufLen){
+    if(newBufLen <= mBufLen)
+        return ;
+
+    long* newBuf = NULL;
+
+    for(int i=0; i<8; i++){
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleQ30Bases[i], sizeof(long) * mBufLen);
+        delete mCycleQ30Bases[i];
+        mCycleQ30Bases[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleQ20Bases[i], sizeof(long) * mBufLen);
+        delete mCycleQ20Bases[i];
+        mCycleQ20Bases[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleBaseContents[i], sizeof(long) * mBufLen);
+        delete mCycleBaseContents[i];
+        mCycleBaseContents[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleBaseQual[i], sizeof(long) * mBufLen);
+        delete mCycleBaseQual[i];
+        mCycleBaseQual[i] = newBuf;
+    }
+    newBuf = new long[newBufLen];
+    memset(newBuf, 0, sizeof(long)*newBufLen);
+    memcpy(newBuf, mCycleTotalBase, sizeof(long)*mBufLen);
+    delete mCycleTotalBase;
+    mCycleTotalBase = newBuf;
+
+    newBuf = new long[newBufLen];
+    memset(newBuf, 0, sizeof(long)*newBufLen);
+    memcpy(newBuf, mCycleTotalQual, sizeof(long)*mBufLen);
+    delete mCycleTotalQual;
+    mCycleTotalQual = newBuf;
+
+    mBufLen = newBufLen;
+}
+
+Stats::~Stats() {
+    for(int i=0; i<8; i++){
+        delete mCycleQ30Bases[i];
+        mCycleQ30Bases[i] = NULL;
+
+        delete mCycleQ20Bases[i];
+        mCycleQ20Bases[i] = NULL;
+
+        delete mCycleBaseContents[i];
+        mCycleBaseContents[i] = NULL;
+
+        delete mCycleBaseQual[i];
+        mCycleBaseQual[i] = NULL;
+    }
+
+    delete mCycleTotalBase;
+    delete mCycleTotalQual;
+
+    // delete memory of curves
+    map<string, double*>::iterator iter;
+    for(iter = mQualityCurves.begin(); iter != mQualityCurves.end(); iter++) {
+        delete iter->second;
+    }
+    for(iter = mContentCurves.begin(); iter != mContentCurves.end(); iter++) {
+        delete iter->second;
+    }
+    delete mKmer;
+
+    deleteOverRepSeqDist();
+}
+
+void Stats::summarize(bool forced) {
+    if(summarized && !forced)
+        return;
+
+    // first get the cycle and count total bases
+    for(int c=0; c<mBufLen; c++) {
+        mBases += mCycleTotalBase[c];
+        if (mCycleTotalBase[c] == 0){
+            mCycles = c;
+            break;
+        }
+    }
+    if(mCycleTotalBase[mBufLen-1]>0)
+        mCycles = mBufLen;
+
+    // Q20, Q30, base content
+    for(int i=0; i<8; i++) {
+        for(int c=0; c<mCycles; c++) {
+            mQ20Bases[i] += mCycleQ20Bases[i][c];
+            mQ30Bases[i] += mCycleQ30Bases[i][c];
+            mBaseContents[i] += mCycleBaseContents[i][c];
+        }
+        mQ20Total += mQ20Bases[i];
+        mQ30Total += mQ30Bases[i];
+    }
+
+    for(char c=40; c<127-33; c++) {
+        mQ40Total += mBaseQualHistogram[c+33];
+    }
+
+
+    // quality curve for mean qual
+    double* meanQualCurve = new double[mCycles];
+    memset(meanQualCurve, 0, sizeof(double)*mCycles);
+    for(int c=0; c<mCycles; c++) {
+        meanQualCurve[c] = (double)mCycleTotalQual[c] / (double)mCycleTotalBase[c];
+    }
+    mQualityCurves["mean"] = meanQualCurve;
+
+    // quality curves and base content curves for different nucleotides
+    char alphabets[5] = {'A', 'T', 'C', 'G', 'N'};
+    for(int i=0; i<5; i++) {
+        char base = alphabets[i];
+        // get last 3 bits
+        char b = base & 0x07;
+        double* qualCurve = new double[mCycles];
+        memset(qualCurve, 0, sizeof(double)*mCycles);
+        double* contentCurve = new double[mCycles];
+        memset(contentCurve, 0, sizeof(double)*mCycles);
+        for(int c=0; c<mCycles; c++) {
+            if(mCycleBaseContents[b][c] == 0)
+                qualCurve[c] = meanQualCurve[c];
+            else
+                qualCurve[c] = (double)mCycleBaseQual[b][c] / (double)mCycleBaseContents[b][c];
+            contentCurve[c] = (double)mCycleBaseContents[b][c] / (double)mCycleTotalBase[c];
+        }
+        mQualityCurves[string(1, base)] = qualCurve;
+        mContentCurves[string(1, base)] = contentCurve;
+    }
+
+    // GC content curve
+    double* gcContentCurve = new double[mCycles];
+    memset(gcContentCurve, 0, sizeof(double)*mCycles);
+    char gBase = 'G' & 0x07;
+    char cBase = 'C' & 0x07;
+    for(int c=0; c<mCycles; c++) {
+        gcContentCurve[c] = (double)(mCycleBaseContents[gBase][c] + mCycleBaseContents[cBase][c]) / (double)mCycleTotalBase[c];
+    }
+    mContentCurves["GC"] = gcContentCurve;
+
+    mKmerMin = mKmer[0];
+    mKmerMax = mKmer[0];
+    for(int i=0; i<mKmerBufLen; i++) {
+        if(mKmer[i] > mKmerMax)
+            mKmerMax = mKmer[i];
+        if(mKmer[i] < mKmerMin)
+            mKmerMin = mKmer[i];
+    }
+
+    summarized = true;
+}
+
+int Stats::getMeanLength() {
+    if(mReads == 0)
+        return 0.0;
+    else
+        return mLengthSum/mReads;
+}
+
+void Stats::statReadBasic(Read* r) {
+    int len = r->length();
+
+    mLengthSum += len;
+
+    if(mBufLen < len) {
+        extendBuffer(max(len + 100, (int)(len * 1.5)));
+    }
+    const char* seqstr = r->mSeq->c_str();
+    const char* qualstr = r->mQuality->c_str();
+
+    static const char q20 = '5';
+    static const char q30 = '?';
+
+    for(int i=0; i<len; i++) {
+        char base = seqstr[i];
+        char qual = qualstr[i];
+        char b = base & 0x07;
+        int  qval = qual - 33;
+        // Branchless q20/q30 increments: each comparison is a 0/1 mask.
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);  // q20 implies q30; q30 implies q20.
+        // Promote each access to a local pointer to avoid 8 separate index
+        // computations and let the compiler keep the row in a register.
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
+
+        mBaseQualHistogram[qual]++;
+        q30Row[i]   += isQ30;
+        q20Row[i]   += isQ20;
+        contents[i]++;
+        baseQual[i] += qval;
+        mCycleTotalBase[i]++;
+        mCycleTotalQual[i] += qval;
+    }
+
+    mReads++;
+}
+
+void Stats::statRead(Read* r) {
+    int len = r->length();
+
+    mLengthSum += len;
+
+    if(mBufLen < len) {
+        extendBuffer(max(len + 100, (int)(len * 1.5)));
+    }
+    const char* seqstr = r->mSeq->c_str();
+    const char* qualstr = r->mQuality->c_str();
+
+    static const char q20 = '5';
+    static const char q30 = '?';
+
+    int kmer = 0;
+    bool needFullCompute = true;
+    for(int i=0; i<len; i++) {
+        char base = seqstr[i];
+        char qual = qualstr[i];
+        // get last 3 bits
+        char b = base & 0x07;
+        int  qval = qual - 33;
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
+
+        mBaseQualHistogram[qual]++;
+        q30Row[i]   += isQ30;
+        q20Row[i]   += isQ20;
+        contents[i]++;
+        baseQual[i] += qval;
+        mCycleTotalBase[i]++;
+        mCycleTotalQual[i] += qval;
+
+        if(base == 'N'){
+            needFullCompute = true;
+            continue;
+        }
+
+        // 5 bases required for kmer computing
+        if(i<4)
+            continue;
+
+        // calc 5 KMER
+        // 0x3FC == 0011 1111 1100
+        if(!needFullCompute){
+            int val = base2val(base);
+            if(val < 0){
+                needFullCompute = true;
+                continue;
+            } else {
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+                mKmer[kmer]++;
+            }
+        } else {
+            bool valid = true;
+            kmer = 0;
+            for(int k=0; k<5; k++) {
+                int val = base2val(seqstr[i - 4 + k]);
+                if(val < 0) {
+                    valid = false;
+                    break;
+                }
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+            }
+            if(!valid) {
+                needFullCompute = true;
+                continue;
+            } else {
+                mKmer[kmer]++;
+                needFullCompute = false;
+            }
+        }
+
+    }
+
+    // do overrepresentation analysis for 1 of every 100 reads
+    if(mOptions->overRepAnalysis.enabled) {
+        if(mReads % mOptions->overRepAnalysis.sampling == 0) {
+            const int steps[5] = {10, 20, 40, 100, min(150, mEvaluatedSeqLen-2)};
+            for(int s=0; s<5; s++) {
+                int step = steps[s];
+                for(int i=0; i<len-step; i++) {
+                    string seq = r->mSeq->substr(i, step);
+                    if(mOverRepSeq.count(seq)>0) {
+                        mOverRepSeq[seq]++;
+                        for(int p = i; p < seq.length() + i && p < mEvaluatedSeqLen; p++) {
+                            mOverRepSeqDist[seq][p]++;
+                        }
+                        i+=step;
+                    }
+                }
+            }
+        }
+    }
+
+    if(mLongRepeatEnabled) {
+        int sampling = max(1, mOptions->overRepAnalysis.sampling);
+        if(mReads % sampling == 0) {
+            size_t minLen = static_cast<size_t>(mOptions->longRepeat.minLen);
+            RepeatMatch best = RepeatFinder::findLongestRepeat(*r->mSeq, minLen);
+            if(best.length >= minLen && best.pos1 < r->mSeq->length()) {
+                RepeatMatchInfo info;
+                info.length = best.length;
+                info.pos1 = best.pos1;
+                info.pos2 = best.pos2;
+                info.seq = r->mSeq->substr(best.pos1, best.length);
+                if(!mOptions->complexityFilter.enabled || passRepeatComplexity(info.seq, mOptions->complexityFilter.threshold)) {
+                    if(info.length > mLongestRepeat.length) {
+                        mLongestRepeat = info;
+                    }
+                }
+            }
+
+            vector<RepeatMatch> matches = RepeatFinder::findLongRepeats(*r->mSeq, minLen, LONG_REPEAT_MAX_RESULTS);
+            for(size_t i = 0; i < matches.size(); i++) {
+                const RepeatMatch& match = matches[i];
+                if(match.length < minLen || match.pos1 >= r->mSeq->length()) {
+                    continue;
+                }
+                RepeatMatchInfo info;
+                info.length = match.length;
+                info.pos1 = match.pos1;
+                info.pos2 = match.pos2;
+                info.seq = r->mSeq->substr(match.pos1, match.length);
+                if(mOptions->complexityFilter.enabled && !passRepeatComplexity(info.seq, mOptions->complexityFilter.threshold)) {
+                    continue;
+                }
+                mLongRepeats.push_back(info);
+            }
+
+            if(!mLongRepeats.empty()) {
+                std::sort(mLongRepeats.begin(), mLongRepeats.end(), [](const RepeatMatchInfo& a, const RepeatMatchInfo& b) {
+                    return a.length > b.length;
+                });
+                if(mLongRepeats.size() > LONG_REPEAT_MAX_RESULTS) {
+                    mLongRepeats.resize(LONG_REPEAT_MAX_RESULTS);
+                }
+            }
+        }
+    }
+
+    mReads++;
+}
+
+void Stats::unstatRead(Read* r) {
+    int len = r->length();
+
+    mLengthSum -= len;
+
+    // Buffer must already be large enough (statRead was called first)
+    const char* seqstr = r->mSeq->c_str();
+    const char* qualstr = r->mQuality->c_str();
+
+    static const char q20 = '5';
+    static const char q30 = '?';
+
+    int kmer = 0;
+    bool needFullCompute = true;
+    for(int i=0; i<len; i++) {
+        char base = seqstr[i];
+        char qual = qualstr[i];
+        char b = base & 0x07;
+        int  qval = qual - 33;
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
+
+        mBaseQualHistogram[qual]--;
+        q30Row[i]   -= isQ30;
+        q20Row[i]   -= isQ20;
+        contents[i]--;
+        baseQual[i] -= qval;
+        mCycleTotalBase[i]--;
+        mCycleTotalQual[i] -= qval;
+
+        if(base == 'N'){
+            needFullCompute = true;
+            continue;
+        }
+
+        if(i<4)
+            continue;
+
+        if(!needFullCompute){
+            int val = base2val(base);
+            if(val < 0){
+                needFullCompute = true;
+                continue;
+            } else {
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+                mKmer[kmer]--;
+            }
+        } else {
+            bool valid = true;
+            kmer = 0;
+            for(int k=0; k<5; k++) {
+                int val = base2val(seqstr[i - 4 + k]);
+                if(val < 0) {
+                    valid = false;
+                    break;
+                }
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+            }
+            if(!valid) {
+                needFullCompute = true;
+                continue;
+            } else {
+                mKmer[kmer]--;
+                needFullCompute = false;
+            }
+        }
+    }
+
+    // Skip overrepresentation and long repeat analysis (sampling-based, negligible)
+    mReads--;
+}
+
+void Stats::mergeBatchStats(const struct GpuBatchPostStats& bs) {
+    // Extend buffers if needed to hold max cycle count used by GPU
+    int maxCycle = 0;
+    for (int i = GPU_STATS_MAX_CYCLES - 1; i >= 0; --i) {
+        if (bs.cycle_total_base[i] > 0) { maxCycle = i + 1; break; }
+    }
+    if (maxCycle > mBufLen) extendBuffer(maxCycle + 100);
+
+    for (int b = 0; b < GPU_STATS_NUM_BASES; ++b) {
+        for (int i = 0; i < maxCycle; ++i) {
+            mCycleBaseContents[b][i] += bs.cycle_base_contents[b][i];
+            mCycleBaseQual[b][i]     += bs.cycle_base_qual[b][i];
+            mCycleQ20Bases[b][i]     += bs.cycle_q20[b][i];
+            mCycleQ30Bases[b][i]     += bs.cycle_q30[b][i];
+        }
+    }
+    for (int i = 0; i < maxCycle; ++i) {
+        mCycleTotalBase[i] += bs.cycle_total_base[i];
+        mCycleTotalQual[i] += bs.cycle_total_qual[i];
+    }
+    for (int q = 0; q < 128; ++q) {
+        mBaseQualHistogram[q] += bs.base_qual_histogram[q];
+    }
+    for (int k = 0; k < GPU_STATS_KMER_COUNT; ++k) {
+        mKmer[k] += bs.kmer[k];
+    }
+    mReads     += bs.reads_passed;
+    mLengthSum += bs.length_sum;
+}
+
+// 256-byte LUT for ACGT -> 0..3 mapping; everything else returns -1.
+// Used by the kmer path; faster than a switch by avoiding branches.
+static const signed char BASE2VAL_LUT[256] = {
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1, 0,-1, 2,-1,-1,-1, 3, -1,-1,-1,-1,-1,-1,-1,-1,  // @ A B C D E F G H I J K L M N O
+    -1,-1,-1,-1, 1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,  // P Q R S T U V W X Y Z [ \ ] ^ _
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1
+};
+
+int Stats::base2val(char base) {
+    return BASE2VAL_LUT[(unsigned char)base];
+}
+
+int Stats::getCycles() {
+    if(!summarized)
+        summarize();
+    return mCycles;
+}
+
+long Stats::getReads() {
+    if(!summarized)
+        summarize();
+    return mReads;
+}
+
+long Stats::getBases() {
+    if(!summarized)
+        summarize();
+    return mBases;
+}
+
+long Stats::getQ20() {
+    if(!summarized)
+        summarize();
+    return mQ20Total;
+}
+
+long Stats::getQ30() {
+    if(!summarized)
+        summarize();
+    return mQ30Total;
+}
+
+long Stats::getQ40() {
+    if(!summarized)
+        summarize();
+    return mQ40Total;
+}
+
+long* Stats::getQualHist() {
+    return mBaseQualHistogram;
+}
+
+long Stats::getGCNumber() {
+    if(!summarized)
+        summarize();
+    return mBaseContents['G' & 0x07] + mBaseContents['C' & 0x07];
+}
+
+void Stats::print() {
+    if(!summarized) {
+        summarize();
+    }
+    cerr << "total reads: " << mReads << endl;
+    cerr << "total bases: " << mBases << endl;
+    cerr << "Q20 bases: " << mQ20Total << "(" << (mQ20Total*100.0)/mBases << "%)" << endl;
+    cerr << "Q30 bases: " << mQ30Total << "(" << (mQ30Total*100.0)/mBases << "%)" << endl;
+    cerr << "Q40 bases: " << mQ40Total << "(" << (mQ40Total*100.0)/mBases << "%)" << endl;
+}
+
+void Stats::reportJson(ofstream& ofs, string padding) {
+    ofs << "{" << endl;
+
+    ofs << padding << "\t" << "\"total_reads\": " << mReads << "," << endl;
+    ofs << padding << "\t" << "\"total_bases\": " << mBases << "," << endl;
+    ofs << padding << "\t" << "\"q20_bases\": " << mQ20Total << "," << endl;
+    ofs << padding << "\t" << "\"q30_bases\": " << mQ30Total << "," << endl;
+    ofs << padding << "\t" << "\"q40_bases\": " << mQ40Total << "," << endl;
+    ofs << padding << "\t" << "\"total_cycles\": " << mCycles << "," << endl;
+
+    // quality curves
+    string qualNames[5] = {"A", "T", "C", "G", "mean"};
+    ofs << padding << "\t" << "\"quality_curves\": {" << endl;
+    for(int i=0 ;i<5; i++) {
+        string name=qualNames[i];
+        double* curve = mQualityCurves[name];
+        ofs << padding << "\t\t" << "\"" << name << "\":[";
+        for(int c = 0; c<mCycles; c++) {
+            ofs << curve[c];
+            // not the end
+            if(c != mCycles - 1)
+                ofs << ",";
+        }
+        ofs << "]";
+        // not the end;
+        if(i != 5-1)
+            ofs << ",";
+        ofs << endl; 
+    }
+    ofs << padding << "\t" << "}," << endl;
+
+    // content curves
+    string contentNames[6] = {"A", "T", "C", "G", "N", "GC"};
+    ofs << padding << "\t" << "\"content_curves\": {" << endl;
+    for(int i=0 ;i<6; i++) {
+        string name=contentNames[i];
+        double* curve = mContentCurves[name];
+        ofs << padding << "\t\t" << "\"" << name << "\":[";
+        for(int c = 0; c<mCycles; c++) {
+            ofs << curve[c];
+            // not the end
+            if(c != mCycles - 1)
+                ofs << ",";
+        }
+        ofs << "]";
+        // not the end;
+        if(i != 6-1)
+            ofs << ",";
+        ofs << endl; 
+    }
+    ofs << padding << "\t" << "}," << endl;
+
+    // KMER counting
+    ofs << padding << "\t" << "\"kmer_count\": {" << endl;
+    for(int i=0; i<64; i++) {
+        string first = kmer3(i);
+        for(int j=0; j<16; j++) {
+            int target = (i<<4) + j;
+            long count = mKmer[target];
+            string last = kmer2(j);
+            ofs << padding << "\t\t\"" << first << last << "\":" << count;
+            if(j != 16-1)
+                ofs << ",";
+        }
+        if(i != 64-1)
+            ofs << "," << endl;
+        else
+            ofs << endl;
+    }
+    ofs << padding << "\t" << "}," << endl;
+
+    // over represented seqs
+    map<string, long>::iterator iter;
+    bool first = true;
+    ofs << padding << "\t" << "\"overrepresented_sequences\": {" << endl;
+    for(iter=mOverRepSeq.begin(); iter!=mOverRepSeq.end(); iter++) {
+        string seq = iter->first;
+        long count = iter->second;
+        if(!overRepPassed(seq, count))
+            continue;
+        if(!first) {
+            ofs << "," << endl;
+        } else
+            first = false;
+        ofs << padding << "\t\t\"" << seq <<  "\":" << count;
+    }
+    ofs << padding << "\t" << "}" << endl;
+
+    ofs << padding << "}," << endl;
+}
+
+string Stats::list2string(double* list, int size) {
+    stringstream ss;
+    for(int i=0; i<size; i++) {
+        ss << list[i];
+        if(i < size-1)
+            ss << ",";
+    }
+    return ss.str();
+}
+
+string Stats::list2string(double* list, int size, long* coords) {
+    stringstream ss;
+    for(int i=0; i<size; i++) {
+        // coords is 1,2,3,...
+        long start = 0;
+        if(i>0)
+            start = coords[i-1];
+        long end = coords[i];
+
+        double total = 0.0;
+        for(int k=start; k<end; k++)
+            total += list[k];
+
+        // get average
+        if(end == start)
+            ss << "0.0";
+        else
+            ss << total / (end - start);
+        //ss << list[coords[i]-1];
+        if(i < size-1)
+            ss << ",";
+    }
+    return ss.str();
+}
+
+string Stats::list2string(long* list, int size) {
+    stringstream ss;
+    for(int i=0; i<size; i++) {
+        ss << list[i];
+        if(i < size-1)
+            ss << ",";
+    }
+    return ss.str();
+}
+
+void Stats::reportHtml(ofstream& ofs, string filteringType, string readName) {
+    reportHtmlQuality(ofs, filteringType, readName);
+    reportHtmlContents(ofs, filteringType, readName);
+    reportHtmlKMER(ofs, filteringType, readName);
+    if(mOptions->overRepAnalysis.enabled) {
+        reportHtmlORA(ofs, filteringType, readName);
+    }
+    if(mOptions->longRepeat.enabled) {
+        reportHtmlLongRepeats(ofs, filteringType, readName);
+    }
+}
+
+bool Stats::overRepPassed(string& seq, long count) {
+    int s = mOptions->overRepAnalysis.sampling;
+    switch(seq.length()) {
+        case 10:
+            return s * count > 500;
+        case 20:
+            return s * count > 200;
+        case 40:
+            return s * count > 100;
+        case 100:
+            return s * count > 50;
+        default:
+            return s * count > 20;
+    }
+}
+
+void Stats::reportHtmlORA(ofstream& ofs, string filteringType, string readName) {
+    // over represented seqs
+    double dBases = mBases;
+    map<string, long>::iterator iter;
+    int displayed = 0;
+
+    // KMER
+    string subsection = filteringType + ": " + readName + ": overrepresented sequences";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+    string title = "";
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div  id='" << divName << "'>\n";
+    ofs << "<div class='sub_section_tips'>Sampling rate: 1 / " << mOptions->overRepAnalysis.sampling << "</div>\n";
+    ofs << "<table class='summary_table'>\n";
+    ofs << "<tr style='font-weight:bold;'><td>overrepresented sequence</td><td>count (% of bases)</td><td>distribution: cycle 1 ~ cycle " << mEvaluatedSeqLen << "</td></tr>"<<endl;
+    int found = 0;
+    for(iter=mOverRepSeq.begin(); iter!=mOverRepSeq.end(); iter++) {
+        string seq = iter->first;
+        long count = iter->second;
+        if(!overRepPassed(seq, count))
+            continue;
+        found++;
+        double percent = (100.0 * count * seq.length() * mOptions->overRepAnalysis.sampling)/dBases;
+        ofs << "<tr>";
+        ofs << "<td width='400' style='word-break:break-all;font-size:8px;'>" << seq << "</td>";
+        ofs << "<td width='200'>" << count << " (" << to_string(percent) <<"%)</td>";
+        ofs << "<td width='250'><canvas id='" << divName << "_" << seq << "' width='240' height='20'></td>";
+        ofs << "</tr>" << endl;
+    }
+    if(found == 0)
+        ofs << "<tr><td style='text-align:center' colspan='3'>not found</td></tr>" << endl;
+    ofs << "</table>\n";
+    ofs << "</div>\n";
+
+    // output the JS
+    ofs << "<script language='javascript'>" << endl;
+    ofs << "var seqlen = " << mEvaluatedSeqLen << ";" << endl;
+    ofs << "var orp_dist = {" << endl;
+    bool first = true;
+    for(iter=mOverRepSeq.begin(); iter!=mOverRepSeq.end(); iter++) {
+        string seq = iter->first;
+        long count = iter->second;
+        if(!overRepPassed(seq, count))
+            continue;
+
+        if(!first) {
+            ofs << "," << endl;
+        } else
+            first = false;
+        ofs << "\t\"" << divName << "_" << seq << "\":[";
+        for(int i=0; i<mEvaluatedSeqLen; i++){
+            if(i !=0 )
+                ofs << ",";
+            ofs << mOverRepSeqDist[seq][i];
+        }
+        ofs << "]";
+    }
+    ofs << "\n};" << endl;
+
+    ofs << "for (seq in orp_dist) {"<< endl;
+    ofs << "    var cvs = document.getElementById(seq);"<< endl;
+    ofs << "    var ctx = cvs.getContext('2d'); "<< endl;
+    ofs << "    var data = orp_dist[seq];"<< endl;
+    ofs << "    var w = 240;"<< endl;
+    ofs << "    var h = 20;"<< endl;
+    ofs << "    ctx.fillStyle='#cccccc';"<< endl;
+    ofs << "    ctx.fillRect(0, 0, w, h);"<< endl;
+    ofs << "    ctx.fillStyle='#0000FF';"<< endl;
+    ofs << "    var maxVal = 0;"<< endl;
+    ofs << "    for(d=0; d<seqlen; d++) {"<< endl;
+    ofs << "        if(data[d]>maxVal) maxVal = data[d];"<< endl;
+    ofs << "    }"<< endl;
+    ofs << "    var step = (seqlen-1) /  (w-1);"<< endl;
+    ofs << "    for(x=0; x<w; x++){"<< endl;
+    ofs << "        var target = step * x;"<< endl;
+    ofs << "        var val = data[Math.floor(target)];"<< endl;
+    ofs << "        var y = Math.floor((val / maxVal) * h);"<< endl;
+    ofs << "        ctx.fillRect(x,h-1, 1, -y);"<< endl;
+    ofs << "    }"<< endl;
+    ofs << "}"<< endl;
+    ofs << "</script>"<< endl;
+}
+
+void Stats::reportHtmlLongRepeats(ofstream& ofs, string filteringType, string readName) {
+    string subsection = filteringType + ": " + readName + ": long repeats";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+
+    int sampling = max(1, mOptions->overRepAnalysis.sampling);
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div  id='" << divName << "'>\n";
+    ofs << "<div class='sub_section_tips'>Sampling rate: 1 / " << sampling
+        << ", min repeat length: " << mOptions->longRepeat.minLen << ", top " << LONG_REPEAT_MAX_RESULTS << " reported</div>\n";
+
+    if(mLongRepeats.empty()) {
+        ofs << "<div class='sub_section_tips'>No long repeats found in sampled reads.</div>\n";
+        ofs << "</div>\n";
+        return;
+    }
+
+    ofs << "<table class='summary_table'>\n";
+    ofs << "<tr><td>length</td><td>pos1</td><td>pos2</td><td>sequence</td></tr>\n";
+
+    for(size_t i = 0; i < mLongRepeats.size(); i++) {
+        const RepeatMatchInfo& info = mLongRepeats[i];
+        ofs << "<tr>";
+        ofs << "<td>" << info.length << "</td>";
+        ofs << "<td>" << info.pos1 << "</td>";
+        ofs << "<td>" << info.pos2 << "</td>";
+        ofs << "<td>" << info.seq << "</td>";
+        ofs << "</tr>\n";
+    }
+
+    ofs << "</table>\n";
+    ofs << "</div>\n";
+}
+
+void Stats::setLongRepeatEnabled(bool enabled) {
+    mLongRepeatEnabled = enabled;
+}
+
+bool Stats::isLongRead() {
+    return mCycles > 300;
+}
+
+void Stats::reportHtmlKMER(ofstream& ofs, string filteringType, string readName) {
+
+    // KMER
+    string subsection = filteringType + ": " + readName + ": KMER counting";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+    string title = "";
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div  id='" << divName << "'>\n";
+    ofs << "<div class='sub_section_tips'>Darker background means larger counts. The count will be shown on mouse over.</div>\n";
+    ofs << "<table class='kmer_table' style='width:680px;'>\n";
+    ofs << "<tr>";
+    ofs << "<td></td>";
+    // the heading row
+    for(int h=0; h<16; h++) 
+        ofs << "<td style='color:#333333'>" << kmer2(h) << "</td>";
+    ofs << "</tr>\n";
+    // content
+    for(int i=0; i<64; i++) {
+        ofs << "<tr>";
+
+        ofs << "<td style='color:#333333'>" << kmer3(i) << "</td>";
+        for(int j=0; j<16; j++) {
+            ofs << makeKmerTD(i,j) ;
+        }
+        ofs << "</tr>\n";
+    }
+    ofs << "</table>\n";
+    ofs << "</div>\n";
+}
+
+string Stats::makeKmerTD(int i, int j) {
+    int target = (i<<4) + j;
+    long val = mKmer[target];
+    // 3bp + 2bp = 5bp
+    string first = kmer3(i);
+    string last = kmer2(j);
+    string kmer = first+last;
+    double meanBases = (double)(mBases+1) / mKmerBufLen;
+    double prop = val / meanBases;
+    double frac = 0.5;
+    if(prop > 2.0) 
+        frac = (prop-2.0)/20.0 + 0.5;
+    else if(prop< 0.5)
+        frac = prop;
+
+    frac = max(0.01, min(1.0, frac));
+    int r = (1.0-frac) * 255;
+    int g = r;
+    int b = r;
+    stringstream ss;
+    ss << "<td style='background:#"; 
+    if(r<16)
+        ss << "0";
+    ss<<hex<<r;
+    if(g<16)
+        ss << "0";
+    ss<<hex<<g;
+    if(b<16)
+        ss << "0";
+    ss<<hex<<b;
+    ss << dec << "' title='"<< kmer << ": " << val << "\n" << prop << " times as mean value'>";
+    ss << kmer << "</td>";
+    return ss.str();
+}
+
+string Stats::kmer3(int val) {
+    const char bases[4] = {'A', 'T', 'C', 'G'};
+    string ret(3, ' ');
+    ret[0] = bases[(val & 0x30) >> 4];
+    ret[1] = bases[(val & 0x0C) >> 2];
+    ret[2] = bases[(val & 0x03)];
+    return ret;
+}
+
+string Stats::kmer2(int val) {
+    const char bases[4] = {'A', 'T', 'C', 'G'};
+    string ret(2, ' ');
+    ret[0] = bases[(val & 0x0C) >> 2];
+    ret[1] = bases[(val & 0x03)];
+    return ret;
+}
+
+void Stats::reportHtmlQuality(ofstream& ofs, string filteringType, string readName) {
+
+    // quality
+    string subsection = filteringType + ": " + readName + ": quality";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+    string title = "";
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div id='" + divName + "'>\n";
+    ofs << "<div class='sub_section_tips'>Value of each position will be shown on mouse over.</div>\n";
+    ofs << "<div class='figure' id='plot_" + divName + "'></div>\n";
+    ofs << "</div>\n";
+    
+    string alphabets[5] = {"A", "T", "C", "G", "mean"};
+    string colors[5] = {"rgba(128,128,0,1.0)", "rgba(128,0,128,1.0)", "rgba(0,255,0,1.0)", "rgba(0,0,255,1.0)", "rgba(20,20,20,1.0)"};
+    ofs << "\n<script type=\"text/javascript\">" << endl;
+    string json_str = "var data=[";
+
+    long *x = new long[mCycles];
+    int total = 0;
+    if(!isLongRead()) {
+        for(int i=0; i<mCycles; i++){
+            x[total] = i+1;
+            total++;
+        }
+    } else {
+        const int fullSampling = 40;
+        for(int i=0; i<fullSampling && i<mCycles; i++){
+            x[total] = i+1;
+            total++;
+        }
+        // down sampling if it's too long
+        if(mCycles>fullSampling) {
+            double pos = fullSampling;
+            while(true){
+                pos *= 1.05;
+                if(pos >= mCycles)
+                    break;
+                x[total] = (int)pos;
+                total++;
+            }
+            // make sure lsat one is contained
+            if(x[total-1] != mCycles){
+                x[total] = mCycles;
+                total++;
+            }
+        }
+    }
+    // four bases
+    for (int b = 0; b<5; b++) {
+        string base = alphabets[b];
+        json_str += "{";
+        json_str += "x:[" + list2string(x, total) + "],";
+        json_str += "y:[" + list2string(mQualityCurves[base], total, x) + "],";
+        json_str += "name: '" + base + "',";
+        json_str += "mode:'lines',";
+        json_str += "line:{color:'" + colors[b] + "', width:1}\n";
+        json_str += "},";
+    }
+    json_str += "];\n";
+    json_str += "var layout={title:'" + title + "', xaxis:{title:'position'";
+    // use log plot if it's too long
+    if(isLongRead()) {
+        json_str += ",type:'log'";
+    }
+    json_str += "}, yaxis:{title:'quality'}};\n";
+    json_str += "Plotly.newPlot('plot_" + divName + "', data, layout);\n";
+
+    ofs << json_str;
+    ofs << "</script>" << endl;
+
+    delete[] x;
+}
+
+void Stats::reportHtmlContents(ofstream& ofs, string filteringType, string readName) {
+
+    // content
+    string subsection = filteringType + ": " + readName + ": base contents";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+    string title = "";
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div id='" + divName + "'>\n";
+    ofs << "<div class='sub_section_tips'>Value of each position will be shown on mouse over.</div>\n";
+    ofs << "<div class='figure' id='plot_" + divName + "'></div>\n";
+    ofs << "</div>\n";
+    
+    string alphabets[6] = {"A", "T", "C", "G", "N", "GC"};
+    string colors[6] = {"rgba(128,128,0,1.0)", "rgba(128,0,128,1.0)", "rgba(0,255,0,1.0)", "rgba(0,0,255,1.0)", "rgba(255, 0, 0, 1.0)", "rgba(20,20,20,1.0)"};
+    ofs << "\n<script type=\"text/javascript\">" << endl;
+    string json_str = "var data=[";
+
+    long *x = new long[mCycles];
+    int total = 0;
+    if(!isLongRead()) {
+        for(int i=0; i<mCycles; i++){
+            x[total] = i+1;
+            total++;
+        }
+    } else {
+        const int fullSampling = 40;
+        for(int i=0; i<fullSampling && i<mCycles; i++){
+            x[total] = i+1;
+            total++;
+        }
+        // down sampling if it's too long
+        if(mCycles>fullSampling) {
+            double pos = fullSampling;
+            while(true){
+                pos *= 1.05;
+                if(pos >= mCycles)
+                    break;
+                x[total] = (int)pos;
+                total++;
+            }
+            // make sure lsat one is contained
+            if(x[total-1] != mCycles){
+                x[total] = mCycles;
+                total++;
+            }
+        }
+    }
+    // four bases
+    for (int b = 0; b<6; b++) {
+        string base = alphabets[b];
+        long count = 0;
+        if(base.size()==1) {
+            char b = base[0] & 0x07;
+            count = mBaseContents[b];
+        } else {
+            count = mBaseContents['G' & 0x07] + mBaseContents['C' & 0x07] ;
+        }
+
+        string percentage;
+        if (mBases != 0) {
+            percentage = to_string((double)count * 100.0 / mBases);
+        } else {
+            percentage = "-nan";
+        }
+
+        if(percentage.length()>5)
+            percentage = percentage.substr(0,5);
+        string name = base + "(" + percentage + "%)"; 
+
+        json_str += "{";
+        json_str += "x:[" + list2string(x, total) + "],";
+        json_str += "y:[" + list2string(mContentCurves[base], total, x) + "],";
+        json_str += "name: '" + name + "',";
+        json_str += "mode:'lines',";
+        json_str += "line:{color:'" + colors[b] + "', width:1}\n";
+        json_str += "},";
+    }
+    json_str += "];\n";
+    json_str += "var layout={title:'" + title + "', xaxis:{title:'position'";
+    // use log plot if it's too long
+    if(isLongRead()) {
+        json_str += ",type:'log'";
+    }
+    json_str += "}, yaxis:{title:'base content ratios'}};\n";
+    json_str += "Plotly.newPlot('plot_" + divName + "', data, layout);\n";
+
+    ofs << json_str;
+    ofs << "</script>" << endl;
+
+    delete[] x;
+}
+
+Stats* Stats::merge(vector<Stats*>& list) {
+    if(list.size() == 0)
+        return NULL;
+
+    //get the most long cycles
+    int cycles = 0;
+    for(int t=0; t<list.size(); t++) {
+        list[t]->summarize();
+        cycles = max(cycles, list[t]->getCycles());
+    }
+
+    Stats* s = new Stats(list[0]->mOptions, list[0]->mIsRead2, cycles, 0);
+
+    // init overrepresented seq maps
+    map<string, long>::iterator iter;
+
+    for(int t=0; t<list.size(); t++) {
+        int curCycles =  list[t]->getCycles();
+        // merge read number
+        s->mReads += list[t]->mReads;
+        s->mLengthSum += list[t]->mLengthSum;
+
+        // merge per cycle counting for different bases
+        for(int i=0; i<8; i++){
+            for(int j=0; j<cycles && j<curCycles; j++) {
+                s->mCycleQ30Bases[i][j] += list[t]->mCycleQ30Bases[i][j];
+                s->mCycleQ20Bases[i][j] += list[t]->mCycleQ20Bases[i][j];
+                s->mCycleBaseContents[i][j] += list[t]->mCycleBaseContents[i][j];
+                s->mCycleBaseQual[i][j] += list[t]->mCycleBaseQual[i][j];
+            }
+        }
+
+        // merge per cycle counting for all bases
+        for(int j=0; j<cycles && j<curCycles; j++) {
+            s->mCycleTotalBase[j] += list[t]->mCycleTotalBase[j];
+            s->mCycleTotalQual[j] += list[t]->mCycleTotalQual[j];
+        }
+
+        // merge kMer
+        for(int i=0; i<s->mKmerBufLen; i++) {
+            s->mKmer[i] += list[t]->mKmer[i];
+        }
+
+        // merge base/read qual histogram
+        for(int i=0; i<128; i++) {
+            s->mBaseQualHistogram[i] += list[t]->mBaseQualHistogram[i];
+        }
+
+        // merge over rep seq
+        for(iter = s->mOverRepSeq.begin(); iter != s->mOverRepSeq.end(); iter++) {
+            string seq = iter->first;
+            s->mOverRepSeq[seq] += list[t]->mOverRepSeq[seq];
+            if(s->mIsRead2 != list[t]->mIsRead2 || list[t]->mOverRepSeqDist[seq] == NULL)
+                cerr << t <<seq<< ":" << (s->mIsRead2?2:1 ) << "," << (list[t]->mIsRead2?2:1 ) <<endl;
+            for(int i=0; i<s->mEvaluatedSeqLen; i++) {
+                s->mOverRepSeqDist[seq][i] += list[t]->mOverRepSeqDist[seq][i];
+            }
+        }
+
+        if(list[t]->mLongestRepeat.length > s->mLongestRepeat.length) {
+            s->mLongestRepeat = list[t]->mLongestRepeat;
+        }
+        s->mLongRepeats.insert(s->mLongRepeats.end(), list[t]->mLongRepeats.begin(), list[t]->mLongRepeats.end());
+    }
+
+    if(!s->mLongRepeats.empty()) {
+        std::sort(s->mLongRepeats.begin(), s->mLongRepeats.end(), [](const RepeatMatchInfo& a, const RepeatMatchInfo& b) {
+            return a.length > b.length;
+        });
+        if(s->mLongRepeats.size() > LONG_REPEAT_MAX_RESULTS) {
+            s->mLongRepeats.resize(LONG_REPEAT_MAX_RESULTS);
+        }
+    }
+
+    s->summarize();
+
+    return s;
+}
+
+void Stats::initOverRepSeq() {
+    map<string, long> overRepSeq;
+    if(mIsRead2)
+        overRepSeq = mOptions->overRepSeqs2;
+    else
+        overRepSeq = mOptions->overRepSeqs1;
+
+    map<string, long>::iterator iter;
+    for(iter = overRepSeq.begin(); iter!=overRepSeq.end(); iter++) {
+        string seq = iter->first;
+        mOverRepSeq[seq] = 0;
+        long* distBuf = new long[mEvaluatedSeqLen];
+        memset(distBuf, 0, sizeof(long)*mEvaluatedSeqLen);
+        mOverRepSeqDist[seq] = distBuf;
+    }
+}
+
+void Stats::deleteOverRepSeqDist() {
+    map<string, long>::iterator iter;
+    for(iter = mOverRepSeq.begin(); iter!=mOverRepSeq.end(); iter++) {
+        string seq = iter->first;
+        delete mOverRepSeqDist[seq];
+        mOverRepSeqDist[seq] = NULL;
+    }
+}
+
