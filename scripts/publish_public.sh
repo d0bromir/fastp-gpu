@@ -289,7 +289,15 @@ echo "Created snapshot commit $NEW_SHA on branch $BRANCH."
 # ---------- push --------------------------------------------------------
 if [[ $DO_PUSH -eq 1 ]]; then
     PUSH_ARGS=(origin "$BRANCH:$BRANCH")
-    [[ $FORCE -eq 1 ]] && PUSH_ARGS=(--force-with-lease "${PUSH_ARGS[@]}")
+    if [[ $REWRITE_HISTORY -eq 1 ]]; then
+        # Orphan repo has no record of the remote ref, so --force-with-lease
+        # would always reject ("stale info"). Use plain --force here; the
+        # destructive behaviour is already gated behind the explicit
+        # --rewrite-history opt-in.
+        PUSH_ARGS=(--force "${PUSH_ARGS[@]}")
+    elif [[ $FORCE -eq 1 ]]; then
+        PUSH_ARGS=(--force-with-lease "${PUSH_ARGS[@]}")
+    fi
     echo "+ git push ${PUSH_ARGS[*]}"
     git push "${PUSH_ARGS[@]}"
     echo
