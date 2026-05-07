@@ -1,0 +1,4 @@
+Run timestamp: 20260418_085816 UTC
+Platform: galaxy_arm_a100 (see ../hardware.txt)
+Configuration: -o /dev/null (no gzip output) - measures pipeline without compression
+fastp-gpu version: v1.2.2; opengene fastp version: v1.1.0

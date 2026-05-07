@@ -33,6 +33,7 @@ private:
     size_t mConsumed;
     unsigned long mLimit;
     bool mIsFull;
+    int mScanIdx;  // round-robin start index for getOne()
 };
 
 #endif
