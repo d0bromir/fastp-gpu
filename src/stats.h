@@ -9,7 +9,16 @@
 #include "read.h"
 #include "options.h"
 
+struct GpuBatchPostStats;
+
 using namespace std;
+
+struct RepeatMatchInfo {
+    string seq;
+    size_t length;
+    size_t pos1;
+    size_t pos2;
+};
 
 class Stats{
 public:
@@ -26,6 +35,14 @@ public:
     long* getQualHist();
     // by default the qualified qual score is Q20 ('5')
     void statRead(Read* r);
+    // Lightweight version of statRead that skips kmer, overrep, and long repeat analysis.
+    // Matches GPU pre-stats behavior (processBatchStatsOnly computes only per-position stats).
+    void statReadBasic(Read* r);
+    // Reverse the per-base array updates of statRead (decrements counters).
+    // Used to speculatively accumulate post-filter stats, then subtract failed reads.
+    void unstatRead(Read* r);
+    // Merge GPU-computed batch post-filter statistics into this Stats object.
+    void mergeBatchStats(const struct GpuBatchPostStats& batchStats);
 
     static Stats* merge(vector<Stats*>& list);
     void print();
@@ -38,9 +55,11 @@ public:
     void reportHtmlContents(ofstream& ofs, string filteringType, string readName);
     void reportHtmlKMER(ofstream& ofs, string filteringType, string readName);
     void reportHtmlORA(ofstream& ofs, string filteringType, string readName);
+    void reportHtmlLongRepeats(ofstream& ofs, string filteringType, string readName);
     bool isLongRead();
     void initOverRepSeq();
     int getMeanLength();
+    void setLongRepeatEnabled(bool enabled);
 
 public:
     static string list2string(double* list, int size);
@@ -49,8 +68,6 @@ public:
     static int base2val(char base);
 
 private:
-    static const int CYCLE_ARRAY_COUNT = 34; // 8+8+8+8+1+1
-    void setCyclePointers(int bufLen);
     void extendBuffer(int newBufLen);
     string makeKmerTD(int i, int j);
     string kmer3(int val);
@@ -72,9 +89,6 @@ private:
     'G' % 8 = 7
     'N' % 8 = 6
     */
-    // Single allocation for all cycle arrays (34 arrays × mBufLen longs)
-    // Layout: [Q30[0..7] | Q20[0..7] | Content[0..7] | Qual[0..7] | TotalBase | TotalQual]
-    long *mCycleBuffer;
     long *mCycleQ30Bases[8];
     long *mCycleQ20Bases[8];
     long *mCycleBaseContents[8];
@@ -88,6 +102,9 @@ private:
     map<string, double*> mContentCurves;
     map<string, long> mOverRepSeq;
     map<string, long*> mOverRepSeqDist;
+    vector<RepeatMatchInfo> mLongRepeats;
+    RepeatMatchInfo mLongestRepeat;
+    bool mLongRepeatEnabled;
 
 
     int mCycles;
