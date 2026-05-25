@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
+#include <algorithm>
 #include "fastareader.h"
 
 Options::Options(){
@@ -28,6 +29,7 @@ Options::Options(){
     seqLen2 = 151;
     fixMGI = false;
     writerBufferSize = 0x01L<<22; // 4M writer buffer for per output by default
+    useGDS = false;
 }
 
 void Options::init() {
@@ -297,16 +299,16 @@ bool Options::validate() {
         thread = 64;
     }
 
-    if(trim.front1 < 0)
+    if(trim.front1 < 0 || trim.front1 > 30)
         error_exit("trim_front1 (--trim_front1) should be 0 ~ 30, suggest 0 ~ 4");
 
-    if(trim.tail1 < 0)
+    if(trim.tail1 < 0 || trim.tail1 > 100)
         error_exit("trim_tail1 (--trim_tail1) should be 0 ~ 100, suggest 0 ~ 4");
 
-    if(trim.front2 < 0)
+    if(trim.front2 < 0 || trim.front2 > 30)
         error_exit("trim_front2 (--trim_front2) should be 0 ~ 30, suggest 0 ~ 4");
 
-    if(trim.tail2 < 0)
+    if(trim.tail2 < 0 || trim.tail2 > 100)
         error_exit("trim_tail2 (--trim_tail2) should be 0 ~ 100, suggest 0 ~ 4");
 
     if(qualfilter.qualifiedQual - 33 < 0 || qualfilter.qualifiedQual - 33 > 93)
