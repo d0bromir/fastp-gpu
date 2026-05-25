@@ -4,16 +4,36 @@
 #include <time.h>
 #include "cmdline.h"
 #include <sstream>
+#include <thread>
+#include <algorithm>
+#include <condition_variable>
 #include "util.h"
 #include "options.h"
 #include "processor.h"
 #include "evaluator.h"
+#include "cuda_stats_wrapper.h"
+#include "profiling.h"
+#ifdef HAVE_CUDA
+#include <cuda_runtime.h>
+#endif
 
 // TODO: code refactoring to remove these global variables
 string command;
 mutex logmtx;
 
 int main(int argc, char* argv[]){
+    // print version at program start
+    {
+        string verMsg = string("fastp ") + FASTP_VER + " starting";
+        loginfo(verMsg);
+    }
+    
+    // NOTE: CUDA context is NOT pre-warmed here.
+    // Pre-warming (cudaFree(0)) causes CUDA to spawn background threads that race
+    // with glibc malloc during adapter detection, corrupting the heap on some
+    // CUDA/glibc version combinations. CUDA will lazy-initialise on its first
+    // use inside Processor::process(), after adapter detection is complete.
+    
     // display version info if no argument is given
     if(argc == 1) {
         cerr << "fastp: an ultra-fast all-in-one FASTQ preprocessor" << endl << "version " << FASTP_VER << endl;
@@ -44,13 +64,16 @@ int main(int argc, char* argv[]){
     cmd.add("include_unmerged", 0, "in the merging mode, write the unmerged or unpaired reads to the file specified by --merge. Disabled by default.");
     cmd.add("phred64", '6', "indicate the input is using phred64 scoring (it'll be converted to phred33, so the output will still be phred33)");
     cmd.add<int>("compression", 'z', "compression level for gzip output (1 ~ 9). 1 is fastest, 9 is smallest, default is 4.", false, 4);
-    cmd.add("stdin", 0, "input from STDIN. If the STDIN is interleaved paired-end FASTQ, please also add --interleaved_in. Adapter auto-detection is disabled for STDIN mode");
+    cmd.add("stdin", 0, "input from STDIN. If the STDIN is interleaved paired-end FASTQ, please also add --interleaved_in.");
     cmd.add("stdout", 0, "stream passing-filters reads to STDOUT. This option will result in interleaved FASTQ output for paired-end output. Disabled by default.");
     cmd.add("interleaved_in", 0, "indicate that <in1> is an interleaved FASTQ which contains both read1 and read2. Disabled by default.");
     cmd.add<int>("reads_to_process", 0, "specify how many reads/pairs to be processed. Default 0 means process all reads.", false, 0);
     cmd.add("dont_overwrite", 0, "don't overwrite existing files. Overwritting is allowed by default.");
     cmd.add("fix_mgi_id", 0, "the MGI FASTQ ID format is not compatible with many BAM operation tools, enable this option to fix it.");
     cmd.add("verbose", 'V', "output verbose log information (i.e. when every 1M reads are processed).");
+
+    // GPU-Direct Storage
+    cmd.add("use_gds", 0, "enable GPU-Direct Storage for NVMe-to-GPU DMA reads, bypassing CPU memory entirely. Requires GDS-capable hardware/driver and BGZF-compressed input.");
 
     // adapter
     cmd.add("disable_adapter_trimming", 'A', "adapter trimming is enabled by default. If this option is specified, adapter trimming is disabled");
@@ -135,6 +158,7 @@ int main(int argc, char* argv[]){
     // overrepresented sequence analysis
     cmd.add("overrepresentation_analysis", 'p', "enable overrepresented sequence analysis.");
     cmd.add<int>("overrepresentation_sampling", 'P', "one in (--overrepresentation_sampling) reads will be computed for overrepresentation analysis (1~10000), smaller is slower, default is 20.", false, 20);
+    cmd.add<int>("long_repeat_length", 0, "enable long repeat detection and set minimum repeat length (>=2). Disabled by default.", false, 0);
     
     // reporting
     cmd.add<string>("json", 'j', "the json format report file name", false, "fastp.json");
@@ -196,6 +220,7 @@ int main(int argc, char* argv[]){
     opt.interleavedInput = cmd.exist("interleaved_in");
     opt.verbose = cmd.exist("verbose");
     opt.fixMGI = cmd.exist("fix_mgi_id");
+    opt.useGDS = cmd.exist("use_gds");
 
     // duplication evaluation and deduplication
     opt.duplicate.dedup = cmd.exist("dedup");
@@ -419,6 +444,11 @@ int main(int argc, char* argv[]){
     // overrepresented sequence analysis
     opt.overRepAnalysis.enabled = cmd.exist("overrepresentation_analysis");
     opt.overRepAnalysis.sampling = cmd.get<int>("overrepresentation_sampling");
+    opt.longRepeat.minLen = cmd.get<int>("long_repeat_length");
+    opt.longRepeat.enabled = opt.longRepeat.minLen > 0;
+    if(opt.longRepeat.enabled && opt.longRepeat.minLen < 2) {
+        error_exit("--long_repeat_length should be >= 2");
+    }
 
     // filtering by index
     string blacklist1 = cmd.get<string>("filter_by_index1");
@@ -466,7 +496,9 @@ int main(int argc, char* argv[]){
         }
     }
     if(opt.shallDetectAdapter(true)) {
-        if(supportEvaluation) {
+        if(!supportEvaluation)
+            cerr << "Adapter auto-detection is disabled for STDIN mode" << endl;
+        else {
             cerr << "Detecting adapter sequence for read2..." << endl;
             string adapt = eva.evalAdapterAndReadNum(readNum, true);
             if(adapt.length() > 60 )
@@ -507,7 +539,14 @@ int main(int argc, char* argv[]){
     }
 
     Processor p(&opt);
+#ifdef FASTP_PROFILING
+    long long _prof_wall_start = profiling_now_ns();
+#endif
     p.process();
+#ifdef FASTP_PROFILING
+    g_profiling.total_wall_ns.store(profiling_now_ns() - _prof_wall_start);
+    printProfilingSummary();
+#endif
     
     time_t t2 = time(NULL);
 

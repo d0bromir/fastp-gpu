@@ -1,0 +1,3 @@
+[00:46:10] WATCHDOG START pid=4077991 fastp=302143 hard=1800 cpu_idle=30s out_idle=180s
+[00:47:11] WATCHDOG ALIVE elapsed=61s cpu_idle=0s out_idle=0s out_size=11501330432B
+[00:47:50] WATCHDOG EXIT line=1 rc=0 elapsed=98 idle=0 out_idle=0
