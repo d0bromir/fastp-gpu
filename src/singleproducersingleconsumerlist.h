@@ -89,27 +89,19 @@ public:
     inline size_t size() {
         return produced -  consumed;
     }
-    inline bool isEmpty() const {
-        return head == NULL;
-    }
     inline bool canBeConsumed() {
         if(head == NULL)
             return false;
-        // `nextItemReady` is a publication barrier for `nextItem`.
-        // The last node has no successor, so `nextItemReady` may remain false;
-        // it must still be consumable to avoid writer stalls when many queues exist.
-        return head->nextItemReady.load(std::memory_order_acquire) || (head == tail) || producerFinished.load(std::memory_order_acquire);
+        return head->nextItemReady || producerFinished;
     }
     inline void produce(T val) {
         LockFreeListItem<T>* item = makeItem(val);
         if(head==NULL) {
             head = item;
             tail = item;
-            // Signal the first item is consumable (no predecessor to set this)
-            head->nextItemReady.store(true, std::memory_order_release);
         } else {
             tail->nextItem = item;
-            tail->nextItemReady.store(true, std::memory_order_release);
+            tail->nextItemReady = true;
             tail = item;
         }
         produced++;
@@ -124,16 +116,16 @@ public:
         return val;
     }
     inline bool isProducerFinished() {
-        return producerFinished.load(std::memory_order_acquire);
+        return producerFinished;
     }
     inline bool isConsumerFinished() {
-        return consumerFinished.load(std::memory_order_acquire);
+        return consumerFinished;
     }
     inline void setProducerFinished() {
-        producerFinished.store(true, std::memory_order_release);
+        producerFinished = true;
     }
     inline void setConsumerFinished() {
-        consumerFinished.store(true, std::memory_order_release);
+        consumerFinished = true;
     }
 private:
     // blockized list

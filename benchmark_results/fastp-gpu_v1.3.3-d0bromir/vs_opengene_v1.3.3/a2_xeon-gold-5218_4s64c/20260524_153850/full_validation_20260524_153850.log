@@ -1,0 +1,95 @@
+=== Validation Log: Sun May 24 03:38:50 PM UTC 2026 ===
+
+[SIZE] d0bromir_cpu WGS_PE_12.8G T=8 R1 compressed: 6271327832B vs opengene 6214444032B  delta=0.9%
+[SIZE] d0bromir_cpu WGS_PE_12.8G T=8 R2 compressed: 6536988954B vs opengene 6478824798B  delta=0.9%
+[PASS+FQ] d0bromir_cpu WGS_PE_12.8G T=8  md5(R1)=f963249b57e76685931cf87e15455917  md5(R2)=0c971f0704f4dbe9b4b4b2d78708e02d  + 12 JSON fields equal
+
+=== Resumed: Mon May 25 06:08:01 AM UTC 2026 ===
+
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[SIZE] d0bromir_cpu WGS_SE_6.3G T=8 R1 compressed: 6688151119B vs opengene 6626121859B  delta=0.9%
+[PASS+FQ] d0bromir_cpu WGS_SE_6.3G T=8  md5(R1)=b9eab0b00381508a24d17df717c80ca2  + 12 JSON fields equal
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=32  reads_in=80314764  reads_out=77515798
+  [KILLED] opengene WGS_PE_12.8G T=1 — IDLE_TIMEOUT after 1511.944s (HANG_DETECTED output_idle=600s out_size=12660555776B)
+[SKIP] d0bromir_cpu WGS_PE_12.8G T=1 — no valid opengene baseline (og timed out or missing)
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+  [KILLED] opengene WGS_PE_12.8G T=16 — IDLE_TIMEOUT after 732.131s (HANG_DETECTED output_idle=600s out_size=12692304279B)
+[SKIP] d0bromir_cpu WGS_PE_12.8G T=16 — no valid opengene baseline (og timed out or missing)
+[PASS] d0bromir_cpu WGS_PE_12.8G T=32  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[SIZE] d0bromir_cpu WGS_PE_18.2G T=8 R1 compressed: 9393062373B vs opengene 9305760998B  delta=0.9%
+[SIZE] d0bromir_cpu WGS_PE_18.2G T=8 R2 compressed: 9249123740B vs opengene 9166601458B  delta=0.9%
+[PASS+FQ] d0bromir_cpu WGS_PE_18.2G T=8  md5(R1)=df264c934cef40cb6ff9764d29e389bc  md5(R2)=1dd524b0dd64443748908e21de0c1ff9  + 12 JSON fields equal
+[FAIL] d0bromir_cpu WGS_PE_18.2G T=16  reads_in(test=234238034 og=234236034)  reads_out(test=217840930 og=217695230)
+BENCHMARK ABORTED — read-count validation failure
+
+=== Resumed: Tue May 26 03:57:44 PM UTC 2026 ===
+
+
+=== Resumed: Tue May 26 03:58:58 PM UTC 2026 ===
+
+
+=== Resumed: Tue May 26 04:00:28 PM UTC 2026 ===
+
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[WARN] d0bromir_gpu WGS_PE_18.2G T=8 — no opengene reference; falling back to read-count check
+[PASS] d0bromir_gpu WGS_PE_18.2G T=8  reads_in=234238034  reads_out=217840930
+[FAIL] d0bromir_cpu WGS_PE_18.2G T=16  reads_in(test=234238034 og=234236034)  reads_out(test=217840930 og=217695230)
+BENCHMARK ABORTED — read-count validation failure
+
+=== Resumed: Tue May 26 04:38:59 PM UTC 2026 ===
+
+[OG_INCONSISTENT] opengene WGS_PE_18.2G T=16 reads_in=234236034 reads_out=217695230 differs from T=8 canonical (reads_in=234238034 reads_out=217840930) — validating d0bromir_cpu against canonical ref
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[OG_INCONSISTENT] opengene WGS_PE_18.2G T=16 reads_in=234236034 reads_out=217695230 differs from T=8 canonical (reads_in=234238034 reads_out=217840930) — validating d0bromir_gpu against canonical ref
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=32  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=32  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=1  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=1  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=2  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=2  reads_in=1383062125  reads_out=1382940338
+  [KILLED] opengene BS_HiSeq_SE_26.8G T=4 — TIMEOUT after 3599.907s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+[SKIP] d0bromir_cpu BS_HiSeq_SE_26.8G T=4 — no valid opengene baseline (og timed out or missing)
+[SKIP] d0bromir_gpu BS_HiSeq_SE_26.8G T=4 — no valid opengene baseline (og timed out or missing)
+  [KILLED] opengene BS_HiSeq_SE_26.8G T=8 — TIMEOUT after 3600.298s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+[WARN] d0bromir_cpu BS_HiSeq_SE_26.8G T=8 — no opengene reference; falling back to read-count check
+[SKIP] d0bromir_cpu BS_HiSeq_SE_26.8G T=8 — no valid opengene baseline (og timed out or missing)
+[WARN] d0bromir_gpu BS_HiSeq_SE_26.8G T=8 — no opengene reference; falling back to read-count check
+[SKIP] d0bromir_gpu BS_HiSeq_SE_26.8G T=8 — no valid opengene baseline (og timed out or missing)
+  [KILLED] opengene BS_HiSeq_SE_26.8G T=16 — TIMEOUT after 3600.604s (HARD_TIMEOUT elapsed=3601s limit=3600s)
+[SKIP] d0bromir_cpu BS_HiSeq_SE_26.8G T=16 — no valid opengene baseline (og timed out or missing)
+[SKIP] d0bromir_gpu BS_HiSeq_SE_26.8G T=16 — no valid opengene baseline (og timed out or missing)
+  [KILLED] opengene BS_HiSeq_SE_26.8G T=32 — TIMEOUT after 3599.358s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+[SKIP] d0bromir_cpu BS_HiSeq_SE_26.8G T=32 — no valid opengene baseline (og timed out or missing)
+[SKIP] d0bromir_gpu BS_HiSeq_SE_26.8G T=32 — no valid opengene baseline (og timed out or missing)
+  [KILLED] opengene WGS_PE_40G T=1 — TIMEOUT after 3600.120s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+  [KILLED] d0bromir_cpu WGS_PE_40G T=1 — TIMEOUT after 3600.609s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+  [RETRY] TIMEOUT recorded as history; retrying once ds=WGS_PE_40G tool=d0bromir_cpu T=1
+  [KILLED] d0bromir_cpu WGS_PE_40G T=1 — TIMEOUT after 3599.501s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+  [KILLED] d0bromir_gpu WGS_PE_40G T=1 — TIMEOUT after 3600.290s (HARD_TIMEOUT elapsed=3601s limit=3600s)
+  [RETRY] TIMEOUT recorded as history; retrying once ds=WGS_PE_40G tool=d0bromir_gpu T=1
+  [KILLED] d0bromir_gpu WGS_PE_40G T=1 — TIMEOUT after 3601.015s (HARD_TIMEOUT elapsed=3601s limit=3600s)
+  [KILLED] opengene WGS_PE_40G T=2 — TIMEOUT after 3599.930s (HARD_TIMEOUT elapsed=3600s limit=3600s)
+[SKIP] d0bromir_cpu WGS_PE_40G T=2 — no valid opengene baseline (og timed out or missing)
+[SKIP] d0bromir_gpu WGS_PE_40G T=2 — no valid opengene baseline (og timed out or missing)
+[PASS] d0bromir_cpu WGS_PE_40G T=4  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=4  reads_in=722563222  reads_out=717214748
+[SIZE] d0bromir_cpu WGS_PE_40G T=8 R1 compressed: 21439405063B vs opengene 21076751853B  delta=1.7%
+[SIZE] d0bromir_cpu WGS_PE_40G T=8 R2 compressed: 21433606753B vs opengene 21072111528B  delta=1.7%
+[PASS+FQ] d0bromir_cpu WGS_PE_40G T=8  md5(R1)=37be95a5ad2b98e13f624420ab16f843  md5(R2)=d3eb2d74e78261d775720dd2fb07b7a9  + 12 JSON fields equal
+[SIZE] d0bromir_gpu WGS_PE_40G T=8 R1 compressed: 21439405063B vs opengene 21076751853B  delta=1.7%
+[SIZE] d0bromir_gpu WGS_PE_40G T=8 R2 compressed: 21433606753B vs opengene 21072111528B  delta=1.7%
+[PASS+FQ] d0bromir_gpu WGS_PE_40G T=8  md5(R1)=37be95a5ad2b98e13f624420ab16f843  md5(R2)=d3eb2d74e78261d775720dd2fb07b7a9  + 12 JSON fields equal
+[PASS] d0bromir_cpu WGS_PE_40G T=16  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=16  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_cpu WGS_PE_40G T=32  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=32  reads_in=722563222  reads_out=717214748
