@@ -1,9 +1,27 @@
 #include "stats.h"
+#include "cuda_stats_wrapper.h"  // for GpuBatchPostStats
 #include <memory.h>
 #include <sstream>
+#include <algorithm>
 #include "util.h"
+#include "repeatfinder.h"
 
 #define KMER_LEN 5
+static const size_t LONG_REPEAT_MAX_RESULTS = 20;
+
+static bool passRepeatComplexity(const string& seq, double threshold) {
+    if(seq.size() <= 1) {
+        return false;
+    }
+    int diff = 0;
+    for(size_t i = 0; i + 1 < seq.size(); i++) {
+        if(seq[i] != seq[i + 1]) {
+            diff++;
+        }
+    }
+    double ratio = (double)diff / (double)(seq.size() - 1);
+    return ratio >= threshold;
+}
 
 Stats::Stats(Options* opt, bool isRead2, int guessedCycles, int bufferMargin){
     mOptions = opt;
@@ -35,12 +53,24 @@ Stats::Stats(Options* opt, bool isRead2, int guessedCycles, int bufferMargin){
         mQ20Bases[i] = 0;
         mQ30Bases[i] = 0;
         mBaseContents[i] = 0;
-    }
 
-    // Single allocation for all 34 cycle arrays
-    mCycleBuffer = new long[(long)CYCLE_ARRAY_COUNT * mBufLen];
-    memset(mCycleBuffer, 0, sizeof(long) * CYCLE_ARRAY_COUNT * mBufLen);
-    setCyclePointers(mBufLen);
+        mCycleQ30Bases[i] = new long[mBufLen];
+        memset(mCycleQ30Bases[i], 0, sizeof(long) * mBufLen);
+
+        mCycleQ20Bases[i] = new long[mBufLen];
+        memset(mCycleQ20Bases[i], 0, sizeof(long) * mBufLen);
+
+        mCycleBaseContents[i] = new long[mBufLen];
+        memset(mCycleBaseContents[i], 0, sizeof(long) * mBufLen);
+
+        mCycleBaseQual[i] = new long[mBufLen];
+        memset(mCycleBaseQual[i], 0, sizeof(long) * mBufLen);
+    }
+    mCycleTotalBase = new long[mBufLen];
+    memset(mCycleTotalBase, 0, sizeof(long)*mBufLen);
+
+    mCycleTotalQual = new long[mBufLen];
+    memset(mCycleTotalQual, 0, sizeof(long)*mBufLen);
 
     mKmerBufLen = 2<<(KMER_LEN * 2);
     mKmer = new long[mKmerBufLen];
@@ -49,42 +79,76 @@ Stats::Stats(Options* opt, bool isRead2, int guessedCycles, int bufferMargin){
     memset(mBaseQualHistogram, 0, sizeof(long)*128);
 
     initOverRepSeq();
-}
 
-void Stats::setCyclePointers(int bufLen) {
-    for(int i=0; i<8; i++){
-        mCycleQ30Bases[i]    = mCycleBuffer + (0*8 + i) * (long)bufLen;
-        mCycleQ20Bases[i]    = mCycleBuffer + (1*8 + i) * (long)bufLen;
-        mCycleBaseContents[i]= mCycleBuffer + (2*8 + i) * (long)bufLen;
-        mCycleBaseQual[i]    = mCycleBuffer + (3*8 + i) * (long)bufLen;
-    }
-    mCycleTotalBase = mCycleBuffer + 32 * (long)bufLen;
-    mCycleTotalQual = mCycleBuffer + 33 * (long)bufLen;
+    mLongestRepeat.length = 0;
+    mLongestRepeat.pos1 = 0;
+    mLongestRepeat.pos2 = 0;
+    mLongRepeatEnabled = mOptions->longRepeat.enabled;
 }
 
 void Stats::extendBuffer(int newBufLen){
     if(newBufLen <= mBufLen)
         return ;
 
-    long* newBuffer = new long[(long)CYCLE_ARRAY_COUNT * newBufLen];
-    memset(newBuffer, 0, sizeof(long) * CYCLE_ARRAY_COUNT * newBufLen);
+    long* newBuf = NULL;
 
-    // Copy each of the 34 old arrays into their new positions
-    for(int a=0; a<CYCLE_ARRAY_COUNT; a++){
-        memcpy(newBuffer + a * (long)newBufLen,
-               mCycleBuffer + a * (long)mBufLen,
-               sizeof(long) * mBufLen);
+    for(int i=0; i<8; i++){
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleQ30Bases[i], sizeof(long) * mBufLen);
+        delete mCycleQ30Bases[i];
+        mCycleQ30Bases[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleQ20Bases[i], sizeof(long) * mBufLen);
+        delete mCycleQ20Bases[i];
+        mCycleQ20Bases[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleBaseContents[i], sizeof(long) * mBufLen);
+        delete mCycleBaseContents[i];
+        mCycleBaseContents[i] = newBuf;
+
+        newBuf = new long[newBufLen];
+        memset(newBuf, 0, sizeof(long)*newBufLen);
+        memcpy(newBuf, mCycleBaseQual[i], sizeof(long) * mBufLen);
+        delete mCycleBaseQual[i];
+        mCycleBaseQual[i] = newBuf;
     }
+    newBuf = new long[newBufLen];
+    memset(newBuf, 0, sizeof(long)*newBufLen);
+    memcpy(newBuf, mCycleTotalBase, sizeof(long)*mBufLen);
+    delete mCycleTotalBase;
+    mCycleTotalBase = newBuf;
 
-    delete[] mCycleBuffer;
-    mCycleBuffer = newBuffer;
-    setCyclePointers(newBufLen);
+    newBuf = new long[newBufLen];
+    memset(newBuf, 0, sizeof(long)*newBufLen);
+    memcpy(newBuf, mCycleTotalQual, sizeof(long)*mBufLen);
+    delete mCycleTotalQual;
+    mCycleTotalQual = newBuf;
+
     mBufLen = newBufLen;
 }
 
 Stats::~Stats() {
-    delete[] mCycleBuffer;
-    mCycleBuffer = NULL;
+    for(int i=0; i<8; i++){
+        delete mCycleQ30Bases[i];
+        mCycleQ30Bases[i] = NULL;
+
+        delete mCycleQ20Bases[i];
+        mCycleQ20Bases[i] = NULL;
+
+        delete mCycleBaseContents[i];
+        mCycleBaseContents[i] = NULL;
+
+        delete mCycleBaseQual[i];
+        mCycleBaseQual[i] = NULL;
+    }
+
+    delete mCycleTotalBase;
+    delete mCycleTotalQual;
 
     // delete memory of curves
     map<string, double*>::iterator iter;
@@ -188,6 +252,47 @@ int Stats::getMeanLength() {
         return mLengthSum/mReads;
 }
 
+void Stats::statReadBasic(Read* r) {
+    int len = r->length();
+
+    mLengthSum += len;
+
+    if(mBufLen < len) {
+        extendBuffer(max(len + 100, (int)(len * 1.5)));
+    }
+    const char* seqstr = r->mSeq->c_str();
+    const char* qualstr = r->mQuality->c_str();
+
+    static const char q20 = '5';
+    static const char q30 = '?';
+
+    for(int i=0; i<len; i++) {
+        char base = seqstr[i];
+        char qual = qualstr[i];
+        char b = base & 0x07;
+        int  qval = qual - 33;
+        // Branchless q20/q30 increments: each comparison is a 0/1 mask.
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);  // q20 implies q30; q30 implies q20.
+        // Promote each access to a local pointer to avoid 8 separate index
+        // computations and let the compiler keep the row in a register.
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
+
+        mBaseQualHistogram[qual]++;
+        q30Row[i]   += isQ30;
+        q20Row[i]   += isQ20;
+        contents[i]++;
+        baseQual[i] += qval;
+        mCycleTotalBase[i]++;
+        mCycleTotalQual[i] += qval;
+    }
+
+    mReads++;
+}
+
 void Stats::statRead(Read* r) {
     int len = r->length();
 
@@ -199,6 +304,9 @@ void Stats::statRead(Read* r) {
     const char* seqstr = r->mSeq->c_str();
     const char* qualstr = r->mQuality->c_str();
 
+    static const char q20 = '5';
+    static const char q30 = '?';
+
     int kmer = 0;
     bool needFullCompute = true;
     for(int i=0; i<len; i++) {
@@ -206,24 +314,21 @@ void Stats::statRead(Read* r) {
         char qual = qualstr[i];
         // get last 3 bits
         char b = base & 0x07;
-
-        const char q20 = '5';
-        const char q30 = '?';
+        int  qval = qual - 33;
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
 
         mBaseQualHistogram[qual]++;
-
-        if(qual >= q30) {
-            mCycleQ30Bases[b][i]++;
-            mCycleQ20Bases[b][i]++;
-        } else if(qual >= q20) {
-            mCycleQ20Bases[b][i]++;
-        }
-
-        mCycleBaseContents[b][i]++;
-        mCycleBaseQual[b][i] += (qual-33);
-
+        q30Row[i]   += isQ30;
+        q20Row[i]   += isQ20;
+        contents[i]++;
+        baseQual[i] += qval;
         mCycleTotalBase[i]++;
-        mCycleTotalQual[i] += (qual-33);
+        mCycleTotalQual[i] += qval;
 
         if(base == 'N'){
             needFullCompute = true;
@@ -287,31 +392,184 @@ void Stats::statRead(Read* r) {
         }
     }
 
+    if(mLongRepeatEnabled) {
+        int sampling = max(1, mOptions->overRepAnalysis.sampling);
+        if(mReads % sampling == 0) {
+            size_t minLen = static_cast<size_t>(mOptions->longRepeat.minLen);
+            RepeatMatch best = RepeatFinder::findLongestRepeat(*r->mSeq, minLen);
+            if(best.length >= minLen && best.pos1 < r->mSeq->length()) {
+                RepeatMatchInfo info;
+                info.length = best.length;
+                info.pos1 = best.pos1;
+                info.pos2 = best.pos2;
+                info.seq = r->mSeq->substr(best.pos1, best.length);
+                if(!mOptions->complexityFilter.enabled || passRepeatComplexity(info.seq, mOptions->complexityFilter.threshold)) {
+                    if(info.length > mLongestRepeat.length) {
+                        mLongestRepeat = info;
+                    }
+                }
+            }
+
+            vector<RepeatMatch> matches = RepeatFinder::findLongRepeats(*r->mSeq, minLen, LONG_REPEAT_MAX_RESULTS);
+            for(size_t i = 0; i < matches.size(); i++) {
+                const RepeatMatch& match = matches[i];
+                if(match.length < minLen || match.pos1 >= r->mSeq->length()) {
+                    continue;
+                }
+                RepeatMatchInfo info;
+                info.length = match.length;
+                info.pos1 = match.pos1;
+                info.pos2 = match.pos2;
+                info.seq = r->mSeq->substr(match.pos1, match.length);
+                if(mOptions->complexityFilter.enabled && !passRepeatComplexity(info.seq, mOptions->complexityFilter.threshold)) {
+                    continue;
+                }
+                mLongRepeats.push_back(info);
+            }
+
+            if(!mLongRepeats.empty()) {
+                std::sort(mLongRepeats.begin(), mLongRepeats.end(), [](const RepeatMatchInfo& a, const RepeatMatchInfo& b) {
+                    return a.length > b.length;
+                });
+                if(mLongRepeats.size() > LONG_REPEAT_MAX_RESULTS) {
+                    mLongRepeats.resize(LONG_REPEAT_MAX_RESULTS);
+                }
+            }
+        }
+    }
+
     mReads++;
 }
 
-// Branchless base-to-value lookup (A=0, T=1, C=2, G=3, else=-1)
-static const int BASE2VAL[256] = {
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x00-0x0F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x10-0x1F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x20-0x2F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x30-0x3F
-    -1, 0,-1, 2,-1,-1,-1, 3,-1,-1,-1,-1,-1,-1,-1,-1, // 0x40-0x4F: A=0, C=2, G=3
-    -1,-1,-1,-1, 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x50-0x5F: T=1
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x60-0x6F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x70-0x7F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x80-0x8F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0x90-0x9F
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xA0-0xAF
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xB0-0xBF
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xC0-0xCF
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xD0-0xDF
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xE0-0xEF
-    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, // 0xF0-0xFF
+void Stats::unstatRead(Read* r) {
+    int len = r->length();
+
+    mLengthSum -= len;
+
+    // Buffer must already be large enough (statRead was called first)
+    const char* seqstr = r->mSeq->c_str();
+    const char* qualstr = r->mQuality->c_str();
+
+    static const char q20 = '5';
+    static const char q30 = '?';
+
+    int kmer = 0;
+    bool needFullCompute = true;
+    for(int i=0; i<len; i++) {
+        char base = seqstr[i];
+        char qual = qualstr[i];
+        char b = base & 0x07;
+        int  qval = qual - 33;
+        long isQ30 = (qual >= q30);
+        long isQ20 = (qual >= q20);
+        long* contents = mCycleBaseContents[(int)b];
+        long* baseQual = mCycleBaseQual[(int)b];
+        long* q20Row   = mCycleQ20Bases[(int)b];
+        long* q30Row   = mCycleQ30Bases[(int)b];
+
+        mBaseQualHistogram[qual]--;
+        q30Row[i]   -= isQ30;
+        q20Row[i]   -= isQ20;
+        contents[i]--;
+        baseQual[i] -= qval;
+        mCycleTotalBase[i]--;
+        mCycleTotalQual[i] -= qval;
+
+        if(base == 'N'){
+            needFullCompute = true;
+            continue;
+        }
+
+        if(i<4)
+            continue;
+
+        if(!needFullCompute){
+            int val = base2val(base);
+            if(val < 0){
+                needFullCompute = true;
+                continue;
+            } else {
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+                mKmer[kmer]--;
+            }
+        } else {
+            bool valid = true;
+            kmer = 0;
+            for(int k=0; k<5; k++) {
+                int val = base2val(seqstr[i - 4 + k]);
+                if(val < 0) {
+                    valid = false;
+                    break;
+                }
+                kmer = ((kmer<<2) & 0x3FC ) | val;
+            }
+            if(!valid) {
+                needFullCompute = true;
+                continue;
+            } else {
+                mKmer[kmer]--;
+                needFullCompute = false;
+            }
+        }
+    }
+
+    // Skip overrepresentation and long repeat analysis (sampling-based, negligible)
+    mReads--;
+}
+
+void Stats::mergeBatchStats(const struct GpuBatchPostStats& bs) {
+    // Extend buffers if needed to hold max cycle count used by GPU
+    int maxCycle = 0;
+    for (int i = GPU_STATS_MAX_CYCLES - 1; i >= 0; --i) {
+        if (bs.cycle_total_base[i] > 0) { maxCycle = i + 1; break; }
+    }
+    if (maxCycle > mBufLen) extendBuffer(maxCycle + 100);
+
+    for (int b = 0; b < GPU_STATS_NUM_BASES; ++b) {
+        for (int i = 0; i < maxCycle; ++i) {
+            mCycleBaseContents[b][i] += bs.cycle_base_contents[b][i];
+            mCycleBaseQual[b][i]     += bs.cycle_base_qual[b][i];
+            mCycleQ20Bases[b][i]     += bs.cycle_q20[b][i];
+            mCycleQ30Bases[b][i]     += bs.cycle_q30[b][i];
+        }
+    }
+    for (int i = 0; i < maxCycle; ++i) {
+        mCycleTotalBase[i] += bs.cycle_total_base[i];
+        mCycleTotalQual[i] += bs.cycle_total_qual[i];
+    }
+    for (int q = 0; q < 128; ++q) {
+        mBaseQualHistogram[q] += bs.base_qual_histogram[q];
+    }
+    for (int k = 0; k < GPU_STATS_KMER_COUNT; ++k) {
+        mKmer[k] += bs.kmer[k];
+    }
+    mReads     += bs.reads_passed;
+    mLengthSum += bs.length_sum;
+}
+
+// 256-byte LUT for ACGT -> 0..3 mapping; everything else returns -1.
+// Used by the kmer path; faster than a switch by avoiding branches.
+static const signed char BASE2VAL_LUT[256] = {
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1, 0,-1, 2,-1,-1,-1, 3, -1,-1,-1,-1,-1,-1,-1,-1,  // @ A B C D E F G H I J K L M N O
+    -1,-1,-1,-1, 1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,  // P Q R S T U V W X Y Z [ \ ] ^ _
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1
 };
 
 int Stats::base2val(char base) {
-    return BASE2VAL[static_cast<unsigned char>(base)];
+    return BASE2VAL_LUT[(unsigned char)base];
 }
 
 int Stats::getCycles() {
@@ -514,6 +772,9 @@ void Stats::reportHtml(ofstream& ofs, string filteringType, string readName) {
     if(mOptions->overRepAnalysis.enabled) {
         reportHtmlORA(ofs, filteringType, readName);
     }
+    if(mOptions->longRepeat.enabled) {
+        reportHtmlLongRepeats(ofs, filteringType, readName);
+    }
 }
 
 bool Stats::overRepPassed(string& seq, long count) {
@@ -615,6 +876,45 @@ void Stats::reportHtmlORA(ofstream& ofs, string filteringType, string readName) 
     ofs << "    }"<< endl;
     ofs << "}"<< endl;
     ofs << "</script>"<< endl;
+}
+
+void Stats::reportHtmlLongRepeats(ofstream& ofs, string filteringType, string readName) {
+    string subsection = filteringType + ": " + readName + ": long repeats";
+    string divName = replace(subsection, " ", "_");
+    divName = replace(divName, ":", "_");
+
+    int sampling = max(1, mOptions->overRepAnalysis.sampling);
+
+    ofs << "<div class='subsection_title'><a title='click to hide/show' onclick=showOrHide('" << divName << "')>" + subsection + "</a></div>\n";
+    ofs << "<div  id='" << divName << "'>\n";
+    ofs << "<div class='sub_section_tips'>Sampling rate: 1 / " << sampling
+        << ", min repeat length: " << mOptions->longRepeat.minLen << ", top " << LONG_REPEAT_MAX_RESULTS << " reported</div>\n";
+
+    if(mLongRepeats.empty()) {
+        ofs << "<div class='sub_section_tips'>No long repeats found in sampled reads.</div>\n";
+        ofs << "</div>\n";
+        return;
+    }
+
+    ofs << "<table class='summary_table'>\n";
+    ofs << "<tr><td>length</td><td>pos1</td><td>pos2</td><td>sequence</td></tr>\n";
+
+    for(size_t i = 0; i < mLongRepeats.size(); i++) {
+        const RepeatMatchInfo& info = mLongRepeats[i];
+        ofs << "<tr>";
+        ofs << "<td>" << info.length << "</td>";
+        ofs << "<td>" << info.pos1 << "</td>";
+        ofs << "<td>" << info.pos2 << "</td>";
+        ofs << "<td>" << info.seq << "</td>";
+        ofs << "</tr>\n";
+    }
+
+    ofs << "</table>\n";
+    ofs << "</div>\n";
+}
+
+void Stats::setLongRepeatEnabled(bool enabled) {
+    mLongRepeatEnabled = enabled;
 }
 
 bool Stats::isLongRead() {
@@ -890,54 +1190,39 @@ Stats* Stats::merge(vector<Stats*>& list) {
     // init overrepresented seq maps
     map<string, long>::iterator iter;
 
-    // merge read number and length sum
     for(int t=0; t<list.size(); t++) {
+        int curCycles =  list[t]->getCycles();
+        // merge read number
         s->mReads += list[t]->mReads;
         s->mLengthSum += list[t]->mLengthSum;
-    }
 
-    // merge per cycle counting for different bases
-    // Loop reordered to i->j->t for better temporal locality:
-    // keeps destination s->mCycle*[i][j] in register across the inner t loop
-    for(int i=0; i<8; i++){
-        for(int j=0; j<cycles; j++) {
-            for(int t=0; t<list.size(); t++) {
-                if(j < list[t]->getCycles()) {
-                    s->mCycleQ30Bases[i][j] += list[t]->mCycleQ30Bases[i][j];
-                    s->mCycleQ20Bases[i][j] += list[t]->mCycleQ20Bases[i][j];
-                    s->mCycleBaseContents[i][j] += list[t]->mCycleBaseContents[i][j];
-                    s->mCycleBaseQual[i][j] += list[t]->mCycleBaseQual[i][j];
-                }
+        // merge per cycle counting for different bases
+        for(int i=0; i<8; i++){
+            for(int j=0; j<cycles && j<curCycles; j++) {
+                s->mCycleQ30Bases[i][j] += list[t]->mCycleQ30Bases[i][j];
+                s->mCycleQ20Bases[i][j] += list[t]->mCycleQ20Bases[i][j];
+                s->mCycleBaseContents[i][j] += list[t]->mCycleBaseContents[i][j];
+                s->mCycleBaseQual[i][j] += list[t]->mCycleBaseQual[i][j];
             }
         }
-    }
 
-    // merge per cycle counting for all bases (j->t order)
-    for(int j=0; j<cycles; j++) {
-        for(int t=0; t<list.size(); t++) {
-            if(j < list[t]->getCycles()) {
-                s->mCycleTotalBase[j] += list[t]->mCycleTotalBase[j];
-                s->mCycleTotalQual[j] += list[t]->mCycleTotalQual[j];
-            }
+        // merge per cycle counting for all bases
+        for(int j=0; j<cycles && j<curCycles; j++) {
+            s->mCycleTotalBase[j] += list[t]->mCycleTotalBase[j];
+            s->mCycleTotalQual[j] += list[t]->mCycleTotalQual[j];
         }
-    }
 
-    // merge kMer (i->t order for destination locality)
-    for(int i=0; i<s->mKmerBufLen; i++) {
-        for(int t=0; t<list.size(); t++) {
+        // merge kMer
+        for(int i=0; i<s->mKmerBufLen; i++) {
             s->mKmer[i] += list[t]->mKmer[i];
         }
-    }
 
-    // merge base/read qual histogram (i->t order)
-    for(int i=0; i<128; i++) {
-        for(int t=0; t<list.size(); t++) {
+        // merge base/read qual histogram
+        for(int i=0; i<128; i++) {
             s->mBaseQualHistogram[i] += list[t]->mBaseQualHistogram[i];
         }
-    }
 
-    // merge over rep seq
-    for(int t=0; t<list.size(); t++) {
+        // merge over rep seq
         for(iter = s->mOverRepSeq.begin(); iter != s->mOverRepSeq.end(); iter++) {
             string seq = iter->first;
             s->mOverRepSeq[seq] += list[t]->mOverRepSeq[seq];
@@ -946,6 +1231,20 @@ Stats* Stats::merge(vector<Stats*>& list) {
             for(int i=0; i<s->mEvaluatedSeqLen; i++) {
                 s->mOverRepSeqDist[seq][i] += list[t]->mOverRepSeqDist[seq][i];
             }
+        }
+
+        if(list[t]->mLongestRepeat.length > s->mLongestRepeat.length) {
+            s->mLongestRepeat = list[t]->mLongestRepeat;
+        }
+        s->mLongRepeats.insert(s->mLongRepeats.end(), list[t]->mLongRepeats.begin(), list[t]->mLongRepeats.end());
+    }
+
+    if(!s->mLongRepeats.empty()) {
+        std::sort(s->mLongRepeats.begin(), s->mLongRepeats.end(), [](const RepeatMatchInfo& a, const RepeatMatchInfo& b) {
+            return a.length > b.length;
+        });
+        if(s->mLongRepeats.size() > LONG_REPEAT_MAX_RESULTS) {
+            s->mLongRepeats.resize(LONG_REPEAT_MAX_RESULTS);
         }
     }
 
