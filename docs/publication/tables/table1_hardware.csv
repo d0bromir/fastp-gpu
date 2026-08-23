@@ -1,0 +1,12 @@
+parameter,value
+CPU model,ARM Neoverse N1
+CPU cores,"128 (single socket, 1 thread/core)"
+CPU clock,3.0 GHz (max)
+CPU cache,L1d 64 KB x128 / L1i 64 KB x128 / L2 1 MB x128
+GPU,2x NVIDIA A100 80 GB PCIe (Gen4 x16)
+GPU driver,590.48.01
+RAM,256 GB DDR4
+Storage,2x Samsung PM9A3 894 GB NVMe SSD
+OS,"Ubuntu 25.10 (aarch64), Linux 6.17.0"
+CUDA Toolkit,12.6
+GCC,15.2.0

@@ -19,6 +19,7 @@ FilterResult::FilterResult(Options* opt, bool paired){
     mCorrectionMatrix = new long[64];
     memset(mCorrectionMatrix, 0, sizeof(long)*64);
     mCorrectedReads = 0;
+    memset(mContamHits, 0, sizeof(mContamHits));
 }
 
 FilterResult::~FilterResult() {
@@ -81,6 +82,10 @@ FilterResult* FilterResult::merge(vector<FilterResult*>& list) {
         }
         // update read counting
         result->mCorrectedReads += list[i]->mCorrectedReads;
+
+        // contamination hit counts
+        for (int s = 1; s < MAX_CONTAM_SOURCES; s++)
+            result->mContamHits[s] += list[i]->mContamHits[s];
     }
 
     // sort adapters list by adapter length from short to long
@@ -471,4 +476,70 @@ int FilterResult::outputAdaptersHtml(ofstream& ofs, map<string, long, classcomp>
     }
     ofs << "</table>\n";
     return count;
+}
+// -------------------------------------------------------------------------
+// Contamination tracking
+// -------------------------------------------------------------------------
+
+void FilterResult::addContamHit(int srcId) {
+    if (srcId > 0 && srcId < MAX_CONTAM_SOURCES)
+        mContamHits[srcId]++;
+}
+
+long FilterResult::getContamHits(int srcId) const {
+    if (srcId <= 0 || srcId >= MAX_CONTAM_SOURCES) return 0;
+    return mContamHits[srcId];
+}
+
+long FilterResult::getTotalContamHits() const {
+    long total = 0;
+    for (int i = 1; i < MAX_CONTAM_SOURCES; i++) total += mContamHits[i];
+    return total;
+}
+
+void FilterResult::reportContaminationJson(ofstream& ofs, string padding) {
+    ofs << "{\n";
+    ofs << padding << "\t\"total_contaminated_reads\": " << getTotalContamHits() << ",\n";
+    ofs << padding << "\t\"sources\": [\n";
+
+    const auto& names = mOptions->contaminant.sourceNames;
+    // Collect valid entries.
+    bool first = true;
+    for (int i = 1; i < MAX_CONTAM_SOURCES; i++) {
+        if (mContamHits[i] == 0) continue;
+        string name = (i < (int)names.size()) ? names[i] : ("source_" + to_string(i));
+        if (!first) ofs << ",\n";
+        first = false;
+        ofs << padding << "\t\t{\"id\": " << i
+            << ", \"name\": \"" << name << "\""
+            << ", \"reads\": " << mContamHits[i]
+            << "}";
+    }
+    if (!first) ofs << "\n";
+    ofs << padding << "\t]\n";
+    ofs << padding << "},\n";
+}
+
+void FilterResult::reportContaminationHtml(ofstream& ofs, long totalReads) {
+    long total = getTotalContamHits();
+    ofs << "<div class='subsection_title'>Contamination detection</div>\n";
+    ofs << "<div class='figure'>\n";
+    ofs << "<table class='summary_table'>\n";
+    ofs << "<tr><td class='col1'>Total contaminated reads</td><td class='col2'>"
+        << total << "</td></tr>\n";
+    if (totalReads > 0) {
+        double pct = 100.0 * total / totalReads;
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%.4f%%", pct);
+        ofs << "<tr><td class='col1'>Contamination rate</td><td class='col2'>"
+            << buf << "</td></tr>\n";
+    }
+    const auto& names = mOptions->contaminant.sourceNames;
+    for (int i = 1; i < MAX_CONTAM_SOURCES; i++) {
+        if (mContamHits[i] == 0) continue;
+        string name = (i < (int)names.size()) ? names[i] : ("source_" + to_string(i));
+        ofs << "<tr><td class='col1'>" << name << "</td>"
+            << "<td class='col2'>" << mContamHits[i] << "</td></tr>\n";
+    }
+    ofs << "</table></div>\n";
 }

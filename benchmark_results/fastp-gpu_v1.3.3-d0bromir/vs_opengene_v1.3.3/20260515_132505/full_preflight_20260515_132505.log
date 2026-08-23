@@ -1,0 +1,31 @@
+=== Preflight Tests: Fri May 15 19:10:59 UTC 2026 ===
+
+============================================================
+ fastp_d0bromir test suite
+ Project: /home/mpiuser/tools/src/fastp_d0bromir
+============================================================
+
+>>> Tier 1 — built-in unit tests
+    [OK] opengene: built-in unit tests passed
+    [OK] d0bromir_cpu: built-in unit tests passed
+    [OK] d0bromir_gpu: built-in unit tests passed
+
+>>> Tier 2 — CPU↔GPU regression on testdata/
+    [OK] CPU↔GPU regression: md5(R1)=2e4bc16cedcd1fb158f6d1020861362c  md5(R2)=ee8e3b4ec1c07e84f7f4cc26dd3ddf02  + 14 JSON fields equal
+
+>>> Tier 3 — Clinical validation (determinism + cross-thread + version audit)
+    [OK] clinical-3a: determinism — md5(R1)=2e4bc16cedcd1fb158f6d1020861362c  md5(R2)=ee8e3b4ec1c07e84f7f4cc26dd3ddf02  + 14 JSON fields stable
+    [OK] clinical-3b: cross-thread consistency — 14 JSON fields identical at T=2 and T=4
+    [OK] clinical-3d: read conservation — filtering_result buckets account for all input reads
+    [OK] clinical-3e: PE synchronization — 8 paired reads in output (R1==R2)
+    [OK] clinical-3f: graceful failure — non-FASTQ input correctly rejected (exit 255)
+    [OK] clinical-3g: PE count mismatch correctly rejected (exit 255)
+    [OK] clinical-3h: partially corrupt FASTQ correctly rejected (exit 255)
+    [OK] clinical-3i: out-of-range quality score correctly rejected (exit 255)
+    [OK] clinical-3c: version audit — binary reports v1.3.3-d0bromir, matches src/common.h
+
+============================================================
+ ALL TESTS PASSED
+============================================================
+
+=== Preflight Tests PASSED: Fri May 15 19:11:13 UTC 2026 ===

@@ -1,6 +1,5 @@
 #include "adaptertrimmer.h"
 #include "matcher.h"
-#include "simd.h"
 
 AdapterTrimmer::AdapterTrimmer(){
 }
@@ -87,11 +86,17 @@ bool AdapterTrimmer::trimBySequence(Read* r, FilterResult* fr, string& adapterse
     for(pos = start; pos<rlen-matchReq; pos++) {
         int cmplen = min(rlen - pos, alen);
         int allowedMismatch = cmplen/allowOneMismatchForEach;
-        int startOffset = max(0, -pos);
-        int mismatch = fastp_simd::countMismatchesBounded(
-            adata + startOffset, rdata + startOffset + pos,
-            cmplen - startOffset, allowedMismatch);
-        bool matched = (mismatch <= allowedMismatch);
+        int mismatch = 0;
+        bool matched = true;
+        for(int i=max(0, -pos); i<cmplen; i++) {
+            if( adata[i] != rdata[i+pos] ){
+                mismatch++;
+                if(mismatch > allowedMismatch) {
+                    matched = false;
+                    break;
+                }
+            }
+        }
         if(matched) {
             found = true;
             break;

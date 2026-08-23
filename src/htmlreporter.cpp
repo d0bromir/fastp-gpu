@@ -202,6 +202,15 @@ void HtmlReporter::printSummary(ofstream& ofs, FilterResult* result, Stats* preS
         ofs << "</div>\n";
     }
 
+    if(result && mOptions->contaminant.enabled && result->getTotalContamHits() > 0) {
+        ofs << "<div class='section_div'>\n";
+        ofs << "<div class='section_title' onclick=showOrHide('contamination')><a name='contamination'>Contamination</a></div>\n";
+        ofs << "<div id='contamination'>\n";
+        result->reportContaminationHtml(ofs, pre_total_reads);
+        ofs << "</div>\n";
+        ofs << "</div>\n";
+    }
+
     /*if(mOptions->duplicate.enabled) {
         ofs << "<div class='section_div'>\n";
         ofs << "<div class='section_title' onclick=showOrHide('duplication')><a name='summary'>Duplication</a></div>\n";
@@ -542,6 +551,19 @@ void HtmlReporter::report(FilterResult* result, Stats* preStats1, Stats* postSta
         ofs << "</td><td>\n";
         if(postStats2 && !mOptions->merge.enabled) {
             postStats2 -> reportHtmlORA(ofs, "After filtering", "read2");
+        }
+        ofs << "</td></tr>\n";
+    }
+
+    if(mOptions->longRepeat.enabled) {
+        ofs << "<tr style='height:20px;'></tr>\n";
+        ofs << "<tr style='vertical-align: top;'><td>\n";
+        if(postStats1) {
+            postStats1 -> reportHtmlLongRepeats(ofs, "After filtering", postRead1Name);
+        }
+        ofs << "</td><td>\n";
+        if(postStats2 && !mOptions->merge.enabled) {
+            postStats2 -> reportHtmlLongRepeats(ofs, "After filtering", "read2");
         }
         ofs << "</td></tr>\n";
     }
