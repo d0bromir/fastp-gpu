@@ -1,0 +1,317 @@
+============================================================
+ BENCHMARK STATUS — 2026-05-16 14:14:37
+ Progress : 275 / 168 runs
+ Datasets : Panel_SE_148M Panel_PE_304M Panel_PDAC_PE_1M Panel_PDAC_PE_1.5M RNA_NextSeq_PE_1.2G RNA_HiSeq2500_PE_3.1G WGS_HiSeqX_PE_5.4G WGS_HiSeqX_PE_5.7G RNA_HiSeqX_PE_6.1G WGS_SE_6.3G WGS_PE_12.8G WGS_PE_18.2G BS_HiSeq_SE_26.8G WGS_PE_40G
+ Threads  : 1 2 4 8 16 32
+ CSV      : /home/mpiuser/tools/src/fastp_d0bromir/benchmark_results/20260515_132505/full_benchmark_20260515_132505.csv
+============================================================
+
+dataset                 type  tool                 T      wall_s      reads_in     reads_out   vs_opengene  valid
+----------------------  ----  ---------------  -----  ----------  ------------  ------------  ------------  ------
+Panel_SE_148M           SE    opengene             1         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    d0bromir_cpu         1         7.8       1381894       1381299         +2.4%  PASS
+Panel_SE_148M           SE    d0bromir_gpu         1         9.7       1381894       1381299        +28.0%  PASS
+Panel_SE_148M           SE    opengene             2         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    d0bromir_cpu         2         4.7       1381894       1381299        -37.1%  PASS
+Panel_SE_148M           SE    d0bromir_gpu         2         6.7       1381894       1381299        -10.8%  PASS
+Panel_SE_148M           SE    opengene             4         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    d0bromir_cpu         4         3.9       1381894       1381299        -48.3%  PASS
+Panel_SE_148M           SE    d0bromir_gpu         4         6.5       1381894       1381299        -13.6%  PASS
+Panel_SE_148M           SE    opengene             8         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    d0bromir_cpu         8         4.0       1381894       1381299        -47.4%  PASS
+Panel_SE_148M           SE    d0bromir_gpu         8         7.1       1381894       1381299         -5.8%  PASS
+Panel_SE_148M           SE    opengene            16         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    d0bromir_cpu        16         3.9       1381894       1381299        -48.4%  PASS
+Panel_SE_148M           SE    d0bromir_gpu        16         6.8       1381894       1381299        -10.5%  PASS
+Panel_SE_148M           SE    opengene            32         2.4       1381894       1381299      baseline  baseline
+Panel_SE_148M           SE    d0bromir_cpu        32         3.8       1381894       1381299        +56.4%  PASS
+Panel_SE_148M           SE    d0bromir_gpu        32         7.0       1381894       1381299       +187.8%  PASS
+Panel_PE_304M           PE    opengene             1        13.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    d0bromir_cpu         1        11.1       2763788       2761244        -19.3%  PASS
+Panel_PE_304M           PE    d0bromir_gpu         1        12.4       2763788       2761244         -9.7%  PASS
+Panel_PE_304M           PE    opengene             2         7.3       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    d0bromir_cpu         2         7.3       2763788       2761244         -1.2%  PASS
+Panel_PE_304M           PE    d0bromir_gpu         2         8.0       2763788       2761244         +8.7%  PASS
+Panel_PE_304M           PE    opengene             4         6.6       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    d0bromir_cpu         4         4.0       2763788       2761244        -38.5%  PASS
+Panel_PE_304M           PE    d0bromir_gpu         4         7.5       2763788       2761244        +14.7%  PASS
+Panel_PE_304M           PE    opengene             8         6.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    d0bromir_cpu         8         3.3       2763788       2761244        -50.6%  PASS
+Panel_PE_304M           PE    d0bromir_gpu         8         6.1       2763788       2761244         -7.9%  PASS
+Panel_PE_304M           PE    opengene            16         6.8       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    d0bromir_cpu        16         3.9       2763788       2761244        -42.9%  PASS
+Panel_PE_304M           PE    d0bromir_gpu        16         7.2       2763788       2761244         +5.9%  PASS
+Panel_PE_304M           PE    opengene            32         2.2       2763788       2761244      baseline  baseline
+Panel_PE_304M           PE    d0bromir_cpu        32         3.3       2763788       2761244        +49.0%  PASS
+Panel_PE_304M           PE    d0bromir_gpu        32         6.7       2763788       2761244       +205.0%  PASS
+Panel_PDAC_PE_1M        PE    opengene             1         6.3       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu         1         6.7       2072046       2051084         +7.3%  PASS
+Panel_PDAC_PE_1M        PE    d0bromir_gpu         1         6.6       2072046       2051084         +4.6%  PASS
+Panel_PDAC_PE_1M        PE    opengene             2         7.7       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu         2         5.1       2072046       2051084        -33.8%  PASS
+Panel_PDAC_PE_1M        PE    d0bromir_gpu         2         9.8       2072046       2051084        +27.3%  PASS
+Panel_PDAC_PE_1M        PE    opengene             4         4.5       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu         4         3.2       2072046       2051084        -29.2%  PASS
+Panel_PDAC_PE_1M        PE    d0bromir_gpu         4         4.3       2072046       2051084         -4.3%  PASS
+Panel_PDAC_PE_1M        PE    opengene             8         2.9       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu         8         2.5       2072046       2051084        -13.4%  PASS+FQ
+Panel_PDAC_PE_1M        PE    d0bromir_gpu         8         5.7       2072046       2051084        +95.9%  PASS+FQ
+Panel_PDAC_PE_1M        PE    opengene            16         2.2       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu        16         1.9       2072046       2051084        -16.4%  PASS
+Panel_PDAC_PE_1M        PE    d0bromir_gpu        16         4.7       2072046       2051084       +112.5%  PASS
+Panel_PDAC_PE_1M        PE    opengene            32         2.3       2072046       2051084      baseline  baseline
+Panel_PDAC_PE_1M        PE    d0bromir_cpu        32         1.9       2072046       2051084        -17.2%  PASS
+Panel_PDAC_PE_1M        PE    d0bromir_gpu        32         4.6       2072046       2051084       +101.1%  PASS
+Panel_PDAC_PE_1.5M      PE    opengene             1         9.4       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu         1         9.7       3077112       3042270         +3.3%  PASS
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu         1        11.5       3077112       3042270        +22.8%  PASS
+Panel_PDAC_PE_1.5M      PE    opengene             2        11.4       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu         2         7.0       3077112       3042270        -38.6%  PASS
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu         2         8.2       3077112       3042270        -28.1%  PASS
+Panel_PDAC_PE_1.5M      PE    opengene             4         6.7       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu         4         4.5       3077112       3042270        -33.7%  PASS
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu         4         7.7       3077112       3042270        +14.6%  PASS
+Panel_PDAC_PE_1.5M      PE    opengene             8         3.6       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu         8         2.6       3077112       3042270        -27.8%  PASS+FQ
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu         8         6.2       3077112       3042270        +70.7%  PASS+FQ
+Panel_PDAC_PE_1.5M      PE    opengene            16         3.0       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu        16         2.5       3077112       3042270        -18.1%  PASS
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu        16         6.4       3077112       3042270       +111.9%  PASS
+Panel_PDAC_PE_1.5M      PE    opengene            32         3.1       3077112       3042270      baseline  baseline
+Panel_PDAC_PE_1.5M      PE    d0bromir_cpu        32         2.5       3077112       3042270        -20.1%  PASS
+Panel_PDAC_PE_1.5M      PE    d0bromir_gpu        32         6.6       3077112       3042270       +112.2%  PASS
+RNA_NextSeq_PE_1.2G     PE    opengene             1        57.5      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu         1        60.7      53134688      51860270         +5.6%  PASS
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu         1        55.0      53134688      51860270         -4.2%  PASS
+RNA_NextSeq_PE_1.2G     PE    opengene             2        69.6      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu         2        33.5      53134688      51860270        -51.8%  PASS
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu         2        33.8      53134688      51860270        -51.5%  PASS
+RNA_NextSeq_PE_1.2G     PE    opengene             4        35.9      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu         4        18.2      53134688      51860270        -49.3%  PASS
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu         4        20.2      53134688      51860270        -43.7%  PASS
+Panel_SE_148M           SE    opengene             1         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             2         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             4         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             8         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene            16         7.6       1381894       1381299      baseline  CSV
+Panel_PE_304M           PE    opengene             1        13.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             2         7.3       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             4         6.6       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             8         6.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene            16         6.8       2763788       2761244      baseline  CSV
+RNA_NextSeq_PE_1.2G     PE    opengene             8        23.9      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu         8        11.3      53134688      51860270        -52.9%  PASS+FQ
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu         8        13.8      53134688      51860270        -42.4%  PASS+FQ
+RNA_NextSeq_PE_1.2G     PE    opengene            16        23.3      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu        16         9.0      53134688      51860270        -61.2%  PASS
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu        16        10.9      53134688      51860270        -53.2%  PASS
+RNA_NextSeq_PE_1.2G     PE    opengene            32        22.4      53134688      51860270      baseline  baseline
+RNA_NextSeq_PE_1.2G     PE    d0bromir_cpu        32         9.2      53134688      51860270        -58.8%  PASS
+RNA_NextSeq_PE_1.2G     PE    d0bromir_gpu        32        13.6      53134688      51860270        -39.4%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    opengene             1       134.1      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu         1       170.8      34166828      33840262        +27.4%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu         1       145.5      34166828      33840262         +8.5%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    opengene             2       144.5      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu         2        87.8      34166828      33840262        -39.2%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu         2        74.8      34166828      33840262        -48.2%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    opengene             4        73.5      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu         4        45.2      34166828      33840262        -38.5%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu         4        42.2      34166828      33840262        -42.6%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    opengene             8        37.8      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu         8        23.8      34166828      33840262        -37.1%  PASS+FQ
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu         8        24.2      34166828      33840262        -35.9%  PASS+FQ
+RNA_HiSeq2500_PE_3.1G   PE    opengene            16        27.0      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu        16        17.8      34166828      33840262        -34.1%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu        16        20.7      34166828      33840262        -23.2%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    opengene            32        28.1      34166828      33840262      baseline  baseline
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_cpu        32        17.9      34166828      33840262        -36.2%  PASS
+RNA_HiSeq2500_PE_3.1G   PE    d0bromir_gpu        32        18.9      34166828      33840262        -32.6%  PASS
+WGS_HiSeqX_PE_5.4G      PE    opengene             1       302.1      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu         1       432.6      70361832      67802584        +43.2%  PASS
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu         1       375.3      70361832      67802584        +24.2%  PASS
+WGS_HiSeqX_PE_5.4G      PE    opengene             2       291.8      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu         2       220.0      70361832      67802584        -24.6%  PASS
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu         2       192.9      70361832      67802584        -33.9%  PASS
+WGS_HiSeqX_PE_5.4G      PE    opengene             4       149.7      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu         4       112.0      70361832      67802584        -25.2%  PASS
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu         4        99.2      70361832      67802584        -33.7%  PASS
+WGS_HiSeqX_PE_5.4G      PE    opengene             8        75.6      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu         8        57.8      70361832      67802584        -23.6%  PASS+FQ
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu         8        54.0      70361832      67802584        -28.6%  PASS+FQ
+WGS_HiSeqX_PE_5.4G      PE    opengene            16        54.4      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu        16        38.2      70361832      67802584        -29.8%  PASS
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu        16        39.8      70361832      67802584        -26.8%  PASS
+WGS_HiSeqX_PE_5.4G      PE    opengene            32        54.4      70361832      67802584      baseline  baseline
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_cpu        32        38.7      70361832      67802584        -29.0%  PASS
+WGS_HiSeqX_PE_5.4G      PE    d0bromir_gpu        32        40.2      70361832      67802584        -26.1%  PASS
+WGS_HiSeqX_PE_5.7G      PE    opengene             1       319.8      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu         1       459.1      74777298      71682052        +43.6%  PASS
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu         1       398.9      74777298      71682052        +24.7%  PASS
+WGS_HiSeqX_PE_5.7G      PE    opengene             2       312.4      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu         2       234.0      74777298      71682052        -25.1%  PASS
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu         2       205.5      74777298      71682052        -34.2%  PASS
+WGS_HiSeqX_PE_5.7G      PE    opengene             4       221.1      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu         4       118.0      74777298      71682052        -46.6%  PASS
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu         4       106.3      74777298      71682052        -51.9%  PASS
+WGS_HiSeqX_PE_5.7G      PE    opengene             8        82.8      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu         8        61.7      74777298      71682052        -25.5%  PASS+FQ
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu         8        57.0      74777298      71682052        -31.2%  PASS+FQ
+WGS_HiSeqX_PE_5.7G      PE    opengene            16       674.9             0             0      baseline  IDLE_TIMEOUT
+Panel_SE_148M           SE    opengene             1         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             2         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             4         7.5       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene             8         7.6       1381894       1381299      baseline  CSV
+Panel_SE_148M           SE    opengene            16         7.6       1381894       1381299      baseline  CSV
+Panel_PE_304M           PE    opengene             1        13.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             2         7.3       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             4         6.6       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene             8         6.7       2763788       2761244      baseline  CSV
+Panel_PE_304M           PE    opengene            16         6.8       2763788       2761244      baseline  CSV
+WGS_HiSeqX_PE_5.7G      PE    opengene            16        58.1      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu        16        40.9      74777298      71682052        -29.5%  PASS
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu        16        44.9      74777298      71682052        -22.6%  PASS
+WGS_HiSeqX_PE_5.7G      PE    opengene            32        59.6      74777298      71682052      baseline  baseline
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_cpu        32        42.8      74777298      71682052        -28.3%  PASS
+WGS_HiSeqX_PE_5.7G      PE    d0bromir_gpu        32        43.7      74777298      71682052        -26.8%  PASS
+RNA_HiSeqX_PE_6.1G      PE    opengene             1       313.0     143110794     140176916      baseline  baseline
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu         1       420.0     143110794     140176916        +34.2%  PASS
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu         1       367.0     143110794     140176916        +17.3%  PASS
+RNA_HiSeqX_PE_6.1G      PE    opengene             2       329.0     143110794     140176916      baseline  baseline
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu         2       220.6     143110794     140176916        -33.0%  PASS
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu         2       194.6     143110794     140176916        -40.8%  PASS
+RNA_HiSeqX_PE_6.1G      PE    opengene             4       169.4     143110794     140176916      baseline  baseline
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu         4       111.8     143110794     140176916        -34.0%  PASS
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu         4        99.9     143110794     140176916        -41.1%  PASS
+RNA_HiSeqX_PE_6.1G      PE    opengene             8        88.4     143110794     140176916      baseline  baseline
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu         8        58.1     143110794     140176916        -34.3%  PASS+FQ
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu         8        55.3     143110794     140176916        -37.4%  PASS+FQ
+RNA_HiSeqX_PE_6.1G      PE    opengene            16       693.4             0             0      baseline  IDLE_TIMEOUT
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu        16        38.4     143110794     140176916           N/A  SKIP
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu        16        42.1     143110794     140176916           N/A  SKIP
+RNA_HiSeqX_PE_6.1G      PE    opengene            32        71.6     143110794     140176916      baseline  baseline
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_cpu        32        39.2     143110794     140176916        -45.2%  PASS
+RNA_HiSeqX_PE_6.1G      PE    d0bromir_gpu        32        40.2     143110794     140176916        -43.9%  PASS
+WGS_SE_6.3G             SE    opengene             1       293.7      80314764      77515798      baseline  CSV
+WGS_SE_6.3G             SE    d0bromir_cpu         1       284.6      80314764      77515798         -3.1%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu         1       289.1      80314764      77515798         -1.6%  PASS
+WGS_SE_6.3G             SE    opengene             2       293.6      80314764      77515798      baseline  CSV
+WGS_SE_6.3G             SE    d0bromir_cpu         2       148.7      80314764      77515798        -49.4%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu         2       151.7      80314764      77515798        -48.3%  PASS
+WGS_SE_6.3G             SE    opengene             4       292.5      80314764      77515798      baseline  CSV
+WGS_SE_6.3G             SE    d0bromir_cpu         4        81.0      80314764      77515798        -72.3%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu         4        84.4      80314764      77515798        -71.2%  PASS
+WGS_SE_6.3G             SE    opengene             8       293.0      80314764      77515798      baseline  CSV
+WGS_SE_6.3G             SE    d0bromir_cpu         8        80.6      80314764      77515798        -72.5%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu         8        83.1      80314764      77515798        -71.6%  PASS
+WGS_SE_6.3G             SE    opengene            16       292.8      80314764      77515798      baseline  CSV
+WGS_SE_6.3G             SE    d0bromir_cpu        16        79.1      80314764      77515798        -73.0%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu        16        82.5      80314764      77515798        -71.8%  PASS
+WGS_SE_6.3G             SE    opengene            32       187.4      80314764      77515798      baseline  baseline
+WGS_SE_6.3G             SE    d0bromir_cpu        32        79.7      80314764      77515798        -57.5%  PASS
+WGS_SE_6.3G             SE    d0bromir_gpu        32        82.8      80314764      77515798        -55.8%  PASS
+WGS_PE_12.8G            PE    opengene             1       710.9     160629528     147153690      baseline  CSV
+WGS_PE_12.8G            PE    d0bromir_cpu         1       634.6     160629528     147153690        -10.7%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu         1       555.2     160629528     147153690        -21.9%  PASS
+WGS_PE_12.8G            PE    opengene             2       378.2     160629528     147153690      baseline  CSV
+WGS_PE_12.8G            PE    d0bromir_cpu         2       324.8     160629528     147153690        -14.1%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu         2       290.4     160629528     147153690        -23.2%  PASS
+WGS_PE_12.8G            PE    opengene             4       268.2     160629528     147153690      baseline  CSV
+WGS_PE_12.8G            PE    d0bromir_cpu         4       166.5     160629528     147153690        -37.9%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu         4       149.2     160629528     147153690        -44.4%  PASS
+WGS_PE_12.8G            PE    opengene             8       269.0     160629528     147153690      baseline  CSV
+WGS_PE_12.8G            PE    d0bromir_cpu         8        87.1     160629528     147153690        -67.6%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu         8        79.8     160629528     147153690        -70.4%  PASS
+WGS_PE_12.8G            PE    opengene            16       269.3     160629528     147153690      baseline  CSV
+WGS_PE_12.8G            PE    d0bromir_cpu        16        71.7     160629528     147153690        -73.4%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu        16        75.1     160629528     147153690        -72.1%  PASS
+WGS_PE_12.8G            PE    opengene            32       118.7     160629528     147153690      baseline  baseline
+WGS_PE_12.8G            PE    d0bromir_cpu        32        71.6     160629528     147153690        -39.7%  PASS
+WGS_PE_12.8G            PE    d0bromir_gpu        32        76.1     160629528     147153690        -35.9%  PASS
+WGS_PE_18.2G            PE    opengene             1       978.8     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu         1       858.7     234238034     217840930        -12.3%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu         1       739.5     234238034     217840930        -24.4%  PASS
+WGS_PE_18.2G            PE    opengene             2       519.1     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu         2       440.7     234238034     217840930        -15.1%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu         2       385.7     234238034     217840930        -25.7%  PASS
+WGS_PE_18.2G            PE    opengene             4       397.3     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu         4       222.8     234238034     217840930        -43.9%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu         4       194.7     234238034     217840930        -51.0%  PASS
+WGS_PE_18.2G            PE    opengene             8       397.5     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu         8       118.3     234238034     217840930        -70.2%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu         8       106.0     234238034     217840930        -73.3%  PASS
+WGS_PE_18.2G            PE    opengene            16       398.4     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu        16       100.3     234238034     217840930        -74.8%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu        16       103.2     234238034     217840930        -74.1%  PASS
+WGS_PE_18.2G            PE    opengene            32       162.9     234238034     217840930      baseline  CSV
+WGS_PE_18.2G            PE    d0bromir_cpu        32       100.8     234238034     217840930        -38.1%  PASS
+WGS_PE_18.2G            PE    d0bromir_gpu        32       104.7     234238034     217840930        -35.7%  PASS
+BS_HiSeq_SE_26.8G       SE    opengene             1      3504.1             0             0      baseline  IDLE_TIMEOUT
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu         1      2497.0    1383062125    1382940338           N/A  SKIP
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu         1      2047.0    1383062125    1382940338           N/A  SKIP
+BS_HiSeq_SE_26.8G       SE    opengene             2      3444.3             0             0      baseline  IDLE_TIMEOUT
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu         2      1433.9    1383062125    1382940338           N/A  SKIP
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu         2      1159.7    1383062125    1382940338           N/A  SKIP
+BS_HiSeq_SE_26.8G       SE    opengene             4      2983.1    1383062125    1382940338      baseline  baseline
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu         4       836.2    1383062125    1382940338        -72.0%  PASS
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu         4       730.3    1383062125    1382940338        -75.5%  PASS
+BS_HiSeq_SE_26.8G       SE    opengene             8      3131.8    1383062125    1382940338      baseline  baseline
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu         8       507.3    1383062125    1382940338        -83.8%  PASS+FQ
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu         8       545.1    1383062125    1382940338        -82.6%  PASS+FQ
+BS_HiSeq_SE_26.8G       SE    opengene            16      3130.4    1383062125    1382940338      baseline  baseline
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu        16       557.8    1383062125    1382940338        -82.2%  PASS
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu        16       480.5    1383062125    1382940338        -84.7%  PASS
+BS_HiSeq_SE_26.8G       SE    opengene            32      3179.7    1383062125    1382940338      baseline  baseline
+BS_HiSeq_SE_26.8G       SE    d0bromir_cpu        32       493.4    1383062125    1382940338        -84.5%  PASS
+BS_HiSeq_SE_26.8G       SE    d0bromir_gpu        32       417.9    1383062125    1382940338        -86.9%  PASS
+WGS_PE_40G              PE    opengene             1      4841.1     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu         1      3600.1             0             0       TIMEOUT  TIMEOUT
+WGS_PE_40G              PE    d0bromir_cpu         1      3600.6             0             0       TIMEOUT  TIMEOUT
+WGS_PE_40G              PE    d0bromir_gpu         1      3602.7             0             0       TIMEOUT  TIMEOUT
+WGS_PE_40G              PE    d0bromir_gpu         1      3602.4             0             0       TIMEOUT  TIMEOUT
+WGS_PE_40G              PE    opengene             2      2520.2     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu         2      2187.1     722563222     717214748        -13.2%  PASS
+WGS_PE_40G              PE    d0bromir_gpu         2      1890.2     722563222     717214748        -25.0%  PASS
+WGS_PE_40G              PE    opengene             4      1264.4     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu         4      1111.2     722563222     717214748        -12.1%  PASS
+WGS_PE_40G              PE    d0bromir_gpu         4       961.5     722563222     717214748        -24.0%  PASS
+WGS_PE_40G              PE    opengene             8      1098.3     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu         8       561.4     722563222     717214748        -48.9%  PASS
+WGS_PE_40G              PE    d0bromir_gpu         8       492.7     722563222     717214748        -55.1%  PASS
+WGS_PE_40G              PE    opengene            16      1098.3     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu        16       293.7     722563222     717214748        -73.3%  PASS
+WGS_PE_40G              PE    d0bromir_gpu        16       260.2     722563222     717214748        -76.3%  PASS
+WGS_PE_40G              PE    opengene            32       434.6     722563222     717214748      baseline  CSV
+WGS_PE_40G              PE    d0bromir_cpu        32       241.0     722563222     717214748        -44.5%  PASS
+WGS_PE_40G              PE    d0bromir_gpu        32       245.3     722563222     717214748        -43.6%  PASS
+
+--- Last profiling entries (tail) ---
+ GPU mem peak : 0 MiB
+[14:06:28] [fastp 1.3.3-d0bromir] Stage: loading 
+[14:10:25] [fastp 1.3.3-d0bromir] Stage: loading (237322 ms) 
+[14:10:25] [fastp 1.3.3-d0bromir] Stage: filtering 
+[14:10:26] [fastp 1.3.3-d0bromir] Stage: filtering (228 ms) 
+[14:10:26] [fastp 1.3.3-d0bromir] Stage: writing 
+[14:10:26] [fastp 1.3.3-d0bromir] Stage: writing (74 ms) 
+[14:10:26] [PROFILE] Filter batches=44102 gpu_reads=0 cpu_reads=722563222 gpu_filter_time=0.000000ms cpu_filter_time=777562.324357ms 
+Filtering result:
+║ filter calls (incl. GPU):   777712.8 ms  (323.0%)           ║
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+fastp v1.3.3-d0bromir, time used: 241 seconds
+ GPU util a/p : 26.5% / 29.0%
+ GPU mem peak : 1360 MiB
+[14:10:33] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[14:10:34] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[14:10:34] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[14:10:34] [fastp 1.3.3-d0bromir] Stage: loading 
+[14:14:31] [fastp 1.3.3-d0bromir] Stage: loading (236561 ms) 
+[14:14:31] [fastp 1.3.3-d0bromir] Stage: filtering 
+[14:14:31] [fastp 1.3.3-d0bromir] Stage: filtering (202 ms) 
+[14:14:31] [fastp 1.3.3-d0bromir] Stage: writing 
+[14:14:31] [fastp 1.3.3-d0bromir] Stage: writing (75 ms) 
+[14:14:31] [GPU] Device 0: batches=44102 reads=361279638 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[14:14:31] [GPU] Device 1: batches=44102 reads=361283584 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[14:14:31] [PROFILE] Filter batches=44102 gpu_reads=722563222 cpu_reads=0 gpu_filter_time=238299.804615ms cpu_filter_time=0.000000ms 
+Filtering result:
+║ filter calls (incl. GPU):   238422.3 ms  ( 98.1%)           ║
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+fastp v1.3.3-d0bromir, time used: 243 seconds

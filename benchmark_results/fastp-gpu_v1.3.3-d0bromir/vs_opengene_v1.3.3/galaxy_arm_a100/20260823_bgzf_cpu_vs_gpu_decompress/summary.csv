@@ -1,0 +1,7 @@
+run_id,rep,binary,mode,dataset,threads,wall_s,reads_out,correctness,notes
+cpu_bgzf_rep1,1,fastp-cpu,cpu,RNA_NextSeq_PE_1.2G_BGZF,16,10.84,51860270,match,"CPU-only build; BGZF has no CPU-side fast path, decoded serially via ISA-L inflate exactly like plain gzip"
+cpu_bgzf_rep2,2,fastp-cpu,cpu,RNA_NextSeq_PE_1.2G_BGZF,16,10.97,51860270,match,""
+cpu_bgzf_rep3,3,fastp-cpu,cpu,RNA_NextSeq_PE_1.2G_BGZF,16,10.90,51860270,match,""
+gpu_bgzf_rep1,1,fastp,gpu,RNA_NextSeq_PE_1.2G_BGZF,16,10.95,51860270,match,"GPU build; BGZF auto-detected, decoded on GPU via nvCOMP parallel block decompression (dual-GPU, confirmed in run log)"
+gpu_bgzf_rep2,2,fastp,gpu,RNA_NextSeq_PE_1.2G_BGZF,16,10.90,51860270,match,""
+gpu_bgzf_rep3,3,fastp,gpu,RNA_NextSeq_PE_1.2G_BGZF,16,11.37,51860270,match,""

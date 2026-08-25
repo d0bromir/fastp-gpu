@@ -1,9 +1,18 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define FASTP_VER "1.3.6"
+#define FASTP_VER "1.3.3-d0bromir"
 
 #define _DEBUG false
+
+// GPU debug output control (set to 1 to enable debug messages)
+#define GPU_DEBUG 0
+
+#if GPU_DEBUG
+#define GPU_FPRINTF(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define GPU_FPRINTF(...) do {} while(0)
+#endif
 
 #ifndef _WIN32
 	typedef long int64;
@@ -24,17 +33,40 @@ typedef unsigned char uint8;
 
 const char ATCG_BASES[] = {'A', 'T', 'C', 'G'};
 
-// how many reads one pack has
-// ~1000 reads × ~350 bytes/read ≈ 350KB, near FASTQ LZ77 saturation (~256KB),
-// so each pack compresses efficiently as a single gzip member.
-static const int PACK_SIZE = 1000;
+// Maximum reads per pack (upper bound).  The GPU kernel launch is sized for
+// this many reads per batch: 8192 × ~150bp avg = ~1.2 MB seq data per pack;
+// at BLOCK_SIZE=256 / 1 warp per read this produces 1024 blocks per launch,
+// covering all 108 A100 SMs at 50–80% utilisation.
+// The actual pack size used at runtime is adaptive (see effectivePackSize in
+// seprocessor.cpp / peprocessor.cpp) and will be ≤ MAX_PACK_SIZE.
+static const int MAX_PACK_SIZE = 8192;
 
 // if one pack is produced, but not consumed, it will be kept in the memory
 // this number limit the number of in memory packs
 // if the number of in memory packs is full, the producer thread should sleep
-// Scaled down from 128 to match PACK_SIZE increase (256→1000) and maintain
-// similar peak memory: 32 × 1000 reads ≈ 32K reads in flight ≈ old 128 × 256.
-static const int PACK_IN_MEM_LIMIT = 32;
+// Limit is kept at MAX_PACK_SIZE × 64 = 524 288 reads max in-flight regardless
+// of the adaptive pack size chosen at runtime.
+static const int PACK_IN_MEM_LIMIT = 64;
+
+// Packs are distributed round-robin across effectiveThreads per-worker
+// queues, so a *global* in-flight budget of PACK_IN_MEM_LIMIT gives each
+// worker only PACK_IN_MEM_LIMIT/effectiveThreads packs of headroom on
+// average. At effectiveThreads >= PACK_IN_MEM_LIMIT (e.g. -w 64, the
+// tool's own thread ceiling) that headroom collapses to ~1 pack per
+// worker, forcing the reader and every worker into near-lockstep
+// handoff and eliminating the overlap this pipeline depends on -- this
+// was the root cause of a ~16x wall-time regression measured at -w 64
+// on a 40GB paired-end dataset (see
+// docs/publication/supplementary/thread-ceiling-collapse-and-fix.md).
+// PACK_IN_MEM_HEADROOM
+// guarantees a minimum per-worker headroom regardless of thread count,
+// while max() leaves the original constant (and thus memory footprint)
+// unchanged at the low-to-moderate thread counts it was tuned for.
+static const int PACK_IN_MEM_HEADROOM = 4;
+static inline long packInMemLimit(int effectiveThreads) {
+    long perWorker = (long)effectiveThreads * PACK_IN_MEM_HEADROOM;
+    return perWorker > PACK_IN_MEM_LIMIT ? perWorker : PACK_IN_MEM_LIMIT;
+}
 
 
 // different filtering results, bigger number means worse

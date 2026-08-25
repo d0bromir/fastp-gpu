@@ -1,0 +1,4 @@
+>>> RESUME buf_mb=4: building GPU
+>>> RESUME buf_mb=4: unit tests (GPU build)
+UNIT TEST FAILED at buf_mb=4 (gpu)
+./fastp: error while loading shared libraries: libnvcomp.so.5: cannot open shared object file: No such file or directory

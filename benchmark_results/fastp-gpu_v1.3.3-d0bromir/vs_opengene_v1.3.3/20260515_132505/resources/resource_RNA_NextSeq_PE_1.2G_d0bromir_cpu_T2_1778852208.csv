@@ -1,0 +1,6 @@
+epoch_s,cpu_pct,rss_mib,gpu_util_pct,gpu_mem_mib,input_file
+1778852208,174.1,353,12,0,DRR346892_1.fastq.gz
+1778852215,475.2,1626,10,0,DRR346892_1.fastq.gz
+1778852221,1378.2,1632,1,0,DRR346892_1.fastq.gz
+1778852227,481.2,1635,1,0,DRR346892_1.fastq.gz
+1778852233,487.2,1686,0,0,DRR346892_1.fastq.gz

@@ -182,15 +182,6 @@ inline bool is_directory(const  string& path)
     return isdir;
 }
 
-// check if a path is a regular file (seekable), not a pipe/FIFO/device
-inline bool is_regular_file(const  string& path)
-{
-    struct stat status;
-    if( stat( path.c_str(), &status ) != 0 )
-        return false;
-    return S_ISREG( status.st_mode );
-}
-
 inline void check_file_valid(const  string& s) {
     if(!file_exists(s)){
         cerr << "ERROR: file '" << s << "' doesn't exist, quit now" << endl;
