@@ -8,6 +8,7 @@
 #include <vector>
 #include "common.h"
 #include "options.h"
+#include "contaminant_db.h"
 #include <fstream>
 #include <map>
 
@@ -62,6 +63,12 @@ public:
     void addMergedPairs(int pairs);
     bool isLowComplexity(string& adapter);
 
+    // k-mer contamination detection results
+    void addContamHit(int srcId);           // increment per-source hit counter
+    long getContamHits(int srcId) const;    // per-source count
+    long getTotalContamHits() const;
+    void reportContaminationJson(ofstream& ofs, string padding);
+    void reportContaminationHtml(ofstream& ofs, long totalReads);
 
 public:
     Options* mOptions;
@@ -77,6 +84,7 @@ private:
     map<string, long, classcomp> mAdapter1;
     map<string, long, classcomp> mAdapter2;
     long* mCorrectionMatrix;
+    long mContamHits[MAX_CONTAM_SOURCES];  // per-source contaminated-read counts
 };
 
 #endif

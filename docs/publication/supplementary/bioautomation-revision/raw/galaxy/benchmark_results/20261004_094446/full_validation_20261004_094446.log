@@ -1,0 +1,3 @@
+=== Validation Log: Sun Oct  4 09:44:46 UTC 2026 ===
+
+  [KILLED] opengene WGS_SE_6.3G T=8 — IDLE_TIMEOUT after 429.982s (HANG_DETECTED output_idle=300s out_size=6626035285B)

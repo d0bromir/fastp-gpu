@@ -1,0 +1,25 @@
+[03:15:40] WATCHDOG START pid=548654 fastp=1032106 hard=3600 cpu_idle=300s out_idle=120s
+[03:16:41] WATCHDOG ALIVE elapsed=61s cpu_idle=0s out_idle=0s out_size=1072013312B
+[03:17:41] WATCHDOG ALIVE elapsed=121s cpu_idle=0s out_idle=0s out_size=2306359296B
+[03:18:40] WATCHDOG ALIVE elapsed=180s cpu_idle=0s out_idle=0s out_size=3496067072B
+[03:19:40] WATCHDOG ALIVE elapsed=240s cpu_idle=0s out_idle=0s out_size=4744237056B
+[03:20:41] WATCHDOG ALIVE elapsed=301s cpu_idle=0s out_idle=0s out_size=5984583680B
+[03:21:40] WATCHDOG ALIVE elapsed=360s cpu_idle=0s out_idle=0s out_size=7190618112B
+[03:22:40] WATCHDOG ALIVE elapsed=420s cpu_idle=0s out_idle=0s out_size=8454483968B
+[03:23:41] WATCHDOG ALIVE elapsed=481s cpu_idle=0s out_idle=0s out_size=9713549312B
+[03:24:41] WATCHDOG ALIVE elapsed=541s cpu_idle=0s out_idle=0s out_size=10957574144B
+[03:25:40] WATCHDOG ALIVE elapsed=600s cpu_idle=0s out_idle=0s out_size=12162641920B
+[03:26:41] WATCHDOG ALIVE elapsed=661s cpu_idle=0s out_idle=0s out_size=13399216128B
+[03:27:41] WATCHDOG ALIVE elapsed=721s cpu_idle=0s out_idle=0s out_size=14643601408B
+[03:28:40] WATCHDOG ALIVE elapsed=780s cpu_idle=0s out_idle=0s out_size=15838339072B
+[03:29:40] WATCHDOG ALIVE elapsed=840s cpu_idle=0s out_idle=0s out_size=17065676800B
+[03:30:41] WATCHDOG ALIVE elapsed=901s cpu_idle=0s out_idle=0s out_size=18315911168B
+[03:31:40] WATCHDOG ALIVE elapsed=960s cpu_idle=0s out_idle=0s out_size=19536482304B
+[03:32:40] WATCHDOG ALIVE elapsed=1020s cpu_idle=0s out_idle=0s out_size=20800147456B
+[03:33:41] WATCHDOG ALIVE elapsed=1081s cpu_idle=0s out_idle=0s out_size=22054977536B
+[03:34:41] WATCHDOG ALIVE elapsed=1141s cpu_idle=0s out_idle=0s out_size=23282704384B
+[03:35:40] WATCHDOG ALIVE elapsed=1200s cpu_idle=0s out_idle=0s out_size=24466305024B
+[03:36:41] WATCHDOG ALIVE elapsed=1261s cpu_idle=0s out_idle=0s out_size=25704660992B
+[03:37:41] WATCHDOG ALIVE elapsed=1321s cpu_idle=0s out_idle=0s out_size=26932559872B
+[03:38:40] WATCHDOG ALIVE elapsed=1380s cpu_idle=0s out_idle=0s out_size=28178898944B
+[03:39:08] WATCHDOG EXIT line=1 rc=0 elapsed=1408 idle=0 out_idle=0

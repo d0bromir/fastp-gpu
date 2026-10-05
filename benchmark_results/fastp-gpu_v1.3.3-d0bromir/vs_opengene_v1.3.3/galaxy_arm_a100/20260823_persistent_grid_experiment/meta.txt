@@ -1,0 +1,107 @@
+timestamp:        2026-08-23 (follow-up session to 20260823_subwarp_tiling_experiment)
+platform:         galaxy_arm_a100 (Neoverse N1, 128 cores, dual A100 80GB, 108 SMs/GPU)
+fastp-gpu version: v1.3.3-d0bromir, on the experiment/subwarp-tiling-algorithm2
+                   branch, extended in this session with the Comment-9 grid-sizing
+                   mechanism (src/cuda_stats.cu).
+dataset:          Panel_private/S1A_S1_L001_R{1,2}_001.fastq.gz (same real PE
+                   panel-scale short-read data as the Comment-8-only experiment:
+                   151 bp reads, 2,761,244 passing read pairs), -w 8.
+
+What this experiment is:
+  JCB Reviewer 2, Comment 9 ("Grid sizing to the SM count for Algorithm 2")
+  proposed a persistent-kernel design: launch exactly as many blocks as the
+  device has SMs (or a small multiple, for oversubscription), with each block
+  looping over a work queue across the batch, instead of the current design's
+  grid scaling with num_reads every batch. Implemented as a grid-stride outer
+  loop added to filter_and_stats_subwarp_kernel<TILE> (the same experimental
+  kernel from Comment 8's experiment): when FASTP_GPU_PERSISTENT_GRID=N is set,
+  grid_size = min(N * device_SM_count, reads_needed), and the loop covers
+  whatever is left. When unset, grid_size == the reads-needed value, so the
+  loop runs exactly once per block -- identical to no looping at all. This
+  also let this session test Comments 8 and 9 together (both env vars set) as
+  requested, since the mechanism is orthogonal and shares one kernel.
+
+  Correctness: `./fastp test` PASS for every combination of
+  FASTP_GPU_SUBWARP_TILE in {unset,8,16} x FASTP_GPU_PERSISTENT_GRID in
+  {unset,1,4}, on both the RTX 3050 laptop and the A100 node. Real-data run
+  (Panel_private, -w 4, RTX 3050) bit-exact (identical decompressed FASTQ
+  md5) across all 8 combinations tested.
+
+METHODOLOGY NOTE -- read before the results below:
+  The first benchmark pass (raw/, "blocked_sweep_1rep" and "blocked" rows in
+  summary.csv) ran each configuration as a consecutive block (5 reps of
+  baseline, then 5 reps of the next config, etc.) -- the same design used for
+  the Comment-8-only experiment. That design is vulnerable to systematic time-
+  varying drift (GPU clock boost/idle transitions, thermal state, shared-host
+  background load) biasing whichever configs happen to run earlier vs. later.
+  This pass initially suggested FASTP_GPU_PERSISTENT_GRID=1 combined with
+  FASTP_GPU_SUBWARP_TILE=8 gave a large win (-3.85%, first 5 reps); a second
+  batch of 5 more reps of the same two configs, still blocked, gave the
+  opposite impression (combo *slower* than baseline). That inconsistency was
+  the signal to redo this properly.
+
+  The second pass (raw_interleaved/, "interleaved" rows) ran all four
+  configurations round-robin, one rep of each per round, 20 rounds -- this
+  cancels out time-dependent drift, since every config gets a rep at
+  approximately every point along whatever drift exists. This is the
+  methodologically sound comparison; the blocked-sweep numbers are kept in
+  the raw data for transparency but should not be read as the answer.
+
+Results (interleaved, n=20 per config unless noted; Welch's t-test vs. baseline,
+same run, same dataset, same build):
+
+| Config                              | Mean (ms) | vs. baseline | Welch t (df) |
+|--------------------------------------|----------:|-------------:|-------------:|
+| baseline (TILE=32, dynamic grid)     |    622.93 |            — |            — |
+| TILE=8 only (Comment 8)              |    619.16 |       -0.61% |  -1.16 (37.7) |
+| PERSISTENT_GRID=1 only (Comment 9, literal "1 block/SM") | 632.06 | **+1.47%** | **+2.97 (38.0)** |
+| TILE=8 + PERSISTENT_GRID=1 (combined)|    632.54 |       +1.54% |  +3.11 (38.0) |
+
+A second, separate interleaved run (n=10) checked PERSISTENT_GRID=4 (a milder
+4x-SM-count oversubscription, still far short of the ~9.5x the current
+dynamic grid achieves for a full 8192-read batch) against its own baseline:
+
+| Config                     | Mean (ms) | vs. baseline | Welch t (df) |
+|-----------------------------|----------:|-------------:|-------------:|
+| baseline2                   |    622.84 |            — |            — |
+| PERSISTENT_GRID=4            |    619.52 |       -0.53% |  -0.87 (17.9) |
+
+Interpretation:
+  - **Comment 9, as literally proposed (grid sized to exactly the SM count,
+    1 block/SM): a real, statistically significant regression** (+1.47%,
+    |t|=2.97 on df=38, two-tailed p < 0.01). Mechanistically this matches
+    expectation stated up front in the hypothesis: the current dynamic grid
+    already achieves ~9.5 blocks/SM for a full-size batch on this kernel
+    (which uses no shared memory, so occupancy is not memory-limited),
+    giving the SM scheduler multiple resident blocks to hide latency across;
+    clamping to exactly 1 block/SM removes that latency-hiding headroom.
+    A milder oversubscription (4x SM count) recovers to statistically
+    indistinguishable from baseline (not a win, not a loss).
+  - **Combining Comment 8 (sub-warp tiling) with Comment 9 (persistent grid,
+    N=1) does not rescue or improve on Comment 9's regression** -- the
+    combined result (+1.54%) is statistically indistinguishable from
+    Comment 9 alone (+1.47%); there is no synergy, favourable or otherwise.
+  - **Comment 8 alone, re-measured with this corrected (interleaved)
+    methodology, is no longer statistically significant** (-0.61%,
+    |t|=1.16, not significant at any conventional threshold), in contrast to
+    the original blocked-sampling result reported in
+    `20260823_subwarp_tiling_experiment/` (-1.85%, 5-rep, non-overlapping
+    ranges). Checking that original experiment's raw log timestamps
+    confirms the blocked design: all 5 baseline reps ran back-to-back
+    (16:09:44-16:09:59), immediately followed by all 5 tile8 reps
+    (16:10:03-16:10:19) -- exactly the ordering that a shared time-varying
+    drift (e.g. GPU clock state warming up over the first ~30s of sustained
+    load) would bias in tile8's favour regardless of any real kernel
+    difference. **This is a correction to that earlier finding**: the
+    -1.85% result most likely reflects measurement-order confounding, not a
+    real effect of sub-warp tiling. See the "Correction" section added to
+    `optimization_attempts/2026-08-23_subwarp-tiling-algorithm2.md`.
+
+Correctness: every one of the 140 runs referenced above (blocked and
+interleaved, all four+two configurations) produced identical passed-filter
+read counts on the same dataset; no correctness regression at any setting.
+
+Files:
+  summary.csv              -- one row per run: phase, config, gpu_filter_time
+  raw/<run_id>_run.log      -- first-pass (blocked) run logs
+  raw_interleaved/<run_id>_run.log -- second-pass (interleaved, round-robin) run logs

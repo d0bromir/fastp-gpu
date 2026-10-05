@@ -1,0 +1,22 @@
+dataset,threads,d0bromir_cpu_filtering_ms,d0bromir_gpu_filtering_ms,gpu_vs_cpu_filtering_speedup,cpu_filter_batch_ms,gpu_filter_batch_ms,note
+Panel_SE_148M,8,40,32,1.2x,,,filtering stage wall time; filter-batch timing not measured
+Panel_PE_304M,8,111,85,1.3x,,,filtering stage wall time; filter-batch timing not measured
+WGS_SE_6.3G,1,154,101,1.5x,,,filtering stage wall time; filter-batch timing not measured
+WGS_SE_6.3G,2,94,59,1.6x,,,filtering stage wall time; filter-batch timing not measured
+WGS_SE_6.3G,4,50,32,1.6x,,,filtering stage wall time; filter-batch timing not measured
+WGS_SE_6.3G,8,43,36,1.2x,54606,13079,filtering stage wall time; filter-batch batch=54606ms CPU vs 13079ms GPU (4.2x); measured 2026-04-26
+WGS_SE_6.3G,16,58,45,1.3x,,,filtering stage wall time; filter-batch timing not measured
+WGS_SE_6.3G,32,84,60,1.4x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,1,4514,3582,1.3x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,2,3465,2059,1.7x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,4,1418,1714,0.8x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,8,929,826,1.1x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,16,142,123,1.2x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_12.8G,32,213,140,1.5x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_18.2G,1,3790,3252,1.2x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_18.2G,2,2103,1697,1.2x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_18.2G,4,1020,965,1.1x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_18.2G,8,812,496,1.6x,157627,38504,filtering stage wall time; filter-batch batch=157627ms CPU vs 38504ms GPU (4.1x); measured 2026-04-26
+WGS_PE_18.2G,16,138,116,1.2x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_18.2G,32,157,143,1.1x,,,filtering stage wall time; filter-batch timing not measured
+WGS_PE_40G,8,1443,1219,1.2x,,,filtering stage wall time; filter-batch timing not measured

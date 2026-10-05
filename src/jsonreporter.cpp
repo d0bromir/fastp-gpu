@@ -143,6 +143,11 @@ void JsonReporter::report(FilterResult* result, Stats* preStats1, Stats* postSta
         result -> reportPolyXTrimJson(ofs, "\t");
     }
 
+    if(result && mOptions->contaminant.enabled) {
+        ofs << "\t" << "\"contamination\": ";
+        result -> reportContaminationJson(ofs, "\t");
+    }
+
     if(preStats1) {
         ofs << "\t" << "\"read1_before_filtering\": " ;
         preStats1 -> reportJson(ofs, "\t");
