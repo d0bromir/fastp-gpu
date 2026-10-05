@@ -1,0 +1,51 @@
+inFile1 is /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz
+inFile2 is /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz
+outFile1 is /tmp/comp_rqc_tz3kv2/o1.fq.gz
+outFile2 is /tmp/comp_rqc_tz3kv2/o2.fq.gz
+for PE data, overlap analysis is used to find adapter by default
+
+
+
+print read1 (before filter) info :
+total bases 11711901700
+q20 bases 11040848879
+q30 bases 10362226195
+read number 117119017
+average read length 100.000
+
+print read1 (after filter) info :
+total bases 10873757549
+q20 bases 10544216033
+q30 bases 9961660084
+read number 108920465
+average read length 99.832
+
+
+print read2 (before filter) info :
+total bases 11711901700
+q20 bases 10988642082
+q30 bases 10314076255
+read number 117119017
+average read length 100.000
+
+print read2 (after filter) info :
+total bases 10873757549
+q20 bases 10557960992
+q30 bases 9979237841
+read number 108920465
+average read length 99.832
+
+filtering result:
+pass filter read number: 217840930
+not pass filter due to too short: 0
+not pass filter due to too long: 0
+not pass filter due to too many N: 0
+not pass filter due to low quality: 16397104
+trimmed adapter read number: 882278 
+trimmed base number due to adapter: 37595560
+
+Duplication rate : 1.20802 %
+Insert size peak (based on PE overlap analyze): 169
+report pe html data in ERR1044319_1_ERR1044319_2_RabbitQCPlus.html
+cmd is /home/mpiuser/appnotes-competitor-work/RabbitQCPlus/RabbitQCPlus -w 32 -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /tmp/comp_rqc_tz3kv2/o1.fq.gz -O /tmp/comp_rqc_tz3kv2/o2.fq.gz --overWrite 
+total cost 97.78809s

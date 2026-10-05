@@ -1,0 +1,13 @@
+# Stage-level wall-clock breakdown for fastp-gpu (CPU mode, T=8).
+# Derived from profiling data collected with --verbose flag.
+# loading_ms   = elapsed time of async decompression stage (maps to bottleneck B1)
+# filtering_ms = elapsed time of per-read filter/stats stage (maps to B2)
+# writing_ms   = elapsed time of output-gzip stage (maps to B3)
+# other_ms     = walltime_ms - loading_ms - filtering_ms - writing_ms (scheduling/overlap)
+# All four stages overlap in the pipeline; the largest stage sets the wall-clock.
+# Source: docs/publication/figures/fig1_breakdown.csv
+dataset,label,walltime_ms,loading_ms,filtering_ms,writing_ms,loading_pct,filtering_pct,writing_pct,other_pct
+WGS_SE_6.3G,WGS SE (6.3 GB SE),79000,74000,1600,240,93.7,2.0,0.3,4.0
+WGS_PE_12.8G,WGS PE (12.8 GB PE),86722,84175,929,103,97.1,1.1,0.1,1.7
+WGS_PE_18.2G,WGS PE (18.2 GB PE),117166,114782,812,80,98.0,0.7,0.1,1.2
+WGS_PE_40G,WGS PE (38.5 GB PE),555854,552926,1443,102,99.5,0.3,0.0,0.2

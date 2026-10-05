@@ -1,0 +1,70 @@
+[00:33:14] fastp 1.3.3-d0bromir starting 
+[00:37:45] [PROFILE] Filter batches=44102 gpu_reads=0 cpu_reads=722563222 gpu_filter_time=0.000000ms cpu_filter_time=764815.326095ms 
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60214%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            274523.3 ms                     ║
+║ Total reads:               361281611                        ║
+║ I/O bytes (compressed):   41315252885                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):            243230.2 ms  ( 88.6%)           ║
+║ Decompression:              411257.5 ms  (149.8%)           ║
+║ CPU trim+adapter:          2425992.5 ms  (883.7%)           ║
+║ CPU statRead:               603762.2 ms  (219.9%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ filter calls (incl. GPU):   764971.9 ms  (278.7%)           ║
+║ CPU output format:          176913.0 ms  ( 64.4%)           ║
+║ Output compression:        2162262.1 ms  (787.6%)           ║
+║ Output write (fwrite):       21429.1 ms  (  7.8%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,filter_calls_ms,cpu_output_ms,compress_ms,write_ms,reads,io_bytes
+[PROF_CSV] 274523.3,243230.2,411257.5,2425992.5,603762.2,0.0,764971.9,176913.0,2162262.1,21429.1,361281611,41315252885
+
+JSON report: /tmp/compsweep/comp4.json
+HTML report: /dev/null
+
+./fastp-cpu -w 32 -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/compsweep/comp4_R1.fq.gz -O /tmp/compsweep/comp4_R2.fq.gz -j /tmp/compsweep/comp4.json -h /dev/null 
+fastp v1.3.3-d0bromir, time used: 274 seconds

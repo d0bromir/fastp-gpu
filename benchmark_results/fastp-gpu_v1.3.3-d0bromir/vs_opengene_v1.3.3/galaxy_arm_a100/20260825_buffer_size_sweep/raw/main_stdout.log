@@ -1,0 +1,6 @@
+=== Sweep start ===
+>>> buf_mb=4: setting sizes, building CPU
+>>> buf_mb=4: unit tests (CPU build has no GPU tests)
+se_4mb_rep1,buf_mb=4,reads_out=77515798,[PROF_CSV] 69112.0,47694.1,64269.8,3282.2,49254.5,0.0,53386.5,11039.6,294521.8,3030.5,80314764,6713401913
+se_4mb_rep2,buf_mb=4,reads_out=77515798,[PROF_CSV] 67412.0,45763.5,64297.8,3274.7,49290.0,0.0,53390.1,10995.6,294710.3,3029.4,80314764,6713401913
+>>> buf_mb=4: building GPU

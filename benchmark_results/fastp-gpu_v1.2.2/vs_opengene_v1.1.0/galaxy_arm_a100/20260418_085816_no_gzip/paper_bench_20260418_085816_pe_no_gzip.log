@@ -1,0 +1,598 @@
+Starting PE benchmarks (continuation) at Sat Apr 18 09:04:48 UTC 2026
+Appending to CSV: /home/mpiuser/tools/src/fastp_d0bromir/benchmark_results/paper_bench_20260418_085816.csv
+
+=== WGS_PE_12.8G | opengene | T=8 ===
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read2 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7301776236(90.9145%)
+Q30 bases: 6735240270(83.8605%)
+Q40 bases: 14983216(0.186556%)
+
+Read1 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 7132277963(97.2698%)
+Q30 bases: 6786262173(92.5508%)
+Q40 bases: 1340969(0.0182881%)
+
+Read2 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 6987054543(95.2892%)
+Q30 bases: 6494309731(88.5692%)
+Q40 bases: 14400882(0.196399%)
+
+Filtering result:
+reads passed filter: 147153690
+reads failed due to low quality: 13450996
+reads failed due to too many N: 24842
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 1431652
+bases trimmed due to adapters: 51264566
+
+Duplication rate: 0.45964%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: /tmp/fastp_bench_yBPjcE.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_opengene/fastp -w 8 -j /tmp/fastp_bench_yBPjcE.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044780_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.1.0, time used: 106 seconds
+  -> wall=105.884s reads_in=160629528 reads_out=147153690
+
+=== WGS_PE_12.8G | d0bromir_cpu | T=8 ===
+[09:06:34] fastp 1.2.2 starting 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read2 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7301776236(90.9145%)
+Q30 bases: 6735240270(83.8605%)
+Q40 bases: 14983216(0.186556%)
+
+Read1 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 7132277963(97.2698%)
+Q30 bases: 6786262173(92.5508%)
+Q40 bases: 1340969(0.0182881%)
+
+Read2 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 6987054543(95.2892%)
+Q30 bases: 6494309731(88.5692%)
+Q40 bases: 14400882(0.196399%)
+
+Filtering result:
+reads passed filter: 147153690
+reads failed due to low quality: 13450996
+reads failed due to too many N: 24842
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 1431652
+bases trimmed due to adapters: 51264566
+
+Duplication rate: 0.459649%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:             87223.1 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             35623.7 ms  ( 40.8%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:           328066.0 ms  (376.1%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                 118422.0 ms  (135.8%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 87223.1,35623.7,0.0,328066.0,0.0,0.0,118422.0,0.0,0,0
+
+JSON report: /tmp/fastp_bench_LfF1SK.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp-cpu-profile -w 8 -j /tmp/fastp_bench_LfF1SK.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044780_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 87 seconds
+  -> wall=87.567s reads_in=160629528 reads_out=147153690
+
+=== WGS_PE_12.8G | d0bromir_gpu | T=8 ===
+[09:08:02] fastp 1.2.2 starting 
+[09:08:05] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated 
+[09:08:06] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated 
+[09:08:06] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read2 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7301776236(90.9145%)
+Q30 bases: 6735240270(83.8605%)
+Q40 bases: 14983216(0.186556%)
+
+Read1 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 7132277963(97.2698%)
+Q30 bases: 6786262173(92.5508%)
+Q40 bases: 1340969(0.0182881%)
+
+Read2 after filtering:
+total reads: 73576845
+total bases: 7332470906
+Q20 bases: 6987054543(95.2892%)
+Q30 bases: 6494309731(88.5692%)
+Q40 bases: 14400882(0.196399%)
+
+Filtering result:
+reads passed filter: 147153690
+reads failed due to low quality: 13450996
+reads failed due to too many N: 24842
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 1431652
+bases trimmed due to adapters: 51264566
+
+Duplication rate: 0.459635%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:             77687.8 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             49113.4 ms  ( 63.2%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:           329576.9 ms  (424.2%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                  49386.4 ms  ( 63.6%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 77687.8,49113.4,0.0,329576.9,0.0,0.0,49386.4,0.0,0,0
+
+JSON report: /tmp/fastp_bench_5sHmuU.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp -w 8 -j /tmp/fastp_bench_5sHmuU.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044780_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 78 seconds
+  -> wall=79.636s reads_in=160629528 reads_out=147153690
+
+=== WGS_PE_18.2G | opengene | T=8 ===
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16051%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: /tmp/fastp_bench_TeEhFu.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_opengene/fastp -w 8 -j /tmp/fastp_bench_TeEhFu.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.1.0, time used: 150 seconds
+  -> wall=150.619s reads_in=234238034 reads_out=217840930
+
+=== WGS_PE_18.2G | d0bromir_cpu | T=8 ===
+[09:11:53] fastp 1.2.2 starting 
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16052%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            118414.4 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             59612.9 ms  ( 50.3%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:           407591.7 ms  (344.2%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                 173475.0 ms  (146.5%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 118414.4,59612.9,0.0,407591.7,0.0,0.0,173475.0,0.0,0,0
+
+JSON report: /tmp/fastp_bench_7RKrUN.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp-cpu-profile -w 8 -j /tmp/fastp_bench_7RKrUN.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 118 seconds
+  -> wall=118.760s reads_in=234238034 reads_out=217840930
+
+=== WGS_PE_18.2G | d0bromir_gpu | T=8 ===
+[09:13:52] fastp 1.2.2 starting 
+[09:13:55] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated 
+[09:13:55] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated 
+[09:13:55] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16053%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            101608.1 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):            112004.2 ms  (110.2%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:           407386.3 ms  (400.9%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                  61506.1 ms  ( 60.5%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 101608.1,112004.2,0.0,407386.3,0.0,0.0,61506.1,0.0,0,0
+
+JSON report: /tmp/fastp_bench_zJoS3P.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp -w 8 -j /tmp/fastp_bench_zJoS3P.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 102 seconds
+  -> wall=103.434s reads_in=234238034 reads_out=217840930
+
+=== WGS_PE_40G | opengene | T=8 ===
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60215%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+JSON report: /tmp/fastp_bench_6XJAGQ.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_opengene/fastp -w 8 -j /tmp/fastp_bench_6XJAGQ.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.1.0, time used: 639 seconds
+  -> wall=639.888s reads_in=722563222 reads_out=717214748
+
+=== WGS_PE_40G | d0bromir_cpu | T=8 ===
+[09:26:16] fastp 1.2.2 starting 
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60214%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            550904.1 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):            102690.9 ms  ( 18.6%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:          2249570.7 ms  (408.3%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                 773214.3 ms  (140.4%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 550904.1,102690.9,0.0,2249570.7,0.0,0.0,773214.3,0.0,0,0
+
+JSON report: /tmp/fastp_bench_oQnTuW.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp-cpu-profile -w 8 -j /tmp/fastp_bench_oQnTuW.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 551 seconds
+  -> wall=551.203s reads_in=722563222 reads_out=717214748
+
+=== WGS_PE_40G | d0bromir_gpu | T=8 ===
+[09:35:27] fastp 1.2.2 starting 
+[09:35:31] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated 
+[09:35:31] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated 
+[09:35:31] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60212%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            483865.1 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):            104709.6 ms  ( 21.6%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:          2268019.2 ms  (468.7%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                 228709.4 ms  ( 47.3%)           ║
+║ CPU output format:               0.0 ms  (  0.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 483865.1,104709.6,0.0,2268019.2,0.0,0.0,228709.4,0.0,0,0
+
+JSON report: /tmp/fastp_bench_F8bAxX.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp -w 8 -j /tmp/fastp_bench_F8bAxX.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/fastp_null_r1 -O /tmp/fastp_null_r2 
+fastp v1.2.2, time used: 485 seconds
+  -> wall=485.501s reads_in=722563222 reads_out=717214748
+
+=== ALL PE DONE at Sat Apr 18 09:43:33 UTC 2026 ===
+
+=== FULL RESULTS TABLE ===
+dataset        type  tool          threads  walltime_s  reads_in   reads_out
+Panel_SE_148M  SE    opengene      8        3.902       1381894    1381299
+Panel_SE_148M  SE    d0bromir_cpu  8        3.648       1381894    1381299
+Panel_SE_148M  SE    d0bromir_gpu  8        7.079       1381894    1381299
+WGS_SE_6.3G    SE    opengene      8        113.572     80314764   77515798
+WGS_SE_6.3G    SE    d0bromir_cpu  8        79.066      80314764   77515798
+WGS_SE_6.3G    SE    d0bromir_gpu  8        83.434      80314764   77515798
+WGS_PE_12.8G   PE    opengene      8        105.884     160629528  147153690
+WGS_PE_12.8G   PE    d0bromir_cpu  8        87.567      160629528  147153690
+WGS_PE_12.8G   PE    d0bromir_gpu  8        79.636      160629528  147153690
+WGS_PE_18.2G   PE    opengene      8        150.619     234238034  217840930
+WGS_PE_18.2G   PE    d0bromir_cpu  8        118.760     234238034  217840930
+WGS_PE_18.2G   PE    d0bromir_gpu  8        103.434     234238034  217840930
+WGS_PE_40G     PE    opengene      8        639.888     722563222  717214748
+WGS_PE_40G     PE    d0bromir_cpu  8        551.203     722563222  717214748
+WGS_PE_40G     PE    d0bromir_gpu  8        485.501     722563222  717214748

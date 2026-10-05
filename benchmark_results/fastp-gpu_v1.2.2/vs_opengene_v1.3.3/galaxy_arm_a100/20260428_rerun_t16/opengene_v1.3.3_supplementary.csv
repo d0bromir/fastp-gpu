@@ -1,0 +1,2 @@
+dataset,type,tool,threads,rep,walltime_s,reads_in,reads_out,opengene_version,platform,date,note
+WGS_PE_12.8G,PE,opengene,16,1,113.635,160629528,147153690,1.3.3,galaxy_arm_a100,2026-04-28,merged into ../20260426_114535/full_benchmark_20260426_114535.csv

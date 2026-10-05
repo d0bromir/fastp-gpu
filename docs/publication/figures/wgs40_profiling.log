@@ -1,0 +1,32 @@
+=== WGS_PE_40G profiling with --verbose: Sat Apr 18 11:05:50 UTC 2026 ===
+=== d0bromir_cpu | WGS_PE_40G | T=8 ===
+[11:05:52] [fastp 1.2.2] Stage: loading 
+[11:14:58] [fastp 1.2.2] Stage: loading (546275 ms) 
+[11:14:58] [fastp 1.2.2] Stage: filtering 
+[11:15:00] [fastp 1.2.2] Stage: filtering (1409 ms) 
+[11:15:00] [fastp 1.2.2] Stage: writing 
+[11:15:00] [fastp 1.2.2] Stage: writing (102 ms) 
+[11:15:00] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== d0bromir_gpu | WGS_PE_40G | T=8 ===
+[11:15:03] [fastp 1.2.2] Stage: loading 
+
+=== DONE: Sat Apr 18 11:22:19 UTC 2026 ===
+=== d0bromir_gpu | WGS_PE_40G | T=8 ===
+[11:22:22] [fastp 1.2.2] Stage: loading 
+[11:30:27] [fastp 1.2.2] Stage: loading (484890 ms) 
+[11:30:27] [fastp 1.2.2] Stage: filtering 
+[11:30:28] [fastp 1.2.2] Stage: filtering (1272 ms) 
+[11:30:28] [fastp 1.2.2] Stage: writing 
+[11:30:28] [fastp 1.2.2] Stage: writing (101 ms) 
+[11:30:28] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== DONE: Sat Apr 18 11:30:29 UTC 2026 ===
+[11:37:42] [fastp 1.2.2] Stage: loading (483509 ms) 
+[11:37:42] [fastp 1.2.2] Stage: filtering 
+[11:37:43] [fastp 1.2.2] Stage: filtering (1220 ms) 
+[11:37:43] [fastp 1.2.2] Stage: writing 
+[11:37:43] [fastp 1.2.2] Stage: writing (102 ms) 
+[11:37:43] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== GPU run complete: Sat Apr 18 11:38:16 UTC 2026 ===

@@ -8,9 +8,13 @@ ThreadConfig::ThreadConfig(Options* opt, int threadId, bool paired){
     mCurrentSplitReads = 0;
     mPreStats1 = new Stats(mOptions, false);
     mPostStats1 = new Stats(mOptions, false);
+    mPreStats1->setLongRepeatEnabled(false);
+    mPostStats1->setLongRepeatEnabled(mOptions->longRepeat.enabled);
     if(paired){
         mPreStats2 = new Stats(mOptions, true);
         mPostStats2 = new Stats(mOptions, true);
+        mPreStats2->setLongRepeatEnabled(false);
+        mPostStats2->setLongRepeatEnabled(mOptions->longRepeat.enabled);
     }
     else {
         mPreStats2 = NULL;

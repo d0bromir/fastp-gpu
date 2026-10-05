@@ -1,0 +1,44 @@
+============================================================
+ BENCHMARK STATUS — 2026-10-03 13:57:54
+ Progress : 3 / 3 runs
+ Datasets : WGS_PE_40G
+ Threads  : 32
+ CSV      : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261003_133745/full_benchmark_20261003_133745.csv
+============================================================
+
+dataset                 type  tool                 T      wall_s      reads_in     reads_out   vs_opengene  valid
+----------------------  ----  ---------------  -----  ----------  ------------  ------------  ------------  ------
+WGS_PE_40G              PE    opengene            32       706.6     722563222     717214748      baseline  baseline
+WGS_PE_40G              PE    d0bromir_cpu        32       242.0     722563222     717214748        -65.7%  PASS
+WGS_PE_40G              PE    d0bromir_gpu        32       244.9     722563222     717214748        -65.3%  PASS
+
+--- Last profiling entries (tail) ---
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+Filtering result:
+fastp v1.3.3, time used: 707 seconds
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+[13:49:38] [fastp 1.3.3-d0bromir] Stage: loading 
+[13:53:36] [fastp 1.3.3-d0bromir] Stage: loading (237729 ms) 
+[13:53:36] [fastp 1.3.3-d0bromir] Stage: filtering 
+[13:53:37] [fastp 1.3.3-d0bromir] Stage: filtering (611 ms) 
+[13:53:37] [fastp 1.3.3-d0bromir] Stage: writing 
+[13:53:37] [fastp 1.3.3-d0bromir] Stage: writing (28 ms) 
+Filtering result:
+fastp v1.3.3-d0bromir, time used: 242 seconds
+ GPU util a/p : 26.2% / 29.0%
+ GPU mem peak : 1360 MiB
+[13:53:45] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[13:53:45] [fastp 1.3.3-d0bromir] Stage: loading 
+[13:53:45] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[13:53:45] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[13:57:46] [fastp 1.3.3-d0bromir] Stage: loading (240455 ms) 
+[13:57:46] [fastp 1.3.3-d0bromir] Stage: filtering 
+[13:57:46] [fastp 1.3.3-d0bromir] Stage: filtering (581 ms) 
+[13:57:46] [fastp 1.3.3-d0bromir] Stage: writing 
+[13:57:46] [fastp 1.3.3-d0bromir] Stage: writing (28 ms) 
+[13:57:46] [GPU] Device 0: batches=44102 reads=361279638 
+[13:57:46] [GPU] Device 1: batches=44102 reads=361283584 
+Filtering result:
+fastp v1.3.3-d0bromir, time used: 244 seconds

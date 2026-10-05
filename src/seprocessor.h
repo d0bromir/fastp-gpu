@@ -16,6 +16,8 @@
 #include "writerthread.h"
 #include "duplicate.h"
 #include "singleproducersingleconsumerlist.h"
+#include "packqueue.h"
+#include "contaminant_db.h"
 #include "readpool.h"
 
 using namespace std;
@@ -40,20 +42,26 @@ private:
 
 private:
     Options* mOptions;
+    int mEffectiveThreads;  // adaptive worker count (≤ mOptions->thread) based on input size
+    int mEffectivePackSize; // adaptive pack size (≤ MAX_PACK_SIZE) based on input size / threads
     atomic_bool mReaderFinished;
-    alignas(128) atomic_int mFinishedThreads;
+    atomic_int mFinishedThreads;
     Filter* mFilter;
+    ContaminantDB* mContaminantDB;
     UmiProcessor* mUmiProcessor;
     WriterThread* mLeftWriter;
     WriterThread* mFailedWriter;
     Duplicate* mDuplicate;
+    // --split path only (fixed pack-index-to-thread striping; ThreadConfig
+    // relies on it). See PackQueue's comment in packqueue.h for why the
+    // default path uses the shared queue below instead.
     SingleProducerSingleConsumerList<ReadPack*>** mInputLists;
+    // Default (non-split) path: shared work queue, load-balanced across
+    // worker threads instead of striped round-robin.
+    PackQueue<ReadPack*>* mPackQueue;
     size_t mPackReadCounter;
-    alignas(128) atomic_long mPackProcessedCounter;
-    long mPackInMemLimit;
+    atomic_long mPackProcessedCounter;
     ReadPool* mReadPool;
-    std::mutex mBackpressureMtx;
-    std::condition_variable mBackpressureCV;
 };
 
 

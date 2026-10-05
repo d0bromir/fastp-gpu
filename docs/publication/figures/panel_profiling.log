@@ -1,0 +1,39 @@
+=== Panel profiling with --verbose: Sat Apr 18 10:50:23 UTC 2026 ===
+=== d0bromir_cpu | Panel_SE_148M | T=8 ===
+[10:50:28] [fastp 1.2.2] Stage: loading 
+[10:50:30] [fastp 1.2.2] Stage: loading (2055 ms) 
+[10:50:30] [fastp 1.2.2] Stage: filtering 
+[10:50:30] [fastp 1.2.2] Stage: filtering (47 ms) 
+[10:50:30] [fastp 1.2.2] Stage: writing 
+[10:50:30] [fastp 1.2.2] Stage: writing (152 ms) 
+[10:50:30] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== d0bromir_gpu | Panel_SE_148M | T=8 ===
+=== d0bromir_gpu | Panel_SE_148M | T=8 ===
+[10:51:38] [fastp 1.2.2] Stage: loading 
+[10:51:42] [fastp 1.2.2] Stage: loading (4331 ms) 
+[10:51:42] [fastp 1.2.2] Stage: filtering 
+[10:51:42] [fastp 1.2.2] Stage: filtering (38 ms) 
+[10:51:42] [fastp 1.2.2] Stage: writing 
+[10:51:42] [fastp 1.2.2] Stage: writing (182 ms) 
+[10:51:42] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== d0bromir_cpu | Panel_PE_304M | T=8 ===
+[10:51:45] [fastp 1.2.2] Stage: loading 
+[10:51:47] [fastp 1.2.2] Stage: loading (2135 ms) 
+[10:51:47] [fastp 1.2.2] Stage: filtering 
+[10:51:47] [fastp 1.2.2] Stage: filtering (122 ms) 
+[10:51:47] [fastp 1.2.2] Stage: writing 
+[10:51:47] [fastp 1.2.2] Stage: writing (111 ms) 
+[10:51:47] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== d0bromir_gpu | Panel_PE_304M | T=8 ===
+[10:51:49] [fastp 1.2.2] Stage: loading 
+[10:51:54] [fastp 1.2.2] Stage: loading (4377 ms) 
+[10:51:54] [fastp 1.2.2] Stage: filtering 
+[10:51:54] [fastp 1.2.2] Stage: filtering (97 ms) 
+[10:51:54] [fastp 1.2.2] Stage: writing 
+[10:51:54] [fastp 1.2.2] Stage: writing (146 ms) 
+[10:51:54] [PROFILE] Filter batches=0 gpu_reads=0 cpu_reads=0 gpu_filter_time=0.000000ms cpu_filter_time=0.000000ms 
+
+=== DONE Panel ===
