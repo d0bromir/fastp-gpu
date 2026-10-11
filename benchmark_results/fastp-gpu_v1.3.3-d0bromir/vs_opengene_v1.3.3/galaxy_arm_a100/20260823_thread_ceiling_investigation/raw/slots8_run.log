@@ -1,0 +1,98 @@
+[22:18:22] fastp 1.3.3-d0bromir starting 
+[22:18:22] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[22:18:22] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[22:18:23] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[22:22:38] [GPU] Device 0: batches=44102 reads=361281611 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[22:22:38] [GPU] Device 1: batches=44102 reads=361281611 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[22:22:38] [PROFILE] Filter batches=44102 gpu_reads=722563222 cpu_reads=0 gpu_filter_time=232013.603530ms cpu_filter_time=0.000000ms 
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60214%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:            257399.5 ms                     ║
+║ Total reads:               361281611                        ║
+║ I/O bytes (compressed):   41315252885                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):            203503.0 ms  ( 79.1%)           ║
+║ Decompression:              411832.5 ms  (160.0%)           ║
+║ CPU trim+adapter:          2240084.1 ms  (870.3%)           ║
+║ CPU statRead:               584132.6 ms  (226.9%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ filter calls (incl. GPU):   232138.7 ms  ( 90.2%)           ║
+║ CPU output format:          164629.8 ms  ( 64.0%)           ║
+║ Output compression:        2277906.8 ms  (885.0%)           ║
+║ Output write (fwrite):       16465.4 ms  (  6.4%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,filter_calls_ms,cpu_output_ms,compress_ms,write_ms,reads,io_bytes
+[PROF_CSV] 257399.5,203503.0,411832.5,2240084.1,584132.6,0.0,232138.7,164629.8,2277906.8,16465.4,361281611,41315252885
+
+JSON report: /tmp/slots_test/slots8.json
+HTML report: /dev/null
+
+./fastp -w 16 -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/slots_test/slots8_R1.fq.gz -O /tmp/slots_test/slots8_R2.fq.gz -j /tmp/slots_test/slots8.json -h /dev/null 
+fastp v1.3.3-d0bromir, time used: 257 seconds
+	Command being timed: "./fastp -w 16 -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/slots_test/slots8_R1.fq.gz -O /tmp/slots_test/slots8_R2.fq.gz -j /tmp/slots_test/slots8.json -h /dev/null"
+	User time (seconds): 6957.78
+	System time (seconds): 36.83
+	Percent of CPU this job got: 2711%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:17.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4328532
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 2809190
+	Voluntary context switches: 4008812
+	Involuntary context switches: 4480867
+	Swaps: 0
+	File system inputs: 1838184
+	File system outputs: 83736624
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
