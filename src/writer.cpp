@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "writer.h"
 #include "util.h"
+#include "bgzf_writer.h"
 #include <string.h>
 
 Writer::Writer(Options* opt, string filename, int compression, bool isSTDOUT){
@@ -68,9 +69,9 @@ void Writer::init(){
 		return ;
 	}
 	if (ends_with(mFilename, ".gz")){
-		mCompressor = libdeflate_alloc_compressor(mCompression);
+		mCompressor = bgzf_compressor_alloc(mCompression);
 		if(mCompressor == NULL) {
-			error_exit("Failed to alloc libdeflate_alloc_compressor, please check the libdeflate library.");
+			error_exit("Failed to alloc BGZF compressor (ISA-L); please check the isa-l library.");
 		}
 		mZipped = true;
 		mFP = fopen(mFilename.c_str(), "wb");
@@ -112,16 +113,16 @@ bool Writer::writeInternal(const char* strdata, size_t size) {
 	bool status;
 	
 	if(mZipped){
-		size_t bound = libdeflate_gzip_compress_bound(mCompressor, size);
+		// BGZF: emit a sequence of <=64KiB blocks (gzip members with BC extra
+		// field).  EOF marker is written by close().
+		size_t bound = bgzf_compress_bound(size);
 		void* out = malloc(bound);
-		size_t outsize = libdeflate_gzip_compress(mCompressor, strdata, size, out, bound);
+		size_t outsize = bgzf_compress(mCompressor, strdata, size, out, bound);
 		if(outsize == 0)
 			status = false;
 		else {
 			size_t ret = fwrite(out, 1, outsize, mFP );
 			status = ret>0;
-			//mOutStream->write((char*)out, outsize);
-			//status = !mOutStream->fail();
 		}
 		free(out);
 	}
@@ -134,8 +135,13 @@ bool Writer::writeInternal(const char* strdata, size_t size) {
 
 void Writer::close(){
 	if (mZipped){
+		// Emit BGZF EOF marker before closing so the file is a valid BGZF
+		// stream recognized by samtools/htslib and friends.
+		if (mFP) {
+			fwrite(BGZF_EOF_MARKER, 1, sizeof(BGZF_EOF_MARKER), mFP);
+		}
 		if (mCompressor){
-			libdeflate_free_compressor(mCompressor);
+			bgzf_compressor_free(mCompressor);
 			mCompressor = NULL;
 		}
 	}

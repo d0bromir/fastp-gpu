@@ -1,6 +1,46 @@
+// Logic taken verbatim from upstream fastp v1.3.3 (src/overlapanalysis.cpp). An earlier hand-optimized
+// rewrite in this file accepted overlaps differently for some read pairs (for example when the two mates
+// have different lengths) and produced different adapter trimming and insert-size results.
 #include "matcher.h"
 #include "overlapanalysis.h"
-#include "simd.h"
+
+// Scalar equivalents of the three SIMD helpers that upstream fastp v1.3.3 uses in this file
+// (upstream: src/simd.cpp, built on Google Highway). Same results, no extra dependency.
+namespace fastp_simd {
+
+// Reverse complement. A/a->T, T/t->A, C/c->G, G/g->C, anything else -> N (as upstream).
+static inline void reverseComplement(const char* src, char* dst, int len) {
+    for (int i = 0; i < len; i++) {
+        char c;
+        switch (src[len - 1 - i]) {
+            case 'A': case 'a': c = 'T'; break;
+            case 'T': case 't': c = 'A'; break;
+            case 'C': case 'c': c = 'G'; break;
+            case 'G': case 'g': c = 'C'; break;
+            default: c = 'N'; break;
+        }
+        dst[i] = c;
+    }
+}
+
+// Number of positions where a[i] != b[i], for i in [0, len).
+static inline int countMismatches(const char* a, const char* b, int len) {
+    int n = 0;
+    for (int i = 0; i < len; i++) n += (a[i] != b[i]);
+    return n;
+}
+
+// Mismatch count, stopping early once it exceeds limit. Returns a value > limit if exceeded.
+static inline int countMismatchesBounded(const char* a, const char* b, int len, int limit) {
+    int n = 0;
+    for (int i = 0; i < len; i++) {
+        n += (a[i] != b[i]);
+        if (n > limit) return n;
+    }
+    return n;
+}
+
+}  // namespace fastp_simd
 
 OverlapAnalysis::OverlapAnalysis(){
 }

@@ -1,0 +1,624 @@
+=== Full Benchmark Log: Sun Oct  4 08:03:43 UTC 2026 ===
+
+
+================================================================
+ Application  : opengene (/home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp)
+ Dataset      : WGS SE 6.3G (ERR1044780_1)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz
+ Type         : SE
+ Threads      : 32
+ Wall time    : 185.372 s
+ reads_in     : 80314764
+ reads_out    : 77515798
+ vs_opengene  : baseline
+--- Resource usage ---
+ CPU avg/peak : 715.1% / 1315.3%
+ RSS peak     : 1316 MiB
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_080343/resources/resource_WGS_SE_6.3G_opengene_T32_1791101023.csv
+--- Profiling output ---
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[08:03:56] start to load data 
+[08:03:56] /dev/shm/fastp_bench_B0szKl_R1.fq.gz writer finished 
+[08:03:57] loaded 1M reads 
+[08:03:59] loaded 2M reads 
+[08:04:00] loaded 3M reads 
+[08:04:01] loaded 4M reads 
+[08:04:02] loaded 5M reads 
+[08:04:04] loaded 6M reads 
+[08:04:05] loaded 7M reads 
+[08:04:06] loaded 8M reads 
+[08:04:07] loaded 9M reads 
+[08:04:09] loaded 10M reads 
+[08:04:10] loaded 11M reads 
+[08:04:11] loaded 12M reads 
+[08:04:13] loaded 13M reads 
+[08:04:14] loaded 14M reads 
+[08:04:15] loaded 15M reads 
+[08:04:16] loaded 16M reads 
+[08:04:18] loaded 17M reads 
+[08:04:19] loaded 18M reads 
+[08:04:20] loaded 19M reads 
+[08:04:22] loaded 20M reads 
+[08:04:23] loaded 21M reads 
+[08:04:24] loaded 22M reads 
+[08:04:26] loaded 23M reads 
+[08:04:27] loaded 24M reads 
+[08:04:28] loaded 25M reads 
+[08:04:30] loaded 26M reads 
+[08:04:31] loaded 27M reads 
+[08:04:32] loaded 28M reads 
+[08:04:33] loaded 29M reads 
+[08:04:35] loaded 30M reads 
+[08:04:36] loaded 31M reads 
+[08:04:37] loaded 32M reads 
+[08:04:39] loaded 33M reads 
+[08:04:40] loaded 34M reads 
+[08:04:43] loaded 35M reads 
+[08:04:46] loaded 36M reads 
+[08:04:49] loaded 37M reads 
+[08:04:52] loaded 38M reads 
+[08:04:54] loaded 39M reads 
+[08:04:57] loaded 40M reads 
+[08:05:00] loaded 41M reads 
+[08:05:03] loaded 42M reads 
+[08:05:06] loaded 43M reads 
+[08:05:09] loaded 44M reads 
+[08:05:11] loaded 45M reads 
+[08:05:14] loaded 46M reads 
+[08:05:17] loaded 47M reads 
+[08:05:20] loaded 48M reads 
+[08:05:22] loaded 49M reads 
+[08:05:25] loaded 50M reads 
+[08:05:28] loaded 51M reads 
+[08:05:31] loaded 52M reads 
+[08:05:34] loaded 53M reads 
+[08:05:36] loaded 54M reads 
+[08:05:39] loaded 55M reads 
+[08:05:42] loaded 56M reads 
+[08:05:45] loaded 57M reads 
+[08:05:47] loaded 58M reads 
+[08:05:50] loaded 59M reads 
+[08:05:53] loaded 60M reads 
+[08:05:56] loaded 61M reads 
+[08:05:59] loaded 62M reads 
+[08:06:01] loaded 63M reads 
+[08:06:04] loaded 64M reads 
+[08:06:07] loaded 65M reads 
+[08:06:10] loaded 66M reads 
+[08:06:12] loaded 67M reads 
+[08:06:15] loaded 68M reads 
+[08:06:18] loaded 69M reads 
+[08:06:20] loaded 70M reads 
+[08:06:23] loaded 71M reads 
+[08:06:26] loaded 72M reads 
+[08:06:29] loaded 73M reads 
+[08:06:31] loaded 74M reads 
+[08:06:34] loaded 75M reads 
+[08:06:37] loaded 76M reads 
+[08:06:39] loaded 77M reads 
+[08:06:42] loaded 78M reads 
+[08:06:45] loaded 79M reads 
+[08:06:48] loaded 80M reads 
+[08:06:49] Loading completed with 80315 packs 
+[08:06:49] thread 28 data processing completed 
+[08:06:49] thread 28 finished 
+[08:06:49] thread 18 data processing completed 
+[08:06:49] thread 18 finished 
+[08:06:49] thread 4 data processing completed 
+[08:06:49] thread 4 finished 
+[08:06:49] thread 30 data processing completed 
+[08:06:49] thread 30 finished 
+[08:06:49] thread 12 data processing completed 
+[08:06:49] thread 12 finished 
+[08:06:49] thread 6 data processing completed 
+[08:06:49] thread 6 finished 
+[08:06:49] thread 9 data processing completed 
+[08:06:49] thread 9 finished 
+[08:06:49] thread 3 data processing completed 
+[08:06:49] thread 3 finished 
+[08:06:49] thread 10 data processing completed 
+[08:06:49] thread 10 finished 
+[08:06:49] thread 32 data processing completed 
+[08:06:49] thread 32 finished 
+[08:06:49] thread 29 data processing completed 
+[08:06:49] thread 29 finished 
+[08:06:49] thread 17 data processing completed 
+[08:06:49] thread 17 finished 
+[08:06:49] thread 1 data processing completed 
+[08:06:49] thread 1 finished 
+[08:06:49] thread 13 data processing completed 
+[08:06:49] thread 13 finished 
+[08:06:49] thread 2 data processing completed 
+[08:06:49] thread 2 finished 
+[08:06:49] thread 31 data processing completed 
+[08:06:49] thread 31 finished 
+[08:06:49] thread 16 data processing completed 
+[08:06:49] thread 16 finished 
+[08:06:49] thread 15 data processing completed 
+[08:06:49] thread 15 finished 
+[08:06:49] thread 5 data processing completed 
+[08:06:49] thread 5 finished 
+[08:06:49] thread 8 data processing completed 
+[08:06:49] thread 8 finished 
+[08:06:49] thread 11 data processing completed 
+[08:06:49] thread 11 finished 
+[08:06:49] thread 14 data processing completed 
+[08:06:49] thread 14 finished 
+[08:06:49] thread 19 data processing completed 
+[08:06:49] thread 19 finished 
+[08:06:49] thread 20 data processing completed 
+[08:06:49] thread 20 finished 
+[08:06:49] thread 7 data processing completed 
+[08:06:49] thread 7 finished 
+[08:06:49] thread 24 data processing completed 
+[08:06:49] thread 24 finished 
+[08:06:49] thread 22 data processing completed 
+[08:06:49] thread 22 finished 
+[08:06:49] thread 21 data processing completed 
+[08:06:49] thread 21 finished 
+[08:06:49] thread 23 data processing completed 
+[08:06:49] thread 23 finished 
+[08:06:49] thread 25 data processing completed 
+[08:06:49] thread 25 finished 
+[08:06:49] thread 26 data processing completed 
+[08:06:49] thread 26 finished 
+[08:06:49] thread 27 data processing completed 
+[08:06:49] thread 27 finished 
+[08:06:49] start to generate reports
+ 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81534%
+
+JSON report: /dev/shm/fastp_bench_5UKRQr.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp -w 32 -j /dev/shm/fastp_bench_5UKRQr.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/shm/fastp_bench_B0szKl_R1.fq.gz 
+fastp v1.3.3, time used: 186 seconds
+================================================================
+
+================================================================
+ Application  : d0bromir_cpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu)
+ Dataset      : WGS SE 6.3G (ERR1044780_1)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz
+ Type         : SE
+ Threads      : 32
+ Wall time    : 79.230 s
+ reads_in     : 80314764
+ reads_out    : 77515798
+ vs_opengene  : -57.3%
+--- Resource usage ---
+ CPU avg/peak : 827.6% / 1517.3%
+ RSS peak     : 1647 MiB
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_080343/resources/resource_WGS_SE_6.3G_d0bromir_cpu_T32_1791101210.csv
+--- Profiling output ---
+[08:06:50] fastp 1.3.3-d0bromir starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[08:07:02] [fastp 1.3.3-d0bromir] Stage: loading 
+[08:07:02] start to load data 
+[08:07:03] loaded 1M reads 
+[08:07:04] loaded 2M reads 
+[08:07:05] loaded 3M reads 
+[08:07:06] loaded 4M reads 
+[08:07:07] loaded 5M reads 
+[08:07:07] loaded 6M reads 
+[08:07:08] loaded 7M reads 
+[08:07:09] loaded 8M reads 
+[08:07:10] loaded 9M reads 
+[08:07:11] loaded 10M reads 
+[08:07:12] loaded 11M reads 
+[08:07:12] loaded 12M reads 
+[08:07:13] loaded 13M reads 
+[08:07:14] loaded 14M reads 
+[08:07:15] loaded 15M reads 
+[08:07:16] loaded 16M reads 
+[08:07:17] loaded 17M reads 
+[08:07:18] loaded 18M reads 
+[08:07:18] loaded 19M reads 
+[08:07:19] loaded 20M reads 
+[08:07:20] loaded 21M reads 
+[08:07:21] loaded 22M reads 
+[08:07:22] loaded 23M reads 
+[08:07:23] loaded 24M reads 
+[08:07:23] loaded 25M reads 
+[08:07:24] loaded 26M reads 
+[08:07:25] loaded 27M reads 
+[08:07:26] loaded 28M reads 
+[08:07:27] loaded 29M reads 
+[08:07:28] loaded 30M reads 
+[08:07:28] loaded 31M reads 
+[08:07:29] loaded 32M reads 
+[08:07:30] loaded 33M reads 
+[08:07:31] loaded 34M reads 
+[08:07:32] loaded 35M reads 
+[08:07:33] loaded 36M reads 
+[08:07:34] loaded 37M reads 
+[08:07:34] loaded 38M reads 
+[08:07:35] loaded 39M reads 
+[08:07:36] loaded 40M reads 
+[08:07:37] loaded 41M reads 
+[08:07:38] loaded 42M reads 
+[08:07:38] loaded 43M reads 
+[08:07:39] loaded 44M reads 
+[08:07:40] loaded 45M reads 
+[08:07:41] loaded 46M reads 
+[08:07:42] loaded 47M reads 
+[08:07:43] loaded 48M reads 
+[08:07:43] loaded 49M reads 
+[08:07:44] loaded 50M reads 
+[08:07:45] loaded 51M reads 
+[08:07:46] loaded 52M reads 
+[08:07:47] loaded 53M reads 
+[08:07:47] loaded 54M reads 
+[08:07:48] loaded 55M reads 
+[08:07:49] loaded 56M reads 
+[08:07:50] loaded 57M reads 
+[08:07:51] loaded 58M reads 
+[08:07:52] loaded 59M reads 
+[08:07:52] loaded 60M reads 
+[08:07:53] loaded 61M reads 
+[08:07:54] loaded 62M reads 
+[08:07:55] loaded 63M reads 
+[08:07:56] loaded 64M reads 
+[08:07:57] loaded 65M reads 
+[08:07:57] loaded 66M reads 
+[08:07:58] loaded 67M reads 
+[08:07:59] loaded 68M reads 
+[08:08:00] loaded 69M reads 
+[08:08:01] loaded 70M reads 
+[08:08:01] loaded 71M reads 
+[08:08:02] loaded 72M reads 
+[08:08:03] loaded 73M reads 
+[08:08:04] loaded 74M reads 
+[08:08:05] loaded 75M reads 
+[08:08:05] loaded 76M reads 
+[08:08:06] loaded 77M reads 
+[08:08:07] loaded 78M reads 
+[08:08:08] loaded 79M reads 
+[08:08:09] loaded 80M reads 
+[08:08:09] Loading completed with 9805 packs 
+[08:08:09] thread 10 data processing completed 
+[08:08:09] thread 10 finished 
+[08:08:09] thread 13 data processing completed 
+[08:08:09] thread 13 finished 
+[08:08:09] thread 30 data processing completed 
+[08:08:09] thread 30 finished 
+[08:08:09] thread 21 data processing completed 
+[08:08:09] thread 21 finished 
+[08:08:09] thread 6 data processing completed 
+[08:08:09] thread 6 finished 
+[08:08:09] thread 24 data processing completed 
+[08:08:09] thread 24 finished 
+[08:08:09] thread 12 data processing completed 
+[08:08:09] thread 12 finished 
+[08:08:09] thread 7 data processing completed 
+[08:08:09] thread 7 finished 
+[08:08:09] thread 32 data processing completed 
+[08:08:09] thread 32 finished 
+[08:08:09] thread 1 data processing completed 
+[08:08:09] thread 1 finished 
+[08:08:09] thread 20 data processing completed 
+[08:08:09] thread 20 finished 
+[08:08:09] thread 29 data processing completed 
+[08:08:09] thread 29 finished 
+[08:08:09] thread 23 data processing completed 
+[08:08:09] thread 23 finished 
+[08:08:09] thread 2 data processing completed 
+[08:08:09] thread 22 data processing completed 
+[08:08:09] thread 22 finished 
+[08:08:09] thread 3 data processing completed 
+[08:08:09] thread 3 finished 
+[08:08:09] [fastp 1.3.3-d0bromir] Stage: loading (66627 ms) 
+[08:08:09] [fastp 1.3.3-d0bromir] Stage: filtering 
+[08:08:09] thread 15 data processing completed 
+[08:08:09] thread 15 finished 
+[08:08:09] thread 14 data processing completed 
+[08:08:09] thread 14 finished 
+[08:08:09] thread 25 data processing completed 
+[08:08:09] thread 25 finished 
+[08:08:09] thread 19 data processing completed 
+[08:08:09] thread 19 finished 
+[08:08:09] thread 26 data processing completed 
+[08:08:09] thread 26 finished 
+[08:08:09] thread 2 finished 
+[08:08:09] thread 27 data processing completed 
+[08:08:09] thread 27 finished 
+[08:08:09] thread 16 data processing completed 
+[08:08:09] thread 17 data processing completed 
+[08:08:09] thread 17 finished 
+[08:08:09] thread 18 data processing completed 
+[08:08:09] thread 18 finished 
+[08:08:09] thread 16 finished 
+[08:08:09] thread 9 data processing completed 
+[08:08:09] thread 9 finished 
+[08:08:09] thread 8 data processing completed 
+[08:08:09] thread 8 finished 
+[08:08:09] thread 11 data processing completed 
+[08:08:09] thread 11 finished 
+[08:08:09] thread 4 data processing completed 
+[08:08:09] thread 4 finished 
+[08:08:09] thread 31 data processing completed 
+[08:08:09] thread 31 finished 
+[08:08:09] thread 5 data processing completed 
+[08:08:09] thread 5 finished 
+[08:08:09] thread 28 data processing completed 
+[08:08:09] thread 28 finished 
+[08:08:09] [fastp 1.3.3-d0bromir] Stage: filtering (19 ms) 
+[08:08:09] [fastp 1.3.3-d0bromir] Stage: writing 
+[08:08:09] /dev/shm/fastp_bench_4a2DDy_R1.fq.gz writer finished 
+[08:08:09] [fastp 1.3.3-d0bromir] Stage: writing (31 ms) 
+[08:08:09] start to generate reports
+ 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+JSON report: /dev/shm/fastp_bench_8qQFqO.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu -w 32 -j /dev/shm/fastp_bench_8qQFqO.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/shm/fastp_bench_4a2DDy_R1.fq.gz 
+fastp v1.3.3-d0bromir, time used: 79 seconds
+================================================================
+
+================================================================
+ Application  : d0bromir_gpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp)
+ Dataset      : WGS SE 6.3G (ERR1044780_1)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz
+ Type         : SE
+ Threads      : 32
+ Wall time    : 79.620 s
+ reads_in     : 80314764
+ reads_out    : 77515798
+ vs_opengene  : -57.0%
+--- Resource usage ---
+ CPU avg/peak : 855.4% / 1566.4%
+ RSS peak     : 2380 MiB
+ GPU util a/p : 4.4% / 7.0%
+ GPU mem peak : 1360 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_080343/resources/resource_WGS_SE_6.3G_d0bromir_gpu_T32_1791101291.csv
+--- Profiling output ---
+[08:08:11] fastp 1.3.3-d0bromir starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[08:08:23] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[08:08:23] [fastp 1.3.3-d0bromir] Stage: loading 
+[08:08:23] start to load data 
+[08:08:23] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[08:08:23] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[08:08:24] loaded 1M reads 
+[08:08:25] loaded 2M reads 
+[08:08:25] loaded 3M reads 
+[08:08:26] loaded 4M reads 
+[08:08:27] loaded 5M reads 
+[08:08:28] loaded 6M reads 
+[08:08:29] loaded 7M reads 
+[08:08:30] loaded 8M reads 
+[08:08:31] loaded 9M reads 
+[08:08:31] loaded 10M reads 
+[08:08:32] loaded 11M reads 
+[08:08:33] loaded 12M reads 
+[08:08:34] loaded 13M reads 
+[08:08:35] loaded 14M reads 
+[08:08:36] loaded 15M reads 
+[08:08:36] loaded 16M reads 
+[08:08:37] loaded 17M reads 
+[08:08:38] loaded 18M reads 
+[08:08:39] loaded 19M reads 
+[08:08:40] loaded 20M reads 
+[08:08:41] loaded 21M reads 
+[08:08:41] loaded 22M reads 
+[08:08:42] loaded 23M reads 
+[08:08:43] loaded 24M reads 
+[08:08:44] loaded 25M reads 
+[08:08:45] loaded 26M reads 
+[08:08:46] loaded 27M reads 
+[08:08:47] loaded 28M reads 
+[08:08:47] loaded 29M reads 
+[08:08:48] loaded 30M reads 
+[08:08:49] loaded 31M reads 
+[08:08:50] loaded 32M reads 
+[08:08:51] loaded 33M reads 
+[08:08:52] loaded 34M reads 
+[08:08:52] loaded 35M reads 
+[08:08:53] loaded 36M reads 
+[08:08:54] loaded 37M reads 
+[08:08:55] loaded 38M reads 
+[08:08:56] loaded 39M reads 
+[08:08:57] loaded 40M reads 
+[08:08:57] loaded 41M reads 
+[08:08:58] loaded 42M reads 
+[08:08:59] loaded 43M reads 
+[08:09:00] loaded 44M reads 
+[08:09:01] loaded 45M reads 
+[08:09:02] loaded 46M reads 
+[08:09:02] loaded 47M reads 
+[08:09:03] loaded 48M reads 
+[08:09:04] loaded 49M reads 
+[08:09:05] loaded 50M reads 
+[08:09:06] loaded 51M reads 
+[08:09:06] loaded 52M reads 
+[08:09:07] loaded 53M reads 
+[08:09:08] loaded 54M reads 
+[08:09:09] loaded 55M reads 
+[08:09:10] loaded 56M reads 
+[08:09:11] loaded 57M reads 
+[08:09:11] loaded 58M reads 
+[08:09:12] loaded 59M reads 
+[08:09:13] loaded 60M reads 
+[08:09:14] loaded 61M reads 
+[08:09:15] loaded 62M reads 
+[08:09:15] loaded 63M reads 
+[08:09:16] loaded 64M reads 
+[08:09:17] loaded 65M reads 
+[08:09:18] loaded 66M reads 
+[08:09:19] loaded 67M reads 
+[08:09:20] loaded 68M reads 
+[08:09:20] loaded 69M reads 
+[08:09:21] loaded 70M reads 
+[08:09:22] loaded 71M reads 
+[08:09:23] loaded 72M reads 
+[08:09:24] loaded 73M reads 
+[08:09:24] loaded 74M reads 
+[08:09:25] loaded 75M reads 
+[08:09:26] loaded 76M reads 
+[08:09:27] loaded 77M reads 
+[08:09:28] loaded 78M reads 
+[08:09:29] loaded 79M reads 
+[08:09:29] loaded 80M reads 
+[08:09:30] Loading completed with 9805 packs 
+[08:09:30] thread 23 data processing completed 
+[08:09:30] thread 23 finished 
+[08:09:30] thread 21 data processing completed 
+[08:09:30] thread 21 finished 
+[08:09:30] thread 27 data processing completed 
+[08:09:30] thread 27 finished 
+[08:09:30] thread 3 data processing completed 
+[08:09:30] thread 3 finished 
+[08:09:30] thread 18 data processing completed 
+[08:09:30] thread 18 finished 
+[08:09:30] thread 9 data processing completed 
+[08:09:30] thread 9 finished 
+[08:09:30] thread 19 data processing completed 
+[08:09:30] thread 19 finished 
+[08:09:30] thread 2 data processing completed 
+[08:09:30] thread 2 finished 
+[08:09:30] thread 16 data processing completed 
+[08:09:30] thread 16 finished 
+[08:09:30] thread 15 data processing completed 
+[08:09:30] thread 15 finished 
+[08:09:30] thread 6 data processing completed 
+[08:09:30] thread 6 finished 
+[08:09:30] thread 13 data processing completed 
+[08:09:30] thread 13 finished 
+[08:09:30] thread 8 data processing completed 
+[08:09:30] thread 8 finished 
+[08:09:30] thread 7 data processing completed 
+[08:09:30] thread 7 finished 
+[08:09:30] thread 25 data processing completed 
+[08:09:30] thread 25 finished 
+[08:09:30] thread 26 data processing completed 
+[08:09:30] thread 26 finished 
+[08:09:30] thread 1 data processing completed 
+[08:09:30] thread 1 finished 
+[08:09:30] thread 5 data processing completed 
+[08:09:30] thread 5 finished 
+[08:09:30] thread 10 data processing completed 
+[08:09:30] thread 10 finished 
+[08:09:30] [fastp 1.3.3-d0bromir] Stage: loading (66819 ms) 
+[08:09:30] [fastp 1.3.3-d0bromir] Stage: filtering 
+[08:09:30] thread 14 data processing completed 
+[08:09:30] thread 14 finished 
+[08:09:30] thread 4 data processing completed 
+[08:09:30] thread 4 finished 
+[08:09:30] thread 17 data processing completed 
+[08:09:30] thread 17 finished 
+[08:09:30] thread 29 data processing completed 
+[08:09:30] thread 29 finished 
+[08:09:30] thread 31 data processing completed 
+[08:09:30] thread 31 finished 
+[08:09:30] thread 32 data processing completed 
+[08:09:30] thread 32 finished 
+[08:09:30] thread 11 data processing completed 
+[08:09:30] thread 11 finished 
+[08:09:30] thread 22 data processing completed 
+[08:09:30] thread 22 finished 
+[08:09:30] thread 24 data processing completed 
+[08:09:30] thread 24 finished 
+[08:09:30] thread 20 data processing completed 
+[08:09:30] thread 20 finished 
+[08:09:30] thread 12 data processing completed 
+[08:09:30] thread 12 finished 
+[08:09:30] thread 30 data processing completed 
+[08:09:30] thread 30 finished 
+[08:09:30] thread 28 data processing completed 
+[08:09:30] thread 28 finished 
+[08:09:30] [fastp 1.3.3-d0bromir] Stage: filtering (16 ms) 
+[08:09:30] [fastp 1.3.3-d0bromir] Stage: writing 
+[08:09:30] /dev/shm/fastp_bench_sB3faX_R1.fq.gz writer finished 
+[08:09:30] [fastp 1.3.3-d0bromir] Stage: writing (28 ms) 
+[08:09:30] [GPU] Device 0: batches=4903 reads=40157580 
+[08:09:30] [GPU] Device 1: batches=4902 reads=40157184 
+[08:09:30] start to generate reports
+ 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+JSON report: /dev/shm/fastp_bench_rOMZ2q.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp -w 32 -j /dev/shm/fastp_bench_rOMZ2q.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/shm/fastp_bench_sB3faX_R1.fq.gz 
+fastp v1.3.3-d0bromir, time used: 79 seconds
+================================================================

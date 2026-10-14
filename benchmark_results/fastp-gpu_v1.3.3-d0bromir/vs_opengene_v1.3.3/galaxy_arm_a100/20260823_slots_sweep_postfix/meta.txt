@@ -1,0 +1,53 @@
+timestamp:        2026-08-23 12:16 UTC -- 12:36 UTC
+platform:         galaxy_arm_a100 (see ../hardware.txt: Neoverse N1, 128 cores, dual A100 80GB)
+fastp-gpu version: v1.3.3-d0bromir, post-T=64-fix build (packInMemLimit scaling +
+                   condition-variable waitForData(), see
+                   ../20260823_thread_ceiling_investigation/)
+dataset:          WGS_PE_40G (DRR216653_1/2.fastq.gz, ~40 GB paired-end WGS)
+sweep:            FASTP_GPU_SLOTS in {8, 32} x -w in {32, 64}, GPU build only
+
+What this run set is:
+  A follow-up to two earlier investigations that both tested FASTP_GPU_SLOTS
+  (default 8 vs. max 32) but never together with a *working* T=64: the
+  original slots sweep (../..): only tested T=16; the thread-ceiling
+  collapse investigation (../20260823_thread_ceiling_investigation/) tested
+  slots at T=64 but *before* the PACK_IN_MEM_LIMIT fix, when the pipeline
+  was CPU-starved regardless of slot count -- so neither could show whether
+  slot count matters once the GPU is actually being fed at high -w. This run
+  set closes that gap: FASTP_GPU_SLOTS 8 vs. 32, at T=32 and at T=64, on the
+  post-fix build, with 1Hz nvidia-smi utilization sampling on both GPUs
+  (dual-GPU mode is active throughout) -- the post-fix runs in the prior
+  investigation recorded wall time and correctness only, no utilization.
+
+Result: slot count makes no measurable difference at either thread count.
+Wall time: 235s (T32/s8) vs 237s (T32/s32); 239s (T64/s8) vs 241s (T64/s32)
+-- all four within run-to-run noise of each other and of the T=32 baseline
+already reported in the paper (234s). GPU utilization: 26-27% average, 30-31%
+peak, on both GPUs, in all four configurations -- flat regardless of slots
+or thread count. This extends the existing "GPU utilisation does not respond
+to slot count" finding (originally T=16 only) to T=32 and, for the first
+time with a working pipeline, T=64 -- further corroborating the CPU-side
+batch-packing bottleneck as the true ceiling (see
+sec:limits:pack in the manuscript), not a new finding.
+
+Correctness: all four runs produced identical passed-filter read counts
+(717,214,748), matching every other run in both prior investigations on this
+dataset.
+
+Files:
+  summary.csv           -- one row per run: config, wall time, utilization, notes
+  raw/<run_id>.json      -- full fastp JSON report for each run
+  raw/<run_id>_run.log   -- captured stdout/stderr
+  raw/<run_id>_util.csv  -- raw nvidia-smi --query-gpu output, 1Hz, both GPU indices
+
+Known issue during collection (not a code finding):
+  The first attempt at t64s32 crashed silently mid-run (JSON report never
+  written, run log cut off) because the evaluation host's /dev/md0 filled to
+  100% -- six ~20GB compressed output files from this sweep's own earlier
+  runs, plus ~21GB of leftover output from the prior thread-ceiling
+  investigation, were never cleaned up between runs. Freed ~187GB by
+  deleting completed runs' R1/R2 output (already-parsed JSON reports were
+  unaffected) and re-ran t64s32 cleanly; all other three runs in this set
+  were unaffected and are original first-attempt results. This is the same
+  class of testing-methodology artifact noted in the prior investigation's
+  meta.txt (t64s8/t64s8_v2).

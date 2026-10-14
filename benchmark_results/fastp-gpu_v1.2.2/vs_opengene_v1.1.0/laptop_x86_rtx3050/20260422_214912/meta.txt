@@ -1,0 +1,4 @@
+Run timestamp: 20260422_214912 (Windows laptop time)
+Platform: laptop_x86_rtx3050 (see ../hardware.txt)
+fastp-gpu version: v1.2.2; opengene fastp version: v1.1.0
+Runner: ../../../../_tools/run_benchmark_wsl.sh
