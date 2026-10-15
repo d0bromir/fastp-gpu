@@ -30,7 +30,7 @@ SOFTWARE.
 #include "common.h"
 #include <iostream>
 #include <fstream>
-#include <libdeflate.h>
+#include "bgzf_writer.h"
 #include "options.h"
 #include <stdio.h>
 
@@ -46,6 +46,8 @@ public:
 	bool write(const char* strdata, size_t size);
 	void flush();
 	string filename();
+	// Direct file pointer access for parallel-compressed writes
+	FILE* getFP() { return mFP; }
 
 public:
 	static bool test();
@@ -57,7 +59,7 @@ private:
 
 private:
 	string mFilename;
-	libdeflate_compressor* mCompressor;
+	BgzfCompressor* mCompressor;
 	//ofstream* mOutStream;
 	FILE* mFP;
 	bool mZipped;

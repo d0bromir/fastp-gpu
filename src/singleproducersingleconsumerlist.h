@@ -41,6 +41,9 @@ SOFTWARE.
 #include <memory.h>
 #include <cassert>
 #include <vector>
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
 
 template<typename T>
 struct LockFreeListItem {
@@ -67,6 +70,7 @@ public:
         tail = NULL;
         producerFinished = false;
         consumerFinished = false;
+        consumerWaiting = false;
         produced = 0;
         consumed = 0;
         recycled = 0;
@@ -89,30 +93,42 @@ public:
     inline size_t size() {
         return produced -  consumed;
     }
-    inline bool isEmpty() const {
-        return head == NULL;
-    }
     inline bool canBeConsumed() {
         if(head == NULL)
             return false;
-        // `nextItemReady` is a publication barrier for `nextItem`.
-        // The last node has no successor, so `nextItemReady` may remain false;
-        // it must still be consumable to avoid writer stalls when many queues exist.
-        return head->nextItemReady.load(std::memory_order_acquire) || producerFinished.load(std::memory_order_acquire);
+        return head->nextItemReady || producerFinished;
     }
     inline void produce(T val) {
         LockFreeListItem<T>* item = makeItem(val);
         if(head==NULL) {
             head = item;
             tail = item;
-            // Signal the first item is consumable (no predecessor to set this)
-            //head->nextItemReady.store(true, std::memory_order_release);
         } else {
             tail->nextItem = item;
-            tail->nextItemReady.store(true, std::memory_order_release);
+            tail->nextItemReady = true;
             tail = item;
         }
         produced++;
+        // Wake a consumer parked in waitForData(), if any. The atomic load
+        // keeps the hot (consumer-busy) path lock-free, matching this
+        // class's original design; the mutex is only touched when a
+        // consumer actually is idle-waiting.
+        if(consumerWaiting.load(std::memory_order_relaxed))
+            notifyWaiters();
+    }
+    // Blocks the calling (consumer) thread until canBeConsumed() or
+    // isProducerFinished() becomes true, or timeoutUs elapses, whichever
+    // is first. Replaces busy-polling (e.g. usleep) at the call site: the
+    // common case (data arrives) wakes immediately via produce()'s
+    // notify rather than waiting out a fixed poll interval, and the
+    // timeout is only a safety net (e.g. against a missed wakeup on a
+    // platform where spurious wakeups aren't fully suppressed).
+    inline void waitForData(int timeoutUs) {
+        std::unique_lock<std::mutex> lk(waitMutex);
+        consumerWaiting.store(true, std::memory_order_relaxed);
+        waitCv.wait_for(lk, std::chrono::microseconds(timeoutUs),
+            [this]{ return canBeConsumed() || producerFinished.load(); });
+        consumerWaiting.store(false, std::memory_order_relaxed);
     }
     inline T consume() {
         assert(head != NULL);
@@ -124,18 +140,26 @@ public:
         return val;
     }
     inline bool isProducerFinished() {
-        return producerFinished.load(std::memory_order_acquire);
+        return producerFinished;
     }
     inline bool isConsumerFinished() {
-        return consumerFinished.load(std::memory_order_acquire);
+        return consumerFinished;
     }
     inline void setProducerFinished() {
-        producerFinished.store(true, std::memory_order_release);
+        producerFinished = true;
+        // A consumer parked in waitForData() must not wait out the full
+        // timeout just to learn the producer is done; wake it immediately.
+        if(consumerWaiting.load(std::memory_order_relaxed))
+            notifyWaiters();
     }
     inline void setConsumerFinished() {
-        consumerFinished.store(true, std::memory_order_release);
+        consumerFinished = true;
     }
 private:
+    inline void notifyWaiters() {
+        std::lock_guard<std::mutex> lk(waitMutex);
+        waitCv.notify_one();
+    }
     // blockized list
     inline LockFreeListItem<T>* makeItem(T val) {
         unsigned long blk = produced >> 12;
@@ -167,6 +191,12 @@ private:
     LockFreeListItem<T>** blocks;
     std::atomic_bool producerFinished;
     std::atomic_bool consumerFinished;
+    // Blocking-wait support layered on top of the lock-free list above;
+    // see waitForData()/produce()/setProducerFinished(). Untouched (no
+    // lock taken) whenever the consumer isn't idle-waiting.
+    std::mutex waitMutex;
+    std::condition_variable waitCv;
+    std::atomic_bool consumerWaiting;
     unsigned long produced;
     unsigned long consumed;
     unsigned long recycled;

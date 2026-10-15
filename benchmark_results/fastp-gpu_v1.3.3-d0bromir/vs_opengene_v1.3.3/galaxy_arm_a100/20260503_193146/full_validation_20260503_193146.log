@@ -1,0 +1,144 @@
+=== Validation Log: Sun May  3 19:31:46 UTC 2026 ===
+
+  [CRASH] opengene Panel_SE_148M T=1 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu Panel_SE_148M T=1 — no opengene baseline stored
+[SKIP] d0bromir_gpu Panel_SE_148M T=1 — no opengene baseline stored
+[PASS] d0bromir_cpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=2  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=4  reads_in=1381894  reads_out=1381299
+[PASS+FQ] d0bromir_cpu Panel_SE_148M T=8  md5(R1)=26fb6cd0258306885015c3880872f231  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu Panel_SE_148M T=8  md5(R1)=26fb6cd0258306885015c3880872f231  + 12 JSON fields equal
+[PASS] d0bromir_cpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=16  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_SE_148M T=32  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_gpu Panel_SE_148M T=32  reads_in=1381894  reads_out=1381299
+[PASS] d0bromir_cpu Panel_PE_304M T=1  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=1  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PE_304M T=2  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=2  reads_in=2763788  reads_out=2761244
+  [CRASH] opengene Panel_PE_304M T=4 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu Panel_PE_304M T=4 — no opengene baseline stored
+[SKIP] d0bromir_gpu Panel_PE_304M T=4 — no opengene baseline stored
+[PASS+FQ] d0bromir_cpu Panel_PE_304M T=8  md5(R1)=5f667d5f89cb76c2bdceedb7a37c192f  md5(R2)=88d5024b5f9b932b65678d23766bdaf4  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu Panel_PE_304M T=8  md5(R1)=5f667d5f89cb76c2bdceedb7a37c192f  md5(R2)=88d5024b5f9b932b65678d23766bdaf4  + 12 JSON fields equal
+  [CRASH] opengene Panel_PE_304M T=16 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu Panel_PE_304M T=16 — no opengene baseline stored
+[SKIP] d0bromir_gpu Panel_PE_304M T=16 — no opengene baseline stored
+[PASS] d0bromir_cpu Panel_PE_304M T=32  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_gpu Panel_PE_304M T=32  reads_in=2763788  reads_out=2761244
+[PASS] d0bromir_cpu Panel_PDAC_PE_1M T=1  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_gpu Panel_PDAC_PE_1M T=1  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_cpu Panel_PDAC_PE_1M T=2  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_gpu Panel_PDAC_PE_1M T=2  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_cpu Panel_PDAC_PE_1M T=4  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_gpu Panel_PDAC_PE_1M T=4  reads_in=2072046  reads_out=2051084
+[PASS+FQ] d0bromir_cpu Panel_PDAC_PE_1M T=8  md5(R1)=cd5ff534d23247465663882409bbf674  md5(R2)=27d9f17213954ddf4c5a90c0c7c33de1  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu Panel_PDAC_PE_1M T=8  md5(R1)=cd5ff534d23247465663882409bbf674  md5(R2)=27d9f17213954ddf4c5a90c0c7c33de1  + 12 JSON fields equal
+[PASS] d0bromir_cpu Panel_PDAC_PE_1M T=16  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_gpu Panel_PDAC_PE_1M T=16  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_cpu Panel_PDAC_PE_1M T=32  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_gpu Panel_PDAC_PE_1M T=32  reads_in=2072046  reads_out=2051084
+[PASS] d0bromir_cpu Panel_PDAC_PE_1.5M T=1  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_gpu Panel_PDAC_PE_1.5M T=1  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_cpu Panel_PDAC_PE_1.5M T=2  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_gpu Panel_PDAC_PE_1.5M T=2  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_cpu Panel_PDAC_PE_1.5M T=4  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_gpu Panel_PDAC_PE_1.5M T=4  reads_in=3077112  reads_out=3042270
+[PASS+FQ] d0bromir_cpu Panel_PDAC_PE_1.5M T=8  md5(R1)=14abc1792cc40c05873e2f658668431c  md5(R2)=1183ec78e3e2ebfa8dc2c902493cd400  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu Panel_PDAC_PE_1.5M T=8  md5(R1)=14abc1792cc40c05873e2f658668431c  md5(R2)=1183ec78e3e2ebfa8dc2c902493cd400  + 12 JSON fields equal
+[PASS] d0bromir_cpu Panel_PDAC_PE_1.5M T=16  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_gpu Panel_PDAC_PE_1.5M T=16  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_cpu Panel_PDAC_PE_1.5M T=32  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_gpu Panel_PDAC_PE_1.5M T=32  reads_in=3077112  reads_out=3042270
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=1  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=1  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=2  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=2  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=4  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=4  reads_in=70361832  reads_out=67802584
+[PASS+FQ] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=8  md5(R1)=b2ef26a918b2e947105542e9c77e1ea8  md5(R2)=3d10b0e922c02e8b4dce020a64241c4e  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=8  md5(R1)=b2ef26a918b2e947105542e9c77e1ea8  md5(R2)=3d10b0e922c02e8b4dce020a64241c4e  + 12 JSON fields equal
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=16  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=16  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.4G T=32  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.4G T=32  reads_in=70361832  reads_out=67802584
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=1  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=1  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=2  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=2  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=4  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=4  reads_in=74777298  reads_out=71682052
+[PASS+FQ] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=8  md5(R1)=314c8a1818a448018d43eaa1167269cb  md5(R2)=e1a0e594961a559bd585e0e467cd441b  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=8  md5(R1)=314c8a1818a448018d43eaa1167269cb  md5(R2)=e1a0e594961a559bd585e0e467cd441b  + 12 JSON fields equal
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=16  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=16  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_cpu WGS_HiSeqX_PE_5.7G T=32  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_gpu WGS_HiSeqX_PE_5.7G T=32  reads_in=74777298  reads_out=71682052
+[PASS] d0bromir_cpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=1  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=2  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=4  reads_in=80314764  reads_out=77515798
+  [CRASH] opengene WGS_SE_6.3G T=8 exit=143 ri=0 (json=0 bytes)
+[WARN] d0bromir_cpu WGS_SE_6.3G T=8 — no opengene reference; falling back to read-count check
+[SKIP] d0bromir_cpu WGS_SE_6.3G T=8 — no opengene baseline stored
+[WARN] d0bromir_gpu WGS_SE_6.3G T=8 — no opengene reference; falling back to read-count check
+[SKIP] d0bromir_gpu WGS_SE_6.3G T=8 — no opengene baseline stored
+[PASS] d0bromir_cpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=16  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_SE_6.3G T=32  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_gpu WGS_SE_6.3G T=32  reads_in=80314764  reads_out=77515798
+[PASS] d0bromir_cpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=1  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=2  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=4  reads_in=160629528  reads_out=147153690
+[PASS+FQ] d0bromir_cpu WGS_PE_12.8G T=8  md5(R1)=f963249b57e76685931cf87e15455917  md5(R2)=0c971f0704f4dbe9b4b4b2d78708e02d  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu WGS_PE_12.8G T=8  md5(R1)=f963249b57e76685931cf87e15455917  md5(R2)=0c971f0704f4dbe9b4b4b2d78708e02d  + 12 JSON fields equal
+  [CRASH] opengene WGS_PE_12.8G T=16 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu WGS_PE_12.8G T=16 — no opengene baseline stored
+[SKIP] d0bromir_gpu WGS_PE_12.8G T=16 — no opengene baseline stored
+[PASS] d0bromir_cpu WGS_PE_12.8G T=32  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_gpu WGS_PE_12.8G T=32  reads_in=160629528  reads_out=147153690
+[PASS] d0bromir_cpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=1  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=2  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=4  reads_in=234238034  reads_out=217840930
+[PASS+FQ] d0bromir_cpu WGS_PE_18.2G T=8  md5(R1)=df264c934cef40cb6ff9764d29e389bc  md5(R2)=1dd524b0dd64443748908e21de0c1ff9  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu WGS_PE_18.2G T=8  md5(R1)=df264c934cef40cb6ff9764d29e389bc  md5(R2)=1dd524b0dd64443748908e21de0c1ff9  + 12 JSON fields equal
+[PASS] d0bromir_cpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_cpu WGS_PE_18.2G T=32  reads_in=234238034  reads_out=217840930
+[PASS] d0bromir_gpu WGS_PE_18.2G T=32  reads_in=234238034  reads_out=217840930
+  [CRASH] opengene BS_HiSeq_SE_26.8G T=1 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu BS_HiSeq_SE_26.8G T=1 — no opengene baseline stored
+[SKIP] d0bromir_gpu BS_HiSeq_SE_26.8G T=1 — no opengene baseline stored
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=2  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=2  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=4  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=4  reads_in=1383062125  reads_out=1382940338
+[PASS+FQ] d0bromir_cpu BS_HiSeq_SE_26.8G T=8  md5(R1)=348f3f3fd7d2533f566b801f8d0b6c70  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu BS_HiSeq_SE_26.8G T=8  md5(R1)=348f3f3fd7d2533f566b801f8d0b6c70  + 12 JSON fields equal
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=16  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=16  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_cpu BS_HiSeq_SE_26.8G T=32  reads_in=1383062125  reads_out=1382940338
+[PASS] d0bromir_gpu BS_HiSeq_SE_26.8G T=32  reads_in=1383062125  reads_out=1382940338
+  [CRASH] opengene WGS_PE_40G T=1 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu WGS_PE_40G T=1 — no opengene baseline stored
+[SKIP] d0bromir_gpu WGS_PE_40G T=1 — no opengene baseline stored
+[PASS] d0bromir_cpu WGS_PE_40G T=2  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=2  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_cpu WGS_PE_40G T=4  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=4  reads_in=722563222  reads_out=717214748
+[PASS+FQ] d0bromir_cpu WGS_PE_40G T=8  md5(R1)=37be95a5ad2b98e13f624420ab16f843  md5(R2)=d3eb2d74e78261d775720dd2fb07b7a9  + 12 JSON fields equal
+[PASS+FQ] d0bromir_gpu WGS_PE_40G T=8  md5(R1)=37be95a5ad2b98e13f624420ab16f843  md5(R2)=d3eb2d74e78261d775720dd2fb07b7a9  + 12 JSON fields equal
+  [CRASH] opengene WGS_PE_40G T=16 exit=143 ri=0 (json=0 bytes)
+[SKIP] d0bromir_cpu WGS_PE_40G T=16 — no opengene baseline stored
+[SKIP] d0bromir_gpu WGS_PE_40G T=16 — no opengene baseline stored
+[PASS] d0bromir_cpu WGS_PE_40G T=32  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=32  reads_in=722563222  reads_out=717214748

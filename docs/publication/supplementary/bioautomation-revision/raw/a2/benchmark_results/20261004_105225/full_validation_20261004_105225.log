@@ -1,0 +1,5 @@
+=== Validation Log: Sun Oct  4 10:52:25 AM UTC 2026 ===
+
+[FAIL] d0bromir_cpu WGS_PE_18.2G T=8  R1 FASTQ md5 mismatch (test=df264c934cef40cb6ff9764d29e389bc og=9666d83d998044d98e08304213b2306d)
+  test R1 retained at: /dev/shm/fastp_bench_I1zB6c_R1.fq.gz
+BENCHMARK ABORTED — FASTQ correctness failure

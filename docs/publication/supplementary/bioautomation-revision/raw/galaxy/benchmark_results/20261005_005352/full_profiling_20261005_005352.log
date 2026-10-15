@@ -1,0 +1,1137 @@
+=== Full Benchmark Log: Mon Oct  5 00:53:53 UTC 2026 ===
+
+
+================================================================
+ Application  : opengene (/home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp)
+ Dataset      : WGS PE 18.2G (ERR1044319 R1+R2)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz
+               R2=/home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz
+ Type         : PE
+ Threads      : 32
+ Wall time    : 169.056 s
+ reads_in     : 234238034
+ reads_out    : 217840930
+ vs_opengene  : baseline
+--- Resource usage ---
+ CPU avg/peak : 1573.9% / 2133.3%
+ RSS peak     : 1624 MiB
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261005_005352/resources/resource_WGS_PE_18.2G_opengene_T32_1791161635.csv
+--- Profiling output ---
+[00:53:56] start to load data of read2 
+[00:53:56] start to load data of read1 
+[00:53:56] /dev/shm/fastp_bench_cASElV_R2.fq.gz writer finished 
+[00:53:56] /dev/shm/fastp_bench_KlOJxy_R1.fq.gz writer finished 
+[00:53:57] Read1: loaded 1M reads 
+[00:53:57] Read2: loaded 1M reads 
+[00:53:58] Read1: loaded 2M reads 
+[00:53:58] Read2: loaded 2M reads 
+[00:54:00] Read2: loaded 3M reads 
+[00:54:00] Read1: loaded 3M reads 
+[00:54:01] Read2: loaded 4M reads 
+[00:54:01] Read1: loaded 4M reads 
+[00:54:02] Read2: loaded 5M reads 
+[00:54:02] Read1: loaded 5M reads 
+[00:54:04] Read1: loaded 6M reads 
+[00:54:04] Read2: loaded 6M reads 
+[00:54:05] Read1: loaded 7M reads 
+[00:54:05] Read2: loaded 7M reads 
+[00:54:06] Read1: loaded 8M reads 
+[00:54:06] Read2: loaded 8M reads 
+[00:54:08] Read2: loaded 9M reads 
+[00:54:08] Read1: loaded 9M reads 
+[00:54:09] Read2: loaded 10M reads 
+[00:54:09] Read1: loaded 10M reads 
+[00:54:10] Read1: loaded 11M reads 
+[00:54:10] Read2: loaded 11M reads 
+[00:54:12] Read1: loaded 12M reads 
+[00:54:12] Read2: loaded 12M reads 
+[00:54:13] Read2: loaded 13M reads 
+[00:54:13] Read1: loaded 13M reads 
+[00:54:14] Read1: loaded 14M reads 
+[00:54:14] Read2: loaded 14M reads 
+[00:54:16] Read1: loaded 15M reads 
+[00:54:16] Read2: loaded 15M reads 
+[00:54:17] Read1: loaded 16M reads 
+[00:54:17] Read2: loaded 16M reads 
+[00:54:18] Read2: loaded 17M reads 
+[00:54:18] Read1: loaded 17M reads 
+[00:54:20] Read1: loaded 18M reads 
+[00:54:20] Read2: loaded 18M reads 
+[00:54:21] Read2: loaded 19M reads 
+[00:54:21] Read1: loaded 19M reads 
+[00:54:22] Read1: loaded 20M reads 
+[00:54:22] Read2: loaded 20M reads 
+[00:54:24] Read2: loaded 21M reads 
+[00:54:24] Read1: loaded 21M reads 
+[00:54:25] Read1: loaded 22M reads 
+[00:54:25] Read2: loaded 22M reads 
+[00:54:26] Read2: loaded 23M reads 
+[00:54:26] Read1: loaded 23M reads 
+[00:54:28] Read1: loaded 24M reads 
+[00:54:28] Read2: loaded 24M reads 
+[00:54:29] Read1: loaded 25M reads 
+[00:54:29] Read2: loaded 25M reads 
+[00:54:30] Read1: loaded 26M reads 
+[00:54:30] Read2: loaded 26M reads 
+[00:54:32] Read2: loaded 27M reads 
+[00:54:32] Read1: loaded 27M reads 
+[00:54:33] Read2: loaded 28M reads 
+[00:54:33] Read1: loaded 28M reads 
+[00:54:35] Read1: loaded 29M reads 
+[00:54:35] Read2: loaded 29M reads 
+[00:54:36] Read1: loaded 30M reads 
+[00:54:36] Read2: loaded 30M reads 
+[00:54:37] Read1: loaded 31M reads 
+[00:54:37] Read2: loaded 31M reads 
+[00:54:39] Read1: loaded 32M reads 
+[00:54:39] Read2: loaded 32M reads 
+[00:54:40] Read1: loaded 33M reads 
+[00:54:40] Read2: loaded 33M reads 
+[00:54:41] Read1: loaded 34M reads 
+[00:54:41] Read2: loaded 34M reads 
+[00:54:43] Read1: loaded 35M reads 
+[00:54:43] Read2: loaded 35M reads 
+[00:54:44] Read1: loaded 36M reads 
+[00:54:44] Read2: loaded 36M reads 
+[00:54:45] Read1: loaded 37M reads 
+[00:54:45] Read2: loaded 37M reads 
+[00:54:47] Read2: loaded 38M reads 
+[00:54:47] Read1: loaded 38M reads 
+[00:54:48] Read1: loaded 39M reads 
+[00:54:48] Read2: loaded 39M reads 
+[00:54:49] Read1: loaded 40M reads 
+[00:54:49] Read2: loaded 40M reads 
+[00:54:51] Read2: loaded 41M reads 
+[00:54:51] Read1: loaded 41M reads 
+[00:54:52] Read1: loaded 42M reads 
+[00:54:52] Read2: loaded 42M reads 
+[00:54:54] Read1: loaded 43M reads 
+[00:54:54] Read2: loaded 43M reads 
+[00:54:55] Read1: loaded 44M reads 
+[00:54:55] Read2: loaded 44M reads 
+[00:54:56] Read2: loaded 45M reads 
+[00:54:56] Read1: loaded 45M reads 
+[00:54:58] Read1: loaded 46M reads 
+[00:54:58] Read2: loaded 46M reads 
+[00:54:59] Read1: loaded 47M reads 
+[00:54:59] Read2: loaded 47M reads 
+[00:55:01] Read1: loaded 48M reads 
+[00:55:01] Read2: loaded 48M reads 
+[00:55:02] Read1: loaded 49M reads 
+[00:55:02] Read2: loaded 49M reads 
+[00:55:03] Read2: loaded 50M reads 
+[00:55:03] Read1: loaded 50M reads 
+[00:55:05] Read2: loaded 51M reads 
+[00:55:05] Read1: loaded 51M reads 
+[00:55:06] Read2: loaded 52M reads 
+[00:55:06] Read1: loaded 52M reads 
+[00:55:08] Read2: loaded 53M reads 
+[00:55:08] Read1: loaded 53M reads 
+[00:55:09] Read2: loaded 54M reads 
+[00:55:09] Read1: loaded 54M reads 
+[00:55:11] Read2: loaded 55M reads 
+[00:55:11] Read1: loaded 55M reads 
+[00:55:12] Read2: loaded 56M reads 
+[00:55:12] Read1: loaded 56M reads 
+[00:55:13] Read1: loaded 57M reads 
+[00:55:13] Read2: loaded 57M reads 
+[00:55:15] Read1: loaded 58M reads 
+[00:55:15] Read2: loaded 58M reads 
+[00:55:16] Read2: loaded 59M reads 
+[00:55:16] Read1: loaded 59M reads 
+[00:55:18] Read1: loaded 60M reads 
+[00:55:18] Read2: loaded 60M reads 
+[00:55:19] Read1: loaded 61M reads 
+[00:55:19] Read2: loaded 61M reads 
+[00:55:21] Read2: loaded 62M reads 
+[00:55:21] Read1: loaded 62M reads 
+[00:55:22] Read1: loaded 63M reads 
+[00:55:22] Read2: loaded 63M reads 
+[00:55:24] Read2: loaded 64M reads 
+[00:55:24] Read1: loaded 64M reads 
+[00:55:25] Read1: loaded 65M reads 
+[00:55:25] Read2: loaded 65M reads 
+[00:55:27] Read1: loaded 66M reads 
+[00:55:27] Read2: loaded 66M reads 
+[00:55:28] Read1: loaded 67M reads 
+[00:55:28] Read2: loaded 67M reads 
+[00:55:30] Read2: loaded 68M reads 
+[00:55:30] Read1: loaded 68M reads 
+[00:55:31] Read2: loaded 69M reads 
+[00:55:31] Read1: loaded 69M reads 
+[00:55:33] Read2: loaded 70M reads 
+[00:55:33] Read1: loaded 70M reads 
+[00:55:34] Read1: loaded 71M reads 
+[00:55:34] Read2: loaded 71M reads 
+[00:55:36] Read2: loaded 72M reads 
+[00:55:36] Read1: loaded 72M reads 
+[00:55:37] Read2: loaded 73M reads 
+[00:55:37] Read1: loaded 73M reads 
+[00:55:38] Read1: loaded 74M reads 
+[00:55:38] Read2: loaded 74M reads 
+[00:55:40] Read1: loaded 75M reads 
+[00:55:40] Read2: loaded 75M reads 
+[00:55:41] Read1: loaded 76M reads 
+[00:55:41] Read2: loaded 76M reads 
+[00:55:43] Read1: loaded 77M reads 
+[00:55:43] Read2: loaded 77M reads 
+[00:55:44] Read1: loaded 78M reads 
+[00:55:44] Read2: loaded 78M reads 
+[00:55:46] Read1: loaded 79M reads 
+[00:55:46] Read2: loaded 79M reads 
+[00:55:47] Read1: loaded 80M reads 
+[00:55:47] Read2: loaded 80M reads 
+[00:55:49] Read2: loaded 81M reads 
+[00:55:49] Read1: loaded 81M reads 
+[00:55:50] Read2: loaded 82M reads 
+[00:55:50] Read1: loaded 82M reads 
+[00:55:52] Read1: loaded 83M reads 
+[00:55:52] Read2: loaded 83M reads 
+[00:55:53] Read1: loaded 84M reads 
+[00:55:53] Read2: loaded 84M reads 
+[00:55:55] Read2: loaded 85M reads 
+[00:55:55] Read1: loaded 85M reads 
+[00:55:56] Read2: loaded 86M reads 
+[00:55:56] Read1: loaded 86M reads 
+[00:55:58] Read2: loaded 87M reads 
+[00:55:58] Read1: loaded 87M reads 
+[00:55:59] Read2: loaded 88M reads 
+[00:55:59] Read1: loaded 88M reads 
+[00:56:01] Read1: loaded 89M reads 
+[00:56:01] Read2: loaded 89M reads 
+[00:56:02] Read1: loaded 90M reads 
+[00:56:02] Read2: loaded 90M reads 
+[00:56:04] Read2: loaded 91M reads 
+[00:56:04] Read1: loaded 91M reads 
+[00:56:05] Read1: loaded 92M reads 
+[00:56:05] Read2: loaded 92M reads 
+[00:56:07] Read1: loaded 93M reads 
+[00:56:07] Read2: loaded 93M reads 
+[00:56:08] Read1: loaded 94M reads 
+[00:56:08] Read2: loaded 94M reads 
+[00:56:10] Read1: loaded 95M reads 
+[00:56:10] Read2: loaded 95M reads 
+[00:56:11] Read1: loaded 96M reads 
+[00:56:11] Read2: loaded 96M reads 
+[00:56:13] Read1: loaded 97M reads 
+[00:56:13] Read2: loaded 97M reads 
+[00:56:14] Read1: loaded 98M reads 
+[00:56:14] Read2: loaded 98M reads 
+[00:56:16] Read1: loaded 99M reads 
+[00:56:16] Read2: loaded 99M reads 
+[00:56:17] Read1: loaded 100M reads 
+[00:56:17] Read2: loaded 100M reads 
+[00:56:19] Read1: loaded 101M reads 
+[00:56:19] Read2: loaded 101M reads 
+[00:56:20] Read2: loaded 102M reads 
+[00:56:20] Read1: loaded 102M reads 
+[00:56:22] Read1: loaded 103M reads 
+[00:56:22] Read2: loaded 103M reads 
+[00:56:23] Read2: loaded 104M reads 
+[00:56:23] Read1: loaded 104M reads 
+[00:56:25] Read1: loaded 105M reads 
+[00:56:25] Read2: loaded 105M reads 
+[00:56:26] Read2: loaded 106M reads 
+[00:56:26] Read1: loaded 106M reads 
+[00:56:28] Read1: loaded 107M reads 
+[00:56:28] Read2: loaded 107M reads 
+[00:56:29] Read2: loaded 108M reads 
+[00:56:29] Read1: loaded 108M reads 
+[00:56:31] Read2: loaded 109M reads 
+[00:56:31] Read1: loaded 109M reads 
+[00:56:32] Read2: loaded 110M reads 
+[00:56:32] Read1: loaded 110M reads 
+[00:56:34] Read1: loaded 111M reads 
+[00:56:34] Read2: loaded 111M reads 
+[00:56:35] Read1: loaded 112M reads 
+[00:56:35] Read2: loaded 112M reads 
+[00:56:37] Read2: loaded 113M reads 
+[00:56:37] Read1: loaded 113M reads 
+[00:56:38] Read2: loaded 114M reads 
+[00:56:38] Read1: loaded 114M reads 
+[00:56:40] Read2: loaded 115M reads 
+[00:56:40] Read1: loaded 115M reads 
+[00:56:41] Read1: loaded 116M reads 
+[00:56:41] Read2: loaded 116M reads 
+[00:56:43] Read1: loaded 117M reads 
+[00:56:43] Read2: loaded 117M reads 
+[00:56:43] Read1: loading completed with 117120 packs 
+[00:56:43] thread 4 data processing completed 
+[00:56:43] thread 4 finished 
+[00:56:43] thread 3 data processing completed 
+[00:56:43] thread 3 finished 
+[00:56:43] thread 2 data processing completed 
+[00:56:43] thread 2 finished 
+[00:56:43] thread 1 data processing completed 
+[00:56:43] thread 1 finished 
+[00:56:43] thread 6 data processing completed 
+[00:56:43] thread 6 finished 
+[00:56:43] thread 7 data processing completed 
+[00:56:43] thread 7 finished 
+[00:56:43] thread 5 data processing completed 
+[00:56:43] thread 5 finished 
+[00:56:43] thread 8 data processing completed 
+[00:56:43] thread 8 finished 
+[00:56:43] thread 9 data processing completed 
+[00:56:43] thread 9 finished 
+[00:56:43] thread 10 data processing completed 
+[00:56:43] thread 10 finished 
+[00:56:43] thread 11 data processing completed 
+[00:56:43] thread 11 finished 
+[00:56:43] thread 12 data processing completed 
+[00:56:43] thread 12 finished 
+[00:56:43] thread 13 data processing completed 
+[00:56:43] thread 13 finished 
+[00:56:43] thread 14 data processing completed 
+[00:56:43] thread 14 finished 
+[00:56:43] thread 16 data processing completed 
+[00:56:43] thread 16 finished 
+[00:56:43] thread 15 data processing completed 
+[00:56:43] thread 15 finished 
+[00:56:43] Read2: loading completed with 117120 packs 
+[00:56:43] thread 17 data processing completed 
+[00:56:43] thread 17 finished 
+[00:56:43] thread 18 data processing completed 
+[00:56:43] thread 18 finished 
+[00:56:43] thread 19 data processing completed 
+[00:56:43] thread 19 finished 
+[00:56:43] thread 20 data processing completed 
+[00:56:43] thread 20 finished 
+[00:56:43] thread 21 data processing completed 
+[00:56:43] thread 23 data processing completed 
+[00:56:43] thread 24 data processing completed 
+[00:56:43] thread 24 finished 
+[00:56:43] thread 22 data processing completed 
+[00:56:43] thread 22 finished 
+[00:56:43] thread 23 finished 
+[00:56:43] thread 25 data processing completed 
+[00:56:43] thread 25 finished 
+[00:56:43] thread 26 data processing completed 
+[00:56:43] thread 26 finished 
+[00:56:43] thread 28 data processing completed 
+[00:56:43] thread 28 finished 
+[00:56:43] thread 29 data processing completed 
+[00:56:43] thread 29 finished 
+[00:56:43] thread 31 data processing completed 
+[00:56:43] thread 31 finished 
+[00:56:43] thread 21 finished 
+[00:56:43] thread 27 data processing completed 
+[00:56:43] thread 27 finished 
+[00:56:43] thread 32 data processing completed 
+[00:56:43] thread 30 data processing completed 
+[00:56:43] thread 32 finished 
+[00:56:43] thread 30 finished 
+[00:56:43] start to generate reports
+ 
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16051%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: /dev/shm/fastp_bench_GdxcHl.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp -w 32 -j /dev/shm/fastp_bench_GdxcHl.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /dev/shm/fastp_bench_KlOJxy_R1.fq.gz -O /dev/shm/fastp_bench_cASElV_R2.fq.gz 
+fastp v1.3.3, time used: 169 seconds
+================================================================
+
+================================================================
+ Application  : d0bromir_cpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu)
+ Dataset      : WGS PE 18.2G (ERR1044319 R1+R2)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz
+               R2=/home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz
+ Type         : PE
+ Threads      : 32
+ Wall time    : 99.724 s
+ reads_in     : 234238034
+ reads_out    : 217840930
+ vs_opengene  : -41.0%
+--- Resource usage ---
+ CPU avg/peak : 2219.4% / 2799.4%
+ RSS peak     : 2600 MiB
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261005_005352/resources/resource_WGS_PE_18.2G_d0bromir_cpu_T32_1791161807.csv
+--- Profiling output ---
+[00:56:47] fastp 1.3.3-d0bromir starting 
+[00:56:47] [fastp 1.3.3-d0bromir] Stage: loading 
+[00:56:47] start to load data of read1 
+[00:56:47] start to load data of read2 
+[00:56:48] Read2: loaded 1M reads 
+[00:56:48] Read1: loaded 1M reads 
+[00:56:49] Read1: loaded 2M reads 
+[00:56:49] Read2: loaded 2M reads 
+[00:56:50] Read1: loaded 3M reads 
+[00:56:50] Read2: loaded 3M reads 
+[00:56:51] Read2: loaded 4M reads 
+[00:56:51] Read1: loaded 4M reads 
+[00:56:52] Read2: loaded 5M reads 
+[00:56:52] Read1: loaded 5M reads 
+[00:56:52] Read1: loaded 6M reads 
+[00:56:52] Read2: loaded 6M reads 
+[00:56:53] Read1: loaded 7M reads 
+[00:56:53] Read2: loaded 7M reads 
+[00:56:54] Read2: loaded 8M reads 
+[00:56:54] Read1: loaded 8M reads 
+[00:56:55] Read2: loaded 9M reads 
+[00:56:55] Read1: loaded 9M reads 
+[00:56:56] Read2: loaded 10M reads 
+[00:56:56] Read1: loaded 10M reads 
+[00:56:56] Read2: loaded 11M reads 
+[00:56:57] Read1: loaded 11M reads 
+[00:56:57] Read2: loaded 12M reads 
+[00:56:57] Read1: loaded 12M reads 
+[00:56:58] Read2: loaded 13M reads 
+[00:56:58] Read1: loaded 13M reads 
+[00:56:59] Read2: loaded 14M reads 
+[00:56:59] Read1: loaded 14M reads 
+[00:57:00] Read2: loaded 15M reads 
+[00:57:00] Read1: loaded 15M reads 
+[00:57:01] Read2: loaded 16M reads 
+[00:57:01] Read1: loaded 16M reads 
+[00:57:01] Read2: loaded 17M reads 
+[00:57:01] Read1: loaded 17M reads 
+[00:57:02] Read2: loaded 18M reads 
+[00:57:02] Read1: loaded 18M reads 
+[00:57:03] Read2: loaded 19M reads 
+[00:57:03] Read1: loaded 19M reads 
+[00:57:04] Read2: loaded 20M reads 
+[00:57:04] Read1: loaded 20M reads 
+[00:57:05] Read2: loaded 21M reads 
+[00:57:05] Read1: loaded 21M reads 
+[00:57:06] Read2: loaded 22M reads 
+[00:57:06] Read1: loaded 22M reads 
+[00:57:06] Read2: loaded 23M reads 
+[00:57:06] Read1: loaded 23M reads 
+[00:57:07] Read2: loaded 24M reads 
+[00:57:07] Read1: loaded 24M reads 
+[00:57:08] Read2: loaded 25M reads 
+[00:57:08] Read1: loaded 25M reads 
+[00:57:09] Read2: loaded 26M reads 
+[00:57:09] Read1: loaded 26M reads 
+[00:57:10] Read2: loaded 27M reads 
+[00:57:10] Read1: loaded 27M reads 
+[00:57:10] Read2: loaded 28M reads 
+[00:57:11] Read1: loaded 28M reads 
+[00:57:11] Read2: loaded 29M reads 
+[00:57:11] Read1: loaded 29M reads 
+[00:57:12] Read2: loaded 30M reads 
+[00:57:12] Read1: loaded 30M reads 
+[00:57:13] Read2: loaded 31M reads 
+[00:57:13] Read1: loaded 31M reads 
+[00:57:14] Read2: loaded 32M reads 
+[00:57:14] Read1: loaded 32M reads 
+[00:57:15] Read2: loaded 33M reads 
+[00:57:15] Read1: loaded 33M reads 
+[00:57:15] Read2: loaded 34M reads 
+[00:57:16] Read1: loaded 34M reads 
+[00:57:16] Read2: loaded 35M reads 
+[00:57:16] Read1: loaded 35M reads 
+[00:57:17] Read2: loaded 36M reads 
+[00:57:17] Read1: loaded 36M reads 
+[00:57:18] Read2: loaded 37M reads 
+[00:57:18] Read1: loaded 37M reads 
+[00:57:19] Read2: loaded 38M reads 
+[00:57:19] Read1: loaded 38M reads 
+[00:57:19] Read2: loaded 39M reads 
+[00:57:20] Read1: loaded 39M reads 
+[00:57:20] Read2: loaded 40M reads 
+[00:57:21] Read1: loaded 40M reads 
+[00:57:21] Read2: loaded 41M reads 
+[00:57:21] Read1: loaded 41M reads 
+[00:57:22] Read2: loaded 42M reads 
+[00:57:22] Read1: loaded 42M reads 
+[00:57:23] Read2: loaded 43M reads 
+[00:57:23] Read1: loaded 43M reads 
+[00:57:24] Read2: loaded 44M reads 
+[00:57:24] Read1: loaded 44M reads 
+[00:57:24] Read2: loaded 45M reads 
+[00:57:25] Read1: loaded 45M reads 
+[00:57:25] Read2: loaded 46M reads 
+[00:57:25] Read1: loaded 46M reads 
+[00:57:26] Read2: loaded 47M reads 
+[00:57:26] Read1: loaded 47M reads 
+[00:57:27] Read2: loaded 48M reads 
+[00:57:27] Read1: loaded 48M reads 
+[00:57:28] Read2: loaded 49M reads 
+[00:57:28] Read1: loaded 49M reads 
+[00:57:28] Read2: loaded 50M reads 
+[00:57:29] Read1: loaded 50M reads 
+[00:57:29] Read2: loaded 51M reads 
+[00:57:30] Read1: loaded 51M reads 
+[00:57:30] Read2: loaded 52M reads 
+[00:57:30] Read1: loaded 52M reads 
+[00:57:31] Read2: loaded 53M reads 
+[00:57:31] Read1: loaded 53M reads 
+[00:57:32] Read2: loaded 54M reads 
+[00:57:32] Read1: loaded 54M reads 
+[00:57:33] Read2: loaded 55M reads 
+[00:57:33] Read1: loaded 55M reads 
+[00:57:33] Read2: loaded 56M reads 
+[00:57:34] Read1: loaded 56M reads 
+[00:57:34] Read2: loaded 57M reads 
+[00:57:35] Read1: loaded 57M reads 
+[00:57:35] Read2: loaded 58M reads 
+[00:57:35] Read1: loaded 58M reads 
+[00:57:36] Read2: loaded 59M reads 
+[00:57:36] Read1: loaded 59M reads 
+[00:57:37] Read2: loaded 60M reads 
+[00:57:37] Read1: loaded 60M reads 
+[00:57:38] Read2: loaded 61M reads 
+[00:57:38] Read1: loaded 61M reads 
+[00:57:38] Read2: loaded 62M reads 
+[00:57:39] Read1: loaded 62M reads 
+[00:57:39] Read2: loaded 63M reads 
+[00:57:40] Read1: loaded 63M reads 
+[00:57:40] Read2: loaded 64M reads 
+[00:57:40] Read1: loaded 64M reads 
+[00:57:41] Read2: loaded 65M reads 
+[00:57:41] Read1: loaded 65M reads 
+[00:57:42] Read2: loaded 66M reads 
+[00:57:42] Read1: loaded 66M reads 
+[00:57:42] Read2: loaded 67M reads 
+[00:57:43] Read1: loaded 67M reads 
+[00:57:43] Read2: loaded 68M reads 
+[00:57:44] Read1: loaded 68M reads 
+[00:57:44] Read2: loaded 69M reads 
+[00:57:45] Read1: loaded 69M reads 
+[00:57:45] Read2: loaded 70M reads 
+[00:57:45] Read1: loaded 70M reads 
+[00:57:46] Read2: loaded 71M reads 
+[00:57:46] Read1: loaded 71M reads 
+[00:57:46] Read2: loaded 72M reads 
+[00:57:47] Read1: loaded 72M reads 
+[00:57:47] Read2: loaded 73M reads 
+[00:57:48] Read1: loaded 73M reads 
+[00:57:48] Read2: loaded 74M reads 
+[00:57:49] Read1: loaded 74M reads 
+[00:57:49] Read2: loaded 75M reads 
+[00:57:50] Read1: loaded 75M reads 
+[00:57:50] Read2: loaded 76M reads 
+[00:57:50] Read1: loaded 76M reads 
+[00:57:51] Read2: loaded 77M reads 
+[00:57:51] Read1: loaded 77M reads 
+[00:57:51] Read2: loaded 78M reads 
+[00:57:52] Read1: loaded 78M reads 
+[00:57:52] Read2: loaded 79M reads 
+[00:57:53] Read1: loaded 79M reads 
+[00:57:53] Read2: loaded 80M reads 
+[00:57:54] Read1: loaded 80M reads 
+[00:57:54] Read2: loaded 81M reads 
+[00:57:55] Read1: loaded 81M reads 
+[00:57:55] Read2: loaded 82M reads 
+[00:57:55] Read1: loaded 82M reads 
+[00:57:55] Read2: loaded 83M reads 
+[00:57:56] Read1: loaded 83M reads 
+[00:57:56] Read2: loaded 84M reads 
+[00:57:57] Read1: loaded 84M reads 
+[00:57:57] Read2: loaded 85M reads 
+[00:57:58] Read1: loaded 85M reads 
+[00:57:58] Read2: loaded 86M reads 
+[00:57:59] Read1: loaded 86M reads 
+[00:57:59] Read2: loaded 87M reads 
+[00:58:00] Read1: loaded 87M reads 
+[00:58:00] Read2: loaded 88M reads 
+[00:58:00] Read1: loaded 88M reads 
+[00:58:00] Read2: loaded 89M reads 
+[00:58:01] Read2: loaded 90M reads 
+[00:58:01] Read1: loaded 89M reads 
+[00:58:02] Read1: loaded 90M reads 
+[00:58:02] Read2: loaded 91M reads 
+[00:58:03] Read1: loaded 91M reads 
+[00:58:03] Read2: loaded 92M reads 
+[00:58:04] Read1: loaded 92M reads 
+[00:58:04] Read2: loaded 93M reads 
+[00:58:05] Read1: loaded 93M reads 
+[00:58:05] Read2: loaded 94M reads 
+[00:58:05] Read1: loaded 94M reads 
+[00:58:05] Read2: loaded 95M reads 
+[00:58:06] Read1: loaded 95M reads 
+[00:58:06] Read2: loaded 96M reads 
+[00:58:07] Read1: loaded 96M reads 
+[00:58:07] Read2: loaded 97M reads 
+[00:58:08] Read1: loaded 97M reads 
+[00:58:08] Read2: loaded 98M reads 
+[00:58:09] Read1: loaded 98M reads 
+[00:58:09] Read2: loaded 99M reads 
+[00:58:10] Read1: loaded 99M reads 
+[00:58:10] Read2: loaded 100M reads 
+[00:58:10] Read1: loaded 100M reads 
+[00:58:10] Read2: loaded 101M reads 
+[00:58:11] Read1: loaded 101M reads 
+[00:58:11] Read2: loaded 102M reads 
+[00:58:12] Read2: loaded 103M reads 
+[00:58:12] Read1: loaded 102M reads 
+[00:58:13] Read2: loaded 104M reads 
+[00:58:13] Read1: loaded 103M reads 
+[00:58:14] Read1: loaded 104M reads 
+[00:58:14] Read2: loaded 105M reads 
+[00:58:15] Read2: loaded 106M reads 
+[00:58:15] Read1: loaded 105M reads 
+[00:58:15] Read2: loaded 107M reads 
+[00:58:15] Read1: loaded 106M reads 
+[00:58:16] Read2: loaded 108M reads 
+[00:58:16] Read1: loaded 107M reads 
+[00:58:17] Read1: loaded 108M reads 
+[00:58:17] Read2: loaded 109M reads 
+[00:58:18] Read2: loaded 110M reads 
+[00:58:18] Read1: loaded 109M reads 
+[00:58:19] Read2: loaded 111M reads 
+[00:58:19] Read1: loaded 110M reads 
+[00:58:20] Read1: loaded 111M reads 
+[00:58:20] Read2: loaded 112M reads 
+[00:58:20] Read1: loaded 112M reads 
+[00:58:20] Read2: loaded 113M reads 
+[00:58:21] Read1: loaded 113M reads 
+[00:58:21] Read2: loaded 114M reads 
+[00:58:22] Read2: loaded 115M reads 
+[00:58:22] Read1: loaded 114M reads 
+[00:58:23] Read2: loaded 116M reads 
+[00:58:23] Read1: loaded 115M reads 
+[00:58:24] Read1: loaded 116M reads 
+[00:58:24] Read2: loaded 117M reads 
+[00:58:24] Read2: loading completed with 14297 packs 
+[00:58:25] Read1: loaded 117M reads 
+[00:58:25] Read1: loading completed with 14297 packs 
+[00:58:25] thread 17 data processing completed 
+[00:58:25] thread 17 finished 
+[00:58:25] thread 23 data processing completed 
+[00:58:25] thread 23 finished 
+[00:58:25] thread 8 data processing completed 
+[00:58:25] thread 8 finished 
+[00:58:25] [fastp 1.3.3-d0bromir] Stage: loading (97420 ms) 
+[00:58:25] [fastp 1.3.3-d0bromir] Stage: filtering 
+[00:58:25] thread 14 data processing completed 
+[00:58:25] thread 14 finished 
+[00:58:25] thread 5 data processing completed 
+[00:58:25] thread 5 finished 
+[00:58:25] thread 31 data processing completed 
+[00:58:25] thread 31 finished 
+[00:58:25] thread 3 data processing completed 
+[00:58:25] thread 3 finished 
+[00:58:25] thread 25 data processing completed 
+[00:58:25] thread 25 finished 
+[00:58:25] thread 11 data processing completed 
+[00:58:25] thread 11 finished 
+[00:58:25] thread 19 data processing completed 
+[00:58:25] thread 19 finished 
+[00:58:25] thread 22 data processing completed 
+[00:58:25] thread 22 finished 
+[00:58:25] thread 20 data processing completed 
+[00:58:25] thread 20 finished 
+[00:58:25] thread 26 data processing completed 
+[00:58:25] thread 26 finished 
+[00:58:25] thread 15 data processing completed 
+[00:58:25] thread 15 finished 
+[00:58:25] thread 18 data processing completed 
+[00:58:25] thread 18 finished 
+[00:58:25] thread 24 data processing completed 
+[00:58:25] thread 24 finished 
+[00:58:25] thread 6 data processing completed 
+[00:58:25] thread 6 finished 
+[00:58:25] thread 4 data processing completed 
+[00:58:25] thread 4 finished 
+[00:58:25] thread 29 data processing completed 
+[00:58:25] thread 29 finished 
+[00:58:25] thread 9 data processing completed 
+[00:58:25] thread 9 finished 
+[00:58:25] thread 10 data processing completed 
+[00:58:25] thread 10 finished 
+[00:58:25] thread 21 data processing completed 
+[00:58:25] thread 21 finished 
+[00:58:25] thread 12 data processing completed 
+[00:58:25] thread 12 finished 
+[00:58:25] thread 16 data processing completed 
+[00:58:25] thread 16 finished 
+[00:58:25] thread 32 data processing completed 
+[00:58:25] thread 32 finished 
+[00:58:25] thread 1 data processing completed 
+[00:58:25] thread 1 finished 
+[00:58:25] thread 28 data processing completed 
+[00:58:25] thread 28 finished 
+[00:58:25] thread 7 data processing completed 
+[00:58:25] thread 7 finished 
+[00:58:25] thread 13 data processing completed 
+[00:58:25] thread 13 finished 
+[00:58:25] thread 2 data processing completed 
+[00:58:25] thread 2 finished 
+[00:58:25] thread 30 data processing completed 
+[00:58:25] thread 30 finished 
+[00:58:25] thread 27 data processing completed 
+[00:58:25] thread 27 finished 
+[00:58:25] [fastp 1.3.3-d0bromir] Stage: filtering (69 ms) 
+[00:58:25] [fastp 1.3.3-d0bromir] Stage: writing 
+[00:58:25] /dev/shm/fastp_bench_ajtic0_R1.fq.gz writer finished 
+[00:58:25] /dev/shm/fastp_bench_lksTTC_R2.fq.gz writer finished 
+[00:58:25] [fastp 1.3.3-d0bromir] Stage: writing (27 ms) 
+[00:58:25] start to generate reports
+ 
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16051%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: /dev/shm/fastp_bench_v09ZHI.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu -w 32 -j /dev/shm/fastp_bench_v09ZHI.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /dev/shm/fastp_bench_ajtic0_R1.fq.gz -O /dev/shm/fastp_bench_lksTTC_R2.fq.gz 
+fastp v1.3.3-d0bromir, time used: 99 seconds
+================================================================
+
+================================================================
+ Application  : d0bromir_gpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp)
+ Dataset      : WGS PE 18.2G (ERR1044319 R1+R2)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz
+               R2=/home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz
+ Type         : PE
+ Threads      : 32
+ Wall time    : 100.254 s
+ reads_in     : 234238034
+ reads_out    : 217840930
+ vs_opengene  : -40.7%
+--- Resource usage ---
+ CPU avg/peak : 2039.0% / 2681.4%
+ RSS peak     : 3399 MiB
+ GPU util a/p : 10.0% / 12.0%
+ GPU mem peak : 1360 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261005_005352/resources/resource_WGS_PE_18.2G_d0bromir_gpu_T32_1791161909.csv
+--- Profiling output ---
+[00:58:29] fastp 1.3.3-d0bromir starting 
+[00:58:29] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[00:58:30] [fastp 1.3.3-d0bromir] Stage: loading 
+[00:58:30] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[00:58:30] start to load data of read1 
+[00:58:30] start to load data of read2 
+[00:58:30] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[00:58:31] Read1: loaded 1M reads 
+[00:58:31] Read2: loaded 1M reads 
+[00:58:32] Read1: loaded 2M reads 
+[00:58:32] Read2: loaded 2M reads 
+[00:58:32] Read1: loaded 3M reads 
+[00:58:32] Read2: loaded 3M reads 
+[00:58:33] Read2: loaded 4M reads 
+[00:58:33] Read1: loaded 4M reads 
+[00:58:34] Read2: loaded 5M reads 
+[00:58:34] Read1: loaded 5M reads 
+[00:58:35] Read1: loaded 6M reads 
+[00:58:35] Read2: loaded 6M reads 
+[00:58:36] Read1: loaded 7M reads 
+[00:58:36] Read2: loaded 7M reads 
+[00:58:36] Read2: loaded 8M reads 
+[00:58:36] Read1: loaded 8M reads 
+[00:58:37] Read2: loaded 9M reads 
+[00:58:37] Read1: loaded 9M reads 
+[00:58:38] Read2: loaded 10M reads 
+[00:58:38] Read1: loaded 10M reads 
+[00:58:39] Read2: loaded 11M reads 
+[00:58:39] Read1: loaded 11M reads 
+[00:58:40] Read2: loaded 12M reads 
+[00:58:40] Read1: loaded 12M reads 
+[00:58:41] Read2: loaded 13M reads 
+[00:58:41] Read1: loaded 13M reads 
+[00:58:41] Read2: loaded 14M reads 
+[00:58:41] Read1: loaded 14M reads 
+[00:58:42] Read2: loaded 15M reads 
+[00:58:42] Read1: loaded 15M reads 
+[00:58:43] Read2: loaded 16M reads 
+[00:58:43] Read1: loaded 16M reads 
+[00:58:44] Read2: loaded 17M reads 
+[00:58:44] Read1: loaded 17M reads 
+[00:58:45] Read2: loaded 18M reads 
+[00:58:45] Read1: loaded 18M reads 
+[00:58:45] Read2: loaded 19M reads 
+[00:58:46] Read1: loaded 19M reads 
+[00:58:46] Read2: loaded 20M reads 
+[00:58:46] Read1: loaded 20M reads 
+[00:58:47] Read2: loaded 21M reads 
+[00:58:47] Read1: loaded 21M reads 
+[00:58:48] Read2: loaded 22M reads 
+[00:58:48] Read1: loaded 22M reads 
+[00:58:49] Read2: loaded 23M reads 
+[00:58:49] Read1: loaded 23M reads 
+[00:58:49] Read2: loaded 24M reads 
+[00:58:50] Read1: loaded 24M reads 
+[00:58:50] Read2: loaded 25M reads 
+[00:58:51] Read1: loaded 25M reads 
+[00:58:51] Read2: loaded 26M reads 
+[00:58:51] Read1: loaded 26M reads 
+[00:58:52] Read2: loaded 27M reads 
+[00:58:52] Read1: loaded 27M reads 
+[00:58:53] Read2: loaded 28M reads 
+[00:58:53] Read1: loaded 28M reads 
+[00:58:54] Read2: loaded 29M reads 
+[00:58:54] Read1: loaded 29M reads 
+[00:58:54] Read2: loaded 30M reads 
+[00:58:55] Read1: loaded 30M reads 
+[00:58:55] Read2: loaded 31M reads 
+[00:58:56] Read1: loaded 31M reads 
+[00:58:56] Read2: loaded 32M reads 
+[00:58:56] Read1: loaded 32M reads 
+[00:58:57] Read2: loaded 33M reads 
+[00:58:57] Read1: loaded 33M reads 
+[00:58:58] Read2: loaded 34M reads 
+[00:58:58] Read1: loaded 34M reads 
+[00:58:59] Read2: loaded 35M reads 
+[00:58:59] Read1: loaded 35M reads 
+[00:58:59] Read2: loaded 36M reads 
+[00:59:00] Read1: loaded 36M reads 
+[00:59:00] Read2: loaded 37M reads 
+[00:59:01] Read1: loaded 37M reads 
+[00:59:01] Read2: loaded 38M reads 
+[00:59:01] Read1: loaded 38M reads 
+[00:59:02] Read2: loaded 39M reads 
+[00:59:02] Read1: loaded 39M reads 
+[00:59:03] Read2: loaded 40M reads 
+[00:59:03] Read1: loaded 40M reads 
+[00:59:03] Read2: loaded 41M reads 
+[00:59:04] Read1: loaded 41M reads 
+[00:59:04] Read2: loaded 42M reads 
+[00:59:05] Read1: loaded 42M reads 
+[00:59:05] Read2: loaded 43M reads 
+[00:59:05] Read1: loaded 43M reads 
+[00:59:06] Read2: loaded 44M reads 
+[00:59:06] Read1: loaded 44M reads 
+[00:59:07] Read2: loaded 45M reads 
+[00:59:07] Read1: loaded 45M reads 
+[00:59:08] Read2: loaded 46M reads 
+[00:59:08] Read1: loaded 46M reads 
+[00:59:08] Read2: loaded 47M reads 
+[00:59:09] Read1: loaded 47M reads 
+[00:59:09] Read2: loaded 48M reads 
+[00:59:10] Read1: loaded 48M reads 
+[00:59:10] Read2: loaded 49M reads 
+[00:59:10] Read1: loaded 49M reads 
+[00:59:11] Read2: loaded 50M reads 
+[00:59:11] Read1: loaded 50M reads 
+[00:59:12] Read2: loaded 51M reads 
+[00:59:12] Read1: loaded 51M reads 
+[00:59:12] Read2: loaded 52M reads 
+[00:59:13] Read1: loaded 52M reads 
+[00:59:13] Read2: loaded 53M reads 
+[00:59:14] Read1: loaded 53M reads 
+[00:59:14] Read2: loaded 54M reads 
+[00:59:15] Read1: loaded 54M reads 
+[00:59:15] Read2: loaded 55M reads 
+[00:59:15] Read1: loaded 55M reads 
+[00:59:16] Read2: loaded 56M reads 
+[00:59:16] Read1: loaded 56M reads 
+[00:59:17] Read2: loaded 57M reads 
+[00:59:17] Read1: loaded 57M reads 
+[00:59:17] Read2: loaded 58M reads 
+[00:59:18] Read1: loaded 58M reads 
+[00:59:18] Read2: loaded 59M reads 
+[00:59:19] Read1: loaded 59M reads 
+[00:59:19] Read2: loaded 60M reads 
+[00:59:20] Read1: loaded 60M reads 
+[00:59:20] Read2: loaded 61M reads 
+[00:59:20] Read1: loaded 61M reads 
+[00:59:21] Read2: loaded 62M reads 
+[00:59:21] Read1: loaded 62M reads 
+[00:59:21] Read2: loaded 63M reads 
+[00:59:22] Read1: loaded 63M reads 
+[00:59:22] Read2: loaded 64M reads 
+[00:59:23] Read1: loaded 64M reads 
+[00:59:23] Read2: loaded 65M reads 
+[00:59:24] Read1: loaded 65M reads 
+[00:59:24] Read2: loaded 66M reads 
+[00:59:25] Read1: loaded 66M reads 
+[00:59:25] Read2: loaded 67M reads 
+[00:59:25] Read1: loaded 67M reads 
+[00:59:26] Read2: loaded 68M reads 
+[00:59:26] Read1: loaded 68M reads 
+[00:59:26] Read2: loaded 69M reads 
+[00:59:27] Read1: loaded 69M reads 
+[00:59:27] Read2: loaded 70M reads 
+[00:59:28] Read1: loaded 70M reads 
+[00:59:28] Read2: loaded 71M reads 
+[00:59:29] Read1: loaded 71M reads 
+[00:59:29] Read2: loaded 72M reads 
+[00:59:30] Read1: loaded 72M reads 
+[00:59:30] Read2: loaded 73M reads 
+[00:59:30] Read1: loaded 73M reads 
+[00:59:30] Read2: loaded 74M reads 
+[00:59:31] Read1: loaded 74M reads 
+[00:59:31] Read2: loaded 75M reads 
+[00:59:32] Read1: loaded 75M reads 
+[00:59:32] Read2: loaded 76M reads 
+[00:59:33] Read1: loaded 76M reads 
+[00:59:33] Read2: loaded 77M reads 
+[00:59:34] Read1: loaded 77M reads 
+[00:59:34] Read2: loaded 78M reads 
+[00:59:35] Read1: loaded 78M reads 
+[00:59:35] Read2: loaded 79M reads 
+[00:59:35] Read1: loaded 79M reads 
+[00:59:35] Read2: loaded 80M reads 
+[00:59:36] Read1: loaded 80M reads 
+[00:59:36] Read2: loaded 81M reads 
+[00:59:37] Read1: loaded 81M reads 
+[00:59:37] Read2: loaded 82M reads 
+[00:59:38] Read1: loaded 82M reads 
+[00:59:38] Read2: loaded 83M reads 
+[00:59:39] Read1: loaded 83M reads 
+[00:59:39] Read2: loaded 84M reads 
+[00:59:40] Read2: loaded 85M reads 
+[00:59:40] Read1: loaded 84M reads 
+[00:59:40] Read1: loaded 85M reads 
+[00:59:40] Read2: loaded 86M reads 
+[00:59:41] Read1: loaded 86M reads 
+[00:59:41] Read2: loaded 87M reads 
+[00:59:42] Read1: loaded 87M reads 
+[00:59:42] Read2: loaded 88M reads 
+[00:59:43] Read1: loaded 88M reads 
+[00:59:43] Read2: loaded 89M reads 
+[00:59:44] Read2: loaded 90M reads 
+[00:59:44] Read1: loaded 89M reads 
+[00:59:45] Read1: loaded 90M reads 
+[00:59:45] Read2: loaded 91M reads 
+[00:59:45] Read1: loaded 91M reads 
+[00:59:45] Read2: loaded 92M reads 
+[00:59:46] Read1: loaded 92M reads 
+[00:59:46] Read2: loaded 93M reads 
+[00:59:47] Read1: loaded 93M reads 
+[00:59:47] Read2: loaded 94M reads 
+[00:59:48] Read1: loaded 94M reads 
+[00:59:48] Read2: loaded 95M reads 
+[00:59:49] Read1: loaded 95M reads 
+[00:59:49] Read2: loaded 96M reads 
+[00:59:50] Read1: loaded 96M reads 
+[00:59:50] Read2: loaded 97M reads 
+[00:59:50] Read1: loaded 97M reads 
+[00:59:50] Read2: loaded 98M reads 
+[00:59:51] Read1: loaded 98M reads 
+[00:59:51] Read2: loaded 99M reads 
+[00:59:52] Read1: loaded 99M reads 
+[00:59:52] Read2: loaded 100M reads 
+[00:59:53] Read1: loaded 100M reads 
+[00:59:53] Read2: loaded 101M reads 
+[00:59:54] Read2: loaded 102M reads 
+[00:59:54] Read1: loaded 101M reads 
+[00:59:55] Read2: loaded 103M reads 
+[00:59:55] Read1: loaded 102M reads 
+[00:59:55] Read2: loaded 104M reads 
+[00:59:55] Read1: loaded 103M reads 
+[00:59:56] Read1: loaded 104M reads 
+[00:59:56] Read2: loaded 105M reads 
+[00:59:57] Read2: loaded 106M reads 
+[00:59:57] Read1: loaded 105M reads 
+[00:59:58] Read2: loaded 107M reads 
+[00:59:58] Read1: loaded 106M reads 
+[00:59:59] Read2: loaded 108M reads 
+[00:59:59] Read1: loaded 107M reads 
+[01:00:00] Read1: loaded 108M reads 
+[01:00:00] Read2: loaded 109M reads 
+[01:00:00] Read2: loaded 110M reads 
+[01:00:00] Read1: loaded 109M reads 
+[01:00:01] Read2: loaded 111M reads 
+[01:00:01] Read1: loaded 110M reads 
+[01:00:02] Read2: loaded 112M reads 
+[01:00:02] Read1: loaded 111M reads 
+[01:00:03] Read1: loaded 112M reads 
+[01:00:03] Read2: loaded 113M reads 
+[01:00:04] Read1: loaded 113M reads 
+[01:00:04] Read2: loaded 114M reads 
+[01:00:05] Read2: loaded 115M reads 
+[01:00:05] Read1: loaded 114M reads 
+[01:00:05] Read2: loaded 116M reads 
+[01:00:05] Read1: loaded 115M reads 
+[01:00:06] Read1: loaded 116M reads 
+[01:00:06] Read2: loaded 117M reads 
+[01:00:06] Read2: loading completed with 14297 packs 
+[01:00:07] Read1: loaded 117M reads 
+[01:00:07] Read1: loading completed with 14297 packs 
+[01:00:07] thread 2 data processing completed 
+[01:00:07] thread 2 finished 
+[01:00:07] thread 1 data processing completed 
+[01:00:07] thread 1 finished 
+[01:00:07] thread 11 data processing completed 
+[01:00:07] thread 11 finished 
+[01:00:07] thread 3 data processing completed 
+[01:00:07] thread 3 finished 
+[01:00:07] thread 32 data processing completed 
+[01:00:07] thread 32 finished 
+[01:00:07] thread 6 data processing completed 
+[01:00:07] thread 6 finished 
+[01:00:07] thread 22 data processing completed 
+[01:00:07] thread 22 finished 
+[01:00:07] thread 4 data processing completed 
+[01:00:07] thread 4 finished 
+[01:00:07] thread 14 data processing completed 
+[01:00:07] thread 14 finished 
+[01:00:07] thread 17 data processing completed 
+[01:00:07] thread 17 finished 
+[01:00:07] [fastp 1.3.3-d0bromir] Stage: loading (97594 ms) 
+[01:00:07] [fastp 1.3.3-d0bromir] Stage: filtering 
+[01:00:07] thread 18 data processing completed 
+[01:00:07] thread 18 finished 
+[01:00:07] thread 27 data processing completed 
+[01:00:07] thread 27 finished 
+[01:00:07] thread 10 data processing completed 
+[01:00:07] thread 10 finished 
+[01:00:07] thread 30 data processing completed 
+[01:00:07] thread 30 finished 
+[01:00:07] thread 21 data processing completed 
+[01:00:07] thread 21 finished 
+[01:00:07] thread 26 data processing completed 
+[01:00:07] thread 26 finished 
+[01:00:07] thread 29 data processing completed 
+[01:00:07] thread 29 finished 
+[01:00:07] thread 15 data processing completed 
+[01:00:07] thread 15 finished 
+[01:00:07] thread 9 data processing completed 
+[01:00:07] thread 9 finished 
+[01:00:07] thread 5 data processing completed 
+[01:00:07] thread 5 finished 
+[01:00:07] thread 23 data processing completed 
+[01:00:07] thread 23 finished 
+[01:00:07] thread 20 data processing completed 
+[01:00:07] thread 20 finished 
+[01:00:07] thread 28 data processing completed 
+[01:00:07] thread 28 finished 
+[01:00:07] thread 19 data processing completed 
+[01:00:07] thread 19 finished 
+[01:00:07] thread 24 data processing completed 
+[01:00:07] thread 24 finished 
+[01:00:07] thread 16 data processing completed 
+[01:00:07] thread 16 finished 
+[01:00:07] thread 31 data processing completed 
+[01:00:07] thread 31 finished 
+[01:00:07] thread 12 data processing completed 
+[01:00:07] thread 12 finished 
+[01:00:07] thread 8 data processing completed 
+[01:00:07] thread 8 finished 
+[01:00:07] thread 13 data processing completed 
+[01:00:07] thread 13 finished 
+[01:00:07] thread 25 data processing completed 
+[01:00:07] thread 25 finished 
+[01:00:07] thread 7 data processing completed 
+[01:00:07] thread 7 finished 
+[01:00:07] [fastp 1.3.3-d0bromir] Stage: filtering (64 ms) 
+[01:00:07] [fastp 1.3.3-d0bromir] Stage: writing 
+[01:00:07] /dev/shm/fastp_bench_Len5JH_R1.fq.gz writer finished 
+[01:00:07] /dev/shm/fastp_bench_LY0lLf_R2.fq.gz writer finished 
+[01:00:07] [fastp 1.3.3-d0bromir] Stage: writing (27 ms) 
+[01:00:07] [GPU] Device 0: batches=14297 reads=117119017 
+[01:00:07] [GPU] Device 1: batches=14297 reads=117119017 
+[01:00:07] start to generate reports
+ 
+Read1 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 11040848879(94.2703%)
+Q30 bases: 10362226195(88.476%)
+Q40 bases: 1948657(0.0166383%)
+
+Read2 before filtering:
+total reads: 117119017
+total bases: 11711901700
+Q20 bases: 10988642082(93.8246%)
+Q30 bases: 10314076255(88.0649%)
+Q40 bases: 28413202(0.242601%)
+
+Read1 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10544216033(96.9694%)
+Q30 bases: 9961660084(91.6119%)
+Q40 bases: 1912694(0.01759%)
+
+Read2 after filtering:
+total reads: 108920465
+total bases: 10873757549
+Q20 bases: 10557960992(97.0958%)
+Q30 bases: 9979237841(91.7736%)
+Q40 bases: 27481072(0.252728%)
+
+Filtering result:
+reads passed filter: 217840930
+reads failed due to low quality: 16397104
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 882278
+bases trimmed due to adapters: 37595560
+
+Duplication rate: 1.16051%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: /dev/shm/fastp_bench_4TMyfd.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp -w 32 -j /dev/shm/fastp_bench_4TMyfd.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/ERR1044319_2.fastq.gz -o /dev/shm/fastp_bench_Len5JH_R1.fq.gz -O /dev/shm/fastp_bench_LY0lLf_R2.fq.gz 
+fastp v1.3.3-d0bromir, time used: 100 seconds
+================================================================

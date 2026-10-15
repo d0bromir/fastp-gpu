@@ -1,0 +1,2 @@
+case,status,detail,reads_in,passed
+PE/mixed/n_limit/T1/cpu,PASS,,40000,2686

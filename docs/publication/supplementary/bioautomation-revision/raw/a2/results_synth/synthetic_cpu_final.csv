@@ -1,0 +1,655 @@
+case,status,detail,reads_in,passed
+PE/adapter/adapter_given/T1/cpu,PASS,,40000,29084
+PE/adapter/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,29084
+PE/adapter/complexity/T1/cpu,PASS,,40000,40000
+PE/adapter/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/correction/T1/cpu,PASS,,40000,40000
+PE/adapter/correction/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/cut_front_tail/T1/cpu,PASS,,40000,40000
+PE/adapter/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/cut_right/T1/cpu,PASS,,40000,40000
+PE/adapter/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/dedup/T1/cpu,PASS,,40000,40000
+PE/adapter/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/default/T1/cpu,PASS,,40000,40000
+PE/adapter/default/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/detect_pe/T1/cpu,PASS,,40000,29084
+PE/adapter/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,29084
+PE/adapter/front_tail_trim/T1/cpu,PASS,,40000,40000
+PE/adapter/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/len_filter/T1/cpu,PASS,,40000,10906
+PE/adapter/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,10906
+PE/adapter/max_len/T1/cpu,PASS,,40000,40000
+PE/adapter/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/merge/T1/cpu,PASS,,40000,40000
+PE/adapter/merge/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/n_limit/T1/cpu,PASS,,40000,40000
+PE/adapter/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/adapter/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/poly_g/T1/cpu,PASS,,40000,40000
+PE/adapter/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/poly_x/T1/cpu,PASS,,40000,40000
+PE/adapter/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/adapter/qual_strict/T1/cpu,PASS,,40000,40000
+PE/adapter/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(8 keys),40000,40000
+PE/dup/adapter_given/T1/cpu,PASS,,40000,40000
+PE/dup/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/complexity/T1/cpu,PASS,,40000,40000
+PE/dup/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/correction/T1/cpu,PASS,,40000,40000
+PE/dup/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/cut_front_tail/T1/cpu,PASS,,40000,40000
+PE/dup/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/cut_right/T1/cpu,PASS,,40000,40000
+PE/dup/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/dedup/T1/cpu,PASS,,40000,40000
+PE/dup/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/default/T1/cpu,PASS,,40000,40000
+PE/dup/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/detect_pe/T1/cpu,PASS,,40000,39952
+PE/dup/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,39952
+PE/dup/front_tail_trim/T1/cpu,PASS,,40000,40000
+PE/dup/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/len_filter/T1/cpu,PASS,,40000,0
+PE/dup/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/dup/max_len/T1/cpu,PASS,,40000,40000
+PE/dup/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/merge/T1/cpu,PASS,,40000,40000
+PE/dup/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/n_limit/T1/cpu,PASS,,40000,40000
+PE/dup/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/dup/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/poly_g/T1/cpu,PASS,,40000,40000
+PE/dup/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/poly_x/T1/cpu,PASS,,40000,40000
+PE/dup/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/dup/qual_strict/T1/cpu,PASS,,40000,40000
+PE/dup/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/lowq/adapter_given/T1/cpu,PASS,,40000,21334
+PE/lowq/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/complexity/T1/cpu,PASS,,40000,21334
+PE/lowq/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/correction/T1/cpu,PASS,,40000,21334
+PE/lowq/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/cut_front_tail/T1/cpu,PASS,,40000,21334
+PE/lowq/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/cut_right/T1/cpu,PASS,,40000,21334
+PE/lowq/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/dedup/T1/cpu,PASS,,40000,21334
+PE/lowq/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/default/T1/cpu,PASS,,40000,21334
+PE/lowq/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/detect_pe/T1/cpu,PASS,,40000,21334
+PE/lowq/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/front_tail_trim/T1/cpu,PASS,,40000,21334
+PE/lowq/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/len_filter/T1/cpu,PASS,,40000,0
+PE/lowq/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/lowq/max_len/T1/cpu,PASS,,40000,21334
+PE/lowq/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/merge/T1/cpu,PASS,,40000,21334
+PE/lowq/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/n_limit/T1/cpu,PASS,,40000,21334
+PE/lowq/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/lowq/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/lowq/poly_g/T1/cpu,PASS,,40000,21334
+PE/lowq/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/poly_x/T1/cpu,PASS,,40000,21334
+PE/lowq/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/lowq/qual_strict/T1/cpu,PASS,,40000,21334
+PE/lowq/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,21334
+PE/mixed/adapter_given/T1/cpu,PASS,,40000,11804
+PE/mixed/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/complexity/T1/cpu,PASS,,40000,11804
+PE/mixed/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/correction/T1/cpu,PASS,,40000,11804
+PE/mixed/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/cut_front_tail/T1/cpu,PASS,,40000,17648
+PE/mixed/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(25 keys),40000,17648
+PE/mixed/cut_right/T1/cpu,PASS,,40000,8092
+PE/mixed/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(71 keys),40000,8092
+PE/mixed/dedup/T1/cpu,PASS,,40000,11804
+PE/mixed/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/default/T1/cpu,PASS,,40000,11804
+PE/mixed/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/detect_pe/T1/cpu,PASS,,40000,11804
+PE/mixed/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/front_tail_trim/T1/cpu,PASS,,40000,12242
+PE/mixed/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,12242
+PE/mixed/len_filter/T1/cpu,PASS,,40000,0
+PE/mixed/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/mixed/max_len/T1/cpu,PASS,,40000,15410
+PE/mixed/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,15410
+PE/mixed/merge/T1/cpu,PASS,,40000,11804
+PE/mixed/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11804
+PE/mixed/n_limit/T1/cpu,PASS,,40000,2686
+PE/mixed/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,2686
+PE/mixed/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/mixed/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/mixed/poly_g/T1/cpu,PASS,,40000,11906
+PE/mixed/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11906
+PE/mixed/poly_x/T1/cpu,PASS,,40000,11920
+PE/mixed/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,11920
+PE/mixed/qual_strict/T1/cpu,PASS,,40000,3052
+PE/mixed/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,3052
+PE/nbase/adapter_given/T1/cpu,PASS,,40000,25714
+PE/nbase/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/complexity/T1/cpu,PASS,,40000,25714
+PE/nbase/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/correction/T1/cpu,PASS,,40000,25714
+PE/nbase/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/cut_front_tail/T1/cpu,PASS,,40000,25714
+PE/nbase/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/cut_right/T1/cpu,PASS,,40000,25714
+PE/nbase/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/dedup/T1/cpu,PASS,,40000,25714
+PE/nbase/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/default/T1/cpu,PASS,,40000,25714
+PE/nbase/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/detect_pe/T1/cpu,PASS,,40000,25714
+PE/nbase/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/front_tail_trim/T1/cpu,PASS,,40000,25714
+PE/nbase/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/len_filter/T1/cpu,PASS,,40000,0
+PE/nbase/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/nbase/max_len/T1/cpu,PASS,,40000,25808
+PE/nbase/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25808
+PE/nbase/merge/T1/cpu,PASS,,40000,25714
+PE/nbase/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/n_limit/T1/cpu,PASS,,40000,25714
+PE/nbase/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/nbase/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/nbase/poly_g/T1/cpu,PASS,,40000,25714
+PE/nbase/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/poly_x/T1/cpu,PASS,,40000,25714
+PE/nbase/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/nbase/qual_strict/T1/cpu,PASS,,40000,25714
+PE/nbase/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,25714
+PE/onemate/adapter_given/T1/cpu,PASS,,40000,0
+PE/onemate/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/complexity/T1/cpu,PASS,,40000,0
+PE/onemate/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/correction/T1/cpu,PASS,,40000,0
+PE/onemate/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/cut_front_tail/T1/cpu,PASS,,40000,0
+PE/onemate/cut_front_tail/T4/cpu,PASS,,40000,0
+PE/onemate/cut_right/T1/cpu,PASS,,40000,0
+PE/onemate/cut_right/T4/cpu,PASS,,40000,0
+PE/onemate/dedup/T1/cpu,PASS,,40000,0
+PE/onemate/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/default/T1/cpu,PASS,,40000,0
+PE/onemate/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/detect_pe/T1/cpu,PASS,,40000,0
+PE/onemate/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/front_tail_trim/T1/cpu,PASS,,40000,0
+PE/onemate/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/len_filter/T1/cpu,PASS,,40000,0
+PE/onemate/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/max_len/T1/cpu,PASS,,40000,0
+PE/onemate/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/merge/T1/cpu,PASS,,40000,0
+PE/onemate/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/n_limit/T1/cpu,PASS,,40000,0
+PE/onemate/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/onemate/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/onemate/poly_g/T1/cpu,PASS,,40000,0
+PE/onemate/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/poly_x/T1/cpu,PASS,,40000,0
+PE/onemate/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/onemate/qual_strict/T1/cpu,PASS,,40000,0
+PE/onemate/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/pass/adapter_given/T1/cpu,PASS,,40000,40000
+PE/pass/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/complexity/T1/cpu,PASS,,40000,40000
+PE/pass/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/correction/T1/cpu,PASS,,40000,40000
+PE/pass/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/cut_front_tail/T1/cpu,PASS,,40000,40000
+PE/pass/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/cut_right/T1/cpu,PASS,,40000,40000
+PE/pass/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/dedup/T1/cpu,PASS,,40000,40000
+PE/pass/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/default/T1/cpu,PASS,,40000,40000
+PE/pass/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/detect_pe/T1/cpu,PASS,,40000,40000
+PE/pass/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/front_tail_trim/T1/cpu,PASS,,40000,40000
+PE/pass/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/len_filter/T1/cpu,PASS,,40000,0
+PE/pass/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/pass/max_len/T1/cpu,PASS,,40000,40000
+PE/pass/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/merge/T1/cpu,PASS,,40000,40000
+PE/pass/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/n_limit/T1/cpu,PASS,,40000,40000
+PE/pass/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/pass/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/poly_g/T1/cpu,PASS,,40000,40000
+PE/pass/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/poly_x/T1/cpu,PASS,,40000,40000
+PE/pass/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/pass/qual_strict/T1/cpu,PASS,,40000,40000
+PE/pass/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/adapter_given/T1/cpu,PASS,,40000,40000
+PE/polyg/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/complexity/T1/cpu,PASS,,40000,40000
+PE/polyg/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/correction/T1/cpu,PASS,,40000,40000
+PE/polyg/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/cut_front_tail/T1/cpu,PASS,,40000,40000
+PE/polyg/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/cut_right/T1/cpu,PASS,,40000,40000
+PE/polyg/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/dedup/T1/cpu,PASS,,40000,40000
+PE/polyg/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/default/T1/cpu,PASS,,40000,40000
+PE/polyg/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/detect_pe/T1/cpu,PASS,,40000,39930
+PE/polyg/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,39930
+PE/polyg/front_tail_trim/T1/cpu,PASS,,40000,40000
+PE/polyg/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/len_filter/T1/cpu,PASS,,40000,0
+PE/polyg/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/polyg/max_len/T1/cpu,PASS,,40000,40000
+PE/polyg/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/merge/T1/cpu,PASS,,40000,40000
+PE/polyg/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/n_limit/T1/cpu,PASS,,40000,40000
+PE/polyg/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/polyg/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/poly_g/T1/cpu,PASS,,40000,40000
+PE/polyg/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/poly_x/T1/cpu,PASS,,40000,40000
+PE/polyg/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/polyg/qual_strict/T1/cpu,PASS,,40000,40000
+PE/polyg/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/short/adapter_given/T1/cpu,PASS,,40000,14922
+PE/short/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14922
+PE/short/complexity/T1/cpu,PASS,,40000,14964
+PE/short/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14964
+PE/short/correction/T1/cpu,PASS,,40000,14968
+PE/short/correction/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/cut_front_tail/T1/cpu,PASS,,40000,14968
+PE/short/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(3 keys),40000,14968
+PE/short/cut_right/T1/cpu,PASS,,40000,14968
+PE/short/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(3 keys),40000,14968
+PE/short/dedup/T1/cpu,PASS,,40000,14968
+PE/short/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/default/T1/cpu,PASS,,40000,14968
+PE/short/default/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/detect_pe/T1/cpu,PASS,,40000,14968
+PE/short/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/front_tail_trim/T1/cpu,PASS,,40000,1970
+PE/short/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(7 keys),40000,1970
+PE/short/len_filter/T1/cpu,PASS,,40000,0
+PE/short/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,0
+PE/short/max_len/T1/cpu,PASS,,40000,14968
+PE/short/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/merge/T1/cpu,PASS,,40000,14980
+PE/short/merge/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14980
+PE/short/n_limit/T1/cpu,PASS,,40000,14968
+PE/short/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/no_trim_window/T1/cpu,PASS,,40000,14968
+PE/short/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/short/poly_g/T1/cpu,PASS,,40000,14962
+PE/short/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14962
+PE/short/poly_x/T1/cpu,PASS,,40000,14964
+PE/short/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14964
+PE/short/qual_strict/T1/cpu,PASS,,40000,14968
+PE/short/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(5 keys),40000,14968
+PE/tail/adapter_given/T1/cpu,PASS,,40000,6572
+PE/tail/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6572
+PE/tail/complexity/T1/cpu,PASS,,40000,6570
+PE/tail/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/correction/T1/cpu,PASS,,40000,6570
+PE/tail/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/cut_front_tail/T1/cpu,PASS,,40000,29000
+PE/tail/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(68 keys),40000,29000
+PE/tail/cut_right/T1/cpu,PASS,,40000,29606
+PE/tail/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(75 keys),40000,29606
+PE/tail/dedup/T1/cpu,PASS,,40000,6570
+PE/tail/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/default/T1/cpu,PASS,,40000,6570
+PE/tail/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/detect_pe/T1/cpu,PASS,,40000,6570
+PE/tail/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/front_tail_trim/T1/cpu,PASS,,40000,6908
+PE/tail/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6908
+PE/tail/len_filter/T1/cpu,PASS,,40000,0
+PE/tail/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+PE/tail/max_len/T1/cpu,PASS,,40000,15232
+PE/tail/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,15232
+PE/tail/merge/T1/cpu,PASS,,40000,6570
+PE/tail/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/n_limit/T1/cpu,PASS,,40000,6570
+PE/tail/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/tail/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/tail/poly_g/T1/cpu,PASS,,40000,6570
+PE/tail/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6570
+PE/tail/poly_x/T1/cpu,PASS,,40000,6572
+PE/tail/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,6572
+PE/tail/qual_strict/T1/cpu,PASS,,40000,1630
+PE/tail/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,1630
+PE/varlen/adapter_given/T1/cpu,PASS,,40000,33932
+PE/varlen/adapter_given/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/complexity/T1/cpu,PASS,,40000,33932
+PE/varlen/complexity/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/correction/T1/cpu,PASS,,40000,33932
+PE/varlen/correction/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/cut_front_tail/T1/cpu,PASS,,40000,34840
+PE/varlen/cut_front_tail/T4/cpu,PASS,known_diff:insert_size_sampling(3 keys),40000,34840
+PE/varlen/cut_right/T1/cpu,PASS,,40000,54
+PE/varlen/cut_right/T4/cpu,PASS,known_diff:insert_size_sampling(4 keys),40000,54
+PE/varlen/dedup/T1/cpu,PASS,,40000,33932
+PE/varlen/dedup/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/default/T1/cpu,PASS,,40000,33932
+PE/varlen/default/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/detect_pe/T1/cpu,PASS,,40000,33932
+PE/varlen/detect_pe/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/front_tail_trim/T1/cpu,PASS,,40000,32688
+PE/varlen/front_tail_trim/T4/cpu,PASS,known_diff:insert_size_sampling(4 keys),40000,32688
+PE/varlen/len_filter/T1/cpu,PASS,,40000,1354
+PE/varlen/len_filter/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,1354
+PE/varlen/max_len/T1/cpu,PASS,,40000,30932
+PE/varlen/max_len/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,30932
+PE/varlen/merge/T1/cpu,PASS,,40000,33932
+PE/varlen/merge/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/n_limit/T1/cpu,PASS,,40000,33932
+PE/varlen/n_limit/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/no_trim_window/T1/cpu,PASS,,40000,40000
+PE/varlen/no_trim_window/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,40000
+PE/varlen/poly_g/T1/cpu,PASS,,40000,33932
+PE/varlen/poly_g/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33932
+PE/varlen/poly_x/T1/cpu,PASS,,40000,33930
+PE/varlen/poly_x/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,33930
+PE/varlen/qual_strict/T1/cpu,PASS,,40000,0
+PE/varlen/qual_strict/T4/cpu,PASS,known_diff:insert_size_sampling(1 keys),40000,0
+SE/adapter/adapter_given/T1/cpu,PASS,,20000,14621
+SE/adapter/adapter_given/T4/cpu,PASS,,20000,14621
+SE/adapter/complexity/T1/cpu,PASS,,20000,14621
+SE/adapter/complexity/T4/cpu,PASS,,20000,14621
+SE/adapter/cut_front_tail/T1/cpu,PASS,,20000,14621
+SE/adapter/cut_front_tail/T4/cpu,PASS,,20000,14621
+SE/adapter/cut_right/T1/cpu,PASS,,20000,14621
+SE/adapter/cut_right/T4/cpu,PASS,,20000,14621
+SE/adapter/dedup/T1/cpu,PASS,,20000,14621
+SE/adapter/dedup/T4/cpu,PASS,,20000,14621
+SE/adapter/default/T1/cpu,PASS,,20000,14621
+SE/adapter/default/T4/cpu,PASS,,20000,14621
+SE/adapter/front_tail_trim/T1/cpu,PASS,,20000,12799
+SE/adapter/front_tail_trim/T4/cpu,PASS,,20000,12799
+SE/adapter/len_filter/T1/cpu,PASS,,20000,5498
+SE/adapter/len_filter/T4/cpu,PASS,,20000,5498
+SE/adapter/max_len/T1/cpu,PASS,,20000,14621
+SE/adapter/max_len/T4/cpu,PASS,,20000,14621
+SE/adapter/n_limit/T1/cpu,PASS,,20000,14621
+SE/adapter/n_limit/T4/cpu,PASS,,20000,14621
+SE/adapter/no_trim_window/T1/cpu,PASS,,20000,14621
+SE/adapter/no_trim_window/T4/cpu,PASS,,20000,14621
+SE/adapter/poly_g/T1/cpu,PASS,,20000,14621
+SE/adapter/poly_g/T4/cpu,PASS,,20000,14621
+SE/adapter/poly_x/T1/cpu,PASS,,20000,14620
+SE/adapter/poly_x/T4/cpu,PASS,,20000,14620
+SE/adapter/qual_strict/T1/cpu,PASS,,20000,14621
+SE/adapter/qual_strict/T4/cpu,PASS,,20000,14621
+SE/dup/adapter_given/T1/cpu,PASS,,20000,20000
+SE/dup/adapter_given/T4/cpu,PASS,,20000,20000
+SE/dup/complexity/T1/cpu,PASS,,20000,20000
+SE/dup/complexity/T4/cpu,PASS,,20000,20000
+SE/dup/cut_front_tail/T1/cpu,PASS,,20000,20000
+SE/dup/cut_front_tail/T4/cpu,PASS,,20000,20000
+SE/dup/cut_right/T1/cpu,PASS,,20000,20000
+SE/dup/cut_right/T4/cpu,PASS,,20000,20000
+SE/dup/dedup/T1/cpu,PASS,,20000,20000
+SE/dup/dedup/T4/cpu,PASS,,20000,20000
+SE/dup/default/T1/cpu,PASS,,20000,20000
+SE/dup/default/T4/cpu,PASS,,20000,20000
+SE/dup/front_tail_trim/T1/cpu,PASS,,20000,20000
+SE/dup/front_tail_trim/T4/cpu,PASS,,20000,20000
+SE/dup/len_filter/T1/cpu,PASS,,20000,0
+SE/dup/len_filter/T4/cpu,PASS,,20000,0
+SE/dup/max_len/T1/cpu,PASS,,20000,20000
+SE/dup/max_len/T4/cpu,PASS,,20000,20000
+SE/dup/n_limit/T1/cpu,PASS,,20000,20000
+SE/dup/n_limit/T4/cpu,PASS,,20000,20000
+SE/dup/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/dup/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/dup/poly_g/T1/cpu,PASS,,20000,20000
+SE/dup/poly_g/T4/cpu,PASS,,20000,20000
+SE/dup/poly_x/T1/cpu,PASS,,20000,20000
+SE/dup/poly_x/T4/cpu,PASS,,20000,20000
+SE/dup/qual_strict/T1/cpu,PASS,,20000,20000
+SE/dup/qual_strict/T4/cpu,PASS,,20000,20000
+SE/lowq/adapter_given/T1/cpu,PASS,,20000,13333
+SE/lowq/adapter_given/T4/cpu,PASS,,20000,13333
+SE/lowq/complexity/T1/cpu,PASS,,20000,13333
+SE/lowq/complexity/T4/cpu,PASS,,20000,13333
+SE/lowq/cut_front_tail/T1/cpu,PASS,,20000,13333
+SE/lowq/cut_front_tail/T4/cpu,PASS,,20000,13333
+SE/lowq/cut_right/T1/cpu,PASS,,20000,13333
+SE/lowq/cut_right/T4/cpu,PASS,,20000,13333
+SE/lowq/dedup/T1/cpu,PASS,,20000,13333
+SE/lowq/dedup/T4/cpu,PASS,,20000,13333
+SE/lowq/default/T1/cpu,PASS,,20000,13333
+SE/lowq/default/T4/cpu,PASS,,20000,13333
+SE/lowq/front_tail_trim/T1/cpu,PASS,,20000,13333
+SE/lowq/front_tail_trim/T4/cpu,PASS,,20000,13333
+SE/lowq/len_filter/T1/cpu,PASS,,20000,0
+SE/lowq/len_filter/T4/cpu,PASS,,20000,0
+SE/lowq/max_len/T1/cpu,PASS,,20000,13333
+SE/lowq/max_len/T4/cpu,PASS,,20000,13333
+SE/lowq/n_limit/T1/cpu,PASS,,20000,13333
+SE/lowq/n_limit/T4/cpu,PASS,,20000,13333
+SE/lowq/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/lowq/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/lowq/poly_g/T1/cpu,PASS,,20000,13333
+SE/lowq/poly_g/T4/cpu,PASS,,20000,13333
+SE/lowq/poly_x/T1/cpu,PASS,,20000,13333
+SE/lowq/poly_x/T4/cpu,PASS,,20000,13333
+SE/lowq/qual_strict/T1/cpu,PASS,,20000,13333
+SE/lowq/qual_strict/T4/cpu,PASS,,20000,13333
+SE/mixed/adapter_given/T1/cpu,PASS,,20000,10887
+SE/mixed/adapter_given/T4/cpu,PASS,,20000,10887
+SE/mixed/complexity/T1/cpu,PASS,,20000,10885
+SE/mixed/complexity/T4/cpu,PASS,,20000,10885
+SE/mixed/cut_front_tail/T1/cpu,PASS,,20000,13235
+SE/mixed/cut_front_tail/T4/cpu,PASS,,20000,13235
+SE/mixed/cut_right/T1/cpu,PASS,,20000,9050
+SE/mixed/cut_right/T4/cpu,PASS,,20000,9050
+SE/mixed/dedup/T1/cpu,PASS,,20000,10885
+SE/mixed/dedup/T4/cpu,PASS,,20000,10885
+SE/mixed/default/T1/cpu,PASS,,20000,10885
+SE/mixed/default/T4/cpu,PASS,,20000,10885
+SE/mixed/front_tail_trim/T1/cpu,PASS,,20000,10980
+SE/mixed/front_tail_trim/T4/cpu,PASS,,20000,10980
+SE/mixed/len_filter/T1/cpu,PASS,,20000,146
+SE/mixed/len_filter/T4/cpu,PASS,,20000,146
+SE/mixed/max_len/T1/cpu,PASS,,20000,12172
+SE/mixed/max_len/T4/cpu,PASS,,20000,12172
+SE/mixed/n_limit/T1/cpu,PASS,,20000,5340
+SE/mixed/n_limit/T4/cpu,PASS,,20000,5340
+SE/mixed/no_trim_window/T1/cpu,PASS,,20000,19987
+SE/mixed/no_trim_window/T4/cpu,PASS,,20000,19987
+SE/mixed/poly_g/T1/cpu,PASS,,20000,11007
+SE/mixed/poly_g/T4/cpu,PASS,,20000,11007
+SE/mixed/poly_x/T1/cpu,PASS,,20000,11016
+SE/mixed/poly_x/T4/cpu,PASS,,20000,11016
+SE/mixed/qual_strict/T1/cpu,PASS,,20000,5620
+SE/mixed/qual_strict/T4/cpu,PASS,,20000,5620
+SE/nbase/adapter_given/T1/cpu,PASS,,20000,15000
+SE/nbase/adapter_given/T4/cpu,PASS,,20000,15000
+SE/nbase/complexity/T1/cpu,PASS,,20000,15000
+SE/nbase/complexity/T4/cpu,PASS,,20000,15000
+SE/nbase/cut_front_tail/T1/cpu,PASS,,20000,15000
+SE/nbase/cut_front_tail/T4/cpu,PASS,,20000,15000
+SE/nbase/cut_right/T1/cpu,PASS,,20000,15000
+SE/nbase/cut_right/T4/cpu,PASS,,20000,15000
+SE/nbase/dedup/T1/cpu,PASS,,20000,15000
+SE/nbase/dedup/T4/cpu,PASS,,20000,15000
+SE/nbase/default/T1/cpu,PASS,,20000,15000
+SE/nbase/default/T4/cpu,PASS,,20000,15000
+SE/nbase/front_tail_trim/T1/cpu,PASS,,20000,15000
+SE/nbase/front_tail_trim/T4/cpu,PASS,,20000,15000
+SE/nbase/len_filter/T1/cpu,PASS,,20000,0
+SE/nbase/len_filter/T4/cpu,PASS,,20000,0
+SE/nbase/max_len/T1/cpu,PASS,,20000,15017
+SE/nbase/max_len/T4/cpu,PASS,,20000,15017
+SE/nbase/n_limit/T1/cpu,PASS,,20000,15000
+SE/nbase/n_limit/T4/cpu,PASS,,20000,15000
+SE/nbase/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/nbase/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/nbase/poly_g/T1/cpu,PASS,,20000,15000
+SE/nbase/poly_g/T4/cpu,PASS,,20000,15000
+SE/nbase/poly_x/T1/cpu,PASS,,20000,15000
+SE/nbase/poly_x/T4/cpu,PASS,,20000,15000
+SE/nbase/qual_strict/T1/cpu,PASS,,20000,15000
+SE/nbase/qual_strict/T4/cpu,PASS,,20000,15000
+SE/pass/adapter_given/T1/cpu,PASS,,20000,20000
+SE/pass/adapter_given/T4/cpu,PASS,,20000,20000
+SE/pass/complexity/T1/cpu,PASS,,20000,20000
+SE/pass/complexity/T4/cpu,PASS,,20000,20000
+SE/pass/cut_front_tail/T1/cpu,PASS,,20000,20000
+SE/pass/cut_front_tail/T4/cpu,PASS,,20000,20000
+SE/pass/cut_right/T1/cpu,PASS,,20000,20000
+SE/pass/cut_right/T4/cpu,PASS,,20000,20000
+SE/pass/dedup/T1/cpu,PASS,,20000,20000
+SE/pass/dedup/T4/cpu,PASS,,20000,20000
+SE/pass/default/T1/cpu,PASS,,20000,20000
+SE/pass/default/T4/cpu,PASS,,20000,20000
+SE/pass/front_tail_trim/T1/cpu,PASS,,20000,20000
+SE/pass/front_tail_trim/T4/cpu,PASS,,20000,20000
+SE/pass/len_filter/T1/cpu,PASS,,20000,0
+SE/pass/len_filter/T4/cpu,PASS,,20000,0
+SE/pass/max_len/T1/cpu,PASS,,20000,20000
+SE/pass/max_len/T4/cpu,PASS,,20000,20000
+SE/pass/n_limit/T1/cpu,PASS,,20000,20000
+SE/pass/n_limit/T4/cpu,PASS,,20000,20000
+SE/pass/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/pass/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/pass/poly_g/T1/cpu,PASS,,20000,20000
+SE/pass/poly_g/T4/cpu,PASS,,20000,20000
+SE/pass/poly_x/T1/cpu,PASS,,20000,20000
+SE/pass/poly_x/T4/cpu,PASS,,20000,20000
+SE/pass/qual_strict/T1/cpu,PASS,,20000,20000
+SE/pass/qual_strict/T4/cpu,PASS,,20000,20000
+SE/polyg/adapter_given/T1/cpu,PASS,,20000,20000
+SE/polyg/adapter_given/T4/cpu,PASS,,20000,20000
+SE/polyg/complexity/T1/cpu,PASS,,20000,19980
+SE/polyg/complexity/T4/cpu,PASS,,20000,19980
+SE/polyg/cut_front_tail/T1/cpu,PASS,,20000,19980
+SE/polyg/cut_front_tail/T4/cpu,PASS,,20000,19980
+SE/polyg/cut_right/T1/cpu,PASS,,20000,19980
+SE/polyg/cut_right/T4/cpu,PASS,,20000,19980
+SE/polyg/dedup/T1/cpu,PASS,,20000,19980
+SE/polyg/dedup/T4/cpu,PASS,,20000,19980
+SE/polyg/default/T1/cpu,PASS,,20000,19980
+SE/polyg/default/T4/cpu,PASS,,20000,19980
+SE/polyg/front_tail_trim/T1/cpu,PASS,,20000,19982
+SE/polyg/front_tail_trim/T4/cpu,PASS,,20000,19982
+SE/polyg/len_filter/T1/cpu,PASS,,20000,420
+SE/polyg/len_filter/T4/cpu,PASS,,20000,420
+SE/polyg/max_len/T1/cpu,PASS,,20000,19980
+SE/polyg/max_len/T4/cpu,PASS,,20000,19980
+SE/polyg/n_limit/T1/cpu,PASS,,20000,19980
+SE/polyg/n_limit/T4/cpu,PASS,,20000,19980
+SE/polyg/no_trim_window/T1/cpu,PASS,,20000,19980
+SE/polyg/no_trim_window/T4/cpu,PASS,,20000,19980
+SE/polyg/poly_g/T1/cpu,PASS,,20000,19980
+SE/polyg/poly_g/T4/cpu,PASS,,20000,19980
+SE/polyg/poly_x/T1/cpu,PASS,,20000,19980
+SE/polyg/poly_x/T4/cpu,PASS,,20000,19980
+SE/polyg/qual_strict/T1/cpu,PASS,,20000,19980
+SE/polyg/qual_strict/T4/cpu,PASS,,20000,19980
+SE/short/adapter_given/T1/cpu,PASS,,20000,12423
+SE/short/adapter_given/T4/cpu,PASS,,20000,12423
+SE/short/complexity/T1/cpu,PASS,,20000,12442
+SE/short/complexity/T4/cpu,PASS,,20000,12442
+SE/short/cut_front_tail/T1/cpu,PASS,,20000,12442
+SE/short/cut_front_tail/T4/cpu,PASS,,20000,12442
+SE/short/cut_right/T1/cpu,PASS,,20000,12442
+SE/short/cut_right/T4/cpu,PASS,,20000,12442
+SE/short/dedup/T1/cpu,PASS,,20000,12442
+SE/short/dedup/T4/cpu,PASS,,20000,12442
+SE/short/default/T1/cpu,PASS,,20000,12442
+SE/short/default/T4/cpu,PASS,,20000,12442
+SE/short/front_tail_trim/T1/cpu,PASS,,20000,5056
+SE/short/front_tail_trim/T4/cpu,PASS,,20000,5056
+SE/short/len_filter/T1/cpu,PASS,,20000,0
+SE/short/len_filter/T4/cpu,PASS,,20000,0
+SE/short/max_len/T1/cpu,PASS,,20000,12442
+SE/short/max_len/T4/cpu,PASS,,20000,12442
+SE/short/n_limit/T1/cpu,PASS,,20000,12442
+SE/short/n_limit/T4/cpu,PASS,,20000,12442
+SE/short/no_trim_window/T1/cpu,PASS,,20000,12442
+SE/short/no_trim_window/T4/cpu,PASS,,20000,12442
+SE/short/poly_g/T1/cpu,PASS,,20000,12441
+SE/short/poly_g/T4/cpu,PASS,,20000,12441
+SE/short/poly_x/T1/cpu,PASS,,20000,12438
+SE/short/poly_x/T4/cpu,PASS,,20000,12438
+SE/short/qual_strict/T1/cpu,PASS,,20000,12442
+SE/short/qual_strict/T4/cpu,PASS,,20000,12442
+SE/tail/adapter_given/T1/cpu,PASS,,20000,8063
+SE/tail/adapter_given/T4/cpu,PASS,,20000,8063
+SE/tail/complexity/T1/cpu,PASS,,20000,8063
+SE/tail/complexity/T4/cpu,PASS,,20000,8063
+SE/tail/cut_front_tail/T1/cpu,PASS,,20000,17036
+SE/tail/cut_front_tail/T4/cpu,PASS,,20000,17036
+SE/tail/cut_right/T1/cpu,PASS,,20000,17222
+SE/tail/cut_right/T4/cpu,PASS,,20000,17222
+SE/tail/dedup/T1/cpu,PASS,,20000,8063
+SE/tail/dedup/T4/cpu,PASS,,20000,8063
+SE/tail/default/T1/cpu,PASS,,20000,8063
+SE/tail/default/T4/cpu,PASS,,20000,8063
+SE/tail/front_tail_trim/T1/cpu,PASS,,20000,8063
+SE/tail/front_tail_trim/T4/cpu,PASS,,20000,8063
+SE/tail/len_filter/T1/cpu,PASS,,20000,0
+SE/tail/len_filter/T4/cpu,PASS,,20000,0
+SE/tail/max_len/T1/cpu,PASS,,20000,11788
+SE/tail/max_len/T4/cpu,PASS,,20000,11788
+SE/tail/n_limit/T1/cpu,PASS,,20000,8063
+SE/tail/n_limit/T4/cpu,PASS,,20000,8063
+SE/tail/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/tail/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/tail/poly_g/T1/cpu,PASS,,20000,8063
+SE/tail/poly_g/T4/cpu,PASS,,20000,8063
+SE/tail/poly_x/T1/cpu,PASS,,20000,8063
+SE/tail/poly_x/T4/cpu,PASS,,20000,8063
+SE/tail/qual_strict/T1/cpu,PASS,,20000,3980
+SE/tail/qual_strict/T4/cpu,PASS,,20000,3980
+SE/varlen/adapter_given/T1/cpu,PASS,,20000,18484
+SE/varlen/adapter_given/T4/cpu,PASS,,20000,18484
+SE/varlen/complexity/T1/cpu,PASS,,20000,18486
+SE/varlen/complexity/T4/cpu,PASS,,20000,18486
+SE/varlen/cut_front_tail/T1/cpu,PASS,,20000,18716
+SE/varlen/cut_front_tail/T4/cpu,PASS,,20000,18716
+SE/varlen/cut_right/T1/cpu,PASS,,20000,578
+SE/varlen/cut_right/T4/cpu,PASS,,20000,578
+SE/varlen/dedup/T1/cpu,PASS,,20000,18486
+SE/varlen/dedup/T4/cpu,PASS,,20000,18486
+SE/varlen/default/T1/cpu,PASS,,20000,18486
+SE/varlen/default/T4/cpu,PASS,,20000,18486
+SE/varlen/front_tail_trim/T1/cpu,PASS,,20000,18152
+SE/varlen/front_tail_trim/T4/cpu,PASS,,20000,18152
+SE/varlen/len_filter/T1/cpu,PASS,,20000,3765
+SE/varlen/len_filter/T4/cpu,PASS,,20000,3765
+SE/varlen/max_len/T1/cpu,PASS,,20000,17705
+SE/varlen/max_len/T4/cpu,PASS,,20000,17705
+SE/varlen/n_limit/T1/cpu,PASS,,20000,18486
+SE/varlen/n_limit/T4/cpu,PASS,,20000,18486
+SE/varlen/no_trim_window/T1/cpu,PASS,,20000,20000
+SE/varlen/no_trim_window/T4/cpu,PASS,,20000,20000
+SE/varlen/poly_g/T1/cpu,PASS,,20000,18486
+SE/varlen/poly_g/T4/cpu,PASS,,20000,18486
+SE/varlen/poly_x/T1/cpu,PASS,,20000,18486
+SE/varlen/poly_x/T4/cpu,PASS,,20000,18486
+SE/varlen/qual_strict/T1/cpu,PASS,,20000,0
+SE/varlen/qual_strict/T4/cpu,PASS,,20000,0

@@ -1,0 +1,28 @@
+============================================================
+ BENCHMARK STATUS — 2026-10-04 10:02:56
+ Progress : 2 / 2 runs
+ Datasets : WGS_PE_18.2G
+ Threads  : 16
+ CSV      : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_095601/full_benchmark_20261004_095601.csv
+============================================================
+
+dataset                 type  tool                 T      wall_s      reads_in     reads_out   vs_opengene  valid
+----------------------  ----  ---------------  -----  ----------  ------------  ------------  ------------  ------
+WGS_PE_18.2G            PE    opengene            16       243.3     234238034     217840930      baseline  baseline
+WGS_PE_18.2G            PE    d0bromir_cpu        16       166.4     234238034     217840930        -31.6%  PASS
+
+--- Last profiling entries (tail) ---
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+Filtering result:
+fastp v1.3.3, time used: 243 seconds
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+[10:00:09] [fastp 1.3.3-d0bromir] Stage: loading 
+[10:02:52] [fastp 1.3.3-d0bromir] Stage: loading (162949 ms) 
+[10:02:52] [fastp 1.3.3-d0bromir] Stage: filtering 
+[10:02:52] [fastp 1.3.3-d0bromir] Stage: filtering (87 ms) 
+[10:02:52] [fastp 1.3.3-d0bromir] Stage: writing 
+[10:02:52] [fastp 1.3.3-d0bromir] Stage: writing (36 ms) 
+Filtering result:
+fastp v1.3.3-d0bromir, time used: 167 seconds
