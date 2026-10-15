@@ -1,0 +1,37 @@
+[11:04:19] WATCHDOG START pid=548654 fastp=1414446 hard=3600 cpu_idle=300s out_idle=120s
+[11:05:19] WATCHDOG ALIVE elapsed=60s cpu_idle=0s out_idle=0s out_size=1116503250B
+[11:06:20] WATCHDOG ALIVE elapsed=121s cpu_idle=0s out_idle=0s out_size=2268376646B
+[11:07:19] WATCHDOG ALIVE elapsed=180s cpu_idle=0s out_idle=0s out_size=3392376886B
+[11:08:19] WATCHDOG ALIVE elapsed=240s cpu_idle=0s out_idle=0s out_size=4562230211B
+[11:09:20] WATCHDOG ALIVE elapsed=301s cpu_idle=0s out_idle=0s out_size=5750649117B
+[11:10:19] WATCHDOG ALIVE elapsed=360s cpu_idle=0s out_idle=0s out_size=6921396229B
+[11:11:19] WATCHDOG ALIVE elapsed=420s cpu_idle=0s out_idle=0s out_size=8110331822B
+[11:12:20] WATCHDOG ALIVE elapsed=481s cpu_idle=0s out_idle=0s out_size=9281454562B
+[11:13:19] WATCHDOG ALIVE elapsed=540s cpu_idle=0s out_idle=0s out_size=10402842282B
+[11:14:19] WATCHDOG ALIVE elapsed=600s cpu_idle=0s out_idle=0s out_size=11560239006B
+[11:15:20] WATCHDOG ALIVE elapsed=661s cpu_idle=0s out_idle=0s out_size=12722806873B
+[11:16:19] WATCHDOG ALIVE elapsed=720s cpu_idle=0s out_idle=0s out_size=13860540499B
+[11:17:19] WATCHDOG ALIVE elapsed=780s cpu_idle=0s out_idle=0s out_size=15051795553B
+[11:18:20] WATCHDOG ALIVE elapsed=841s cpu_idle=0s out_idle=0s out_size=16257048975B
+[11:19:20] WATCHDOG ALIVE elapsed=901s cpu_idle=0s out_idle=0s out_size=17455776255B
+[11:20:19] WATCHDOG ALIVE elapsed=960s cpu_idle=0s out_idle=0s out_size=18609079862B
+[11:21:20] WATCHDOG ALIVE elapsed=1021s cpu_idle=0s out_idle=0s out_size=19808510740B
+[11:22:20] WATCHDOG ALIVE elapsed=1081s cpu_idle=0s out_idle=0s out_size=20995908903B
+[11:23:19] WATCHDOG ALIVE elapsed=1140s cpu_idle=0s out_idle=0s out_size=22147704287B
+[11:24:20] WATCHDOG ALIVE elapsed=1201s cpu_idle=0s out_idle=0s out_size=23359956927B
+[11:25:20] WATCHDOG ALIVE elapsed=1261s cpu_idle=0s out_idle=0s out_size=24583333559B
+[11:26:19] WATCHDOG ALIVE elapsed=1320s cpu_idle=0s out_idle=0s out_size=25766500152B
+[11:27:20] WATCHDOG ALIVE elapsed=1381s cpu_idle=0s out_idle=0s out_size=26963948642B
+[11:28:20] WATCHDOG ALIVE elapsed=1441s cpu_idle=0s out_idle=0s out_size=28190205884B
+[11:29:19] WATCHDOG ALIVE elapsed=1500s cpu_idle=0s out_idle=0s out_size=29337483010B
+[11:30:20] WATCHDOG ALIVE elapsed=1561s cpu_idle=0s out_idle=0s out_size=30539140514B
+[11:31:20] WATCHDOG ALIVE elapsed=1621s cpu_idle=0s out_idle=0s out_size=31749248118B
+[11:32:19] WATCHDOG ALIVE elapsed=1680s cpu_idle=0s out_idle=0s out_size=32942908151B
+[11:33:20] WATCHDOG ALIVE elapsed=1741s cpu_idle=0s out_idle=0s out_size=34157285180B
+[11:34:20] WATCHDOG ALIVE elapsed=1801s cpu_idle=0s out_idle=0s out_size=35381808294B
+[11:35:19] WATCHDOG ALIVE elapsed=1860s cpu_idle=0s out_idle=0s out_size=36551168703B
+[11:36:20] WATCHDOG ALIVE elapsed=1921s cpu_idle=0s out_idle=0s out_size=37755692246B
+[11:37:20] WATCHDOG ALIVE elapsed=1981s cpu_idle=0s out_idle=0s out_size=38932733354B
+[11:38:19] WATCHDOG ALIVE elapsed=2040s cpu_idle=0s out_idle=0s out_size=40069447856B
+[11:39:20] WATCHDOG ALIVE elapsed=2101s cpu_idle=0s out_idle=0s out_size=41249948072B
+[11:40:07] WATCHDOG EXIT line=1 rc=0 elapsed=2147 idle=0 out_idle=0

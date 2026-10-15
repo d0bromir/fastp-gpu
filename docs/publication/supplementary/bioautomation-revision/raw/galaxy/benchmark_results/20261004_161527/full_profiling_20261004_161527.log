@@ -1,0 +1,327 @@
+=== Full Benchmark Log: Sun Oct  4 16:15:28 UTC 2026 ===
+
+
+================================================================
+ Application  : d0bromir_cpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu)
+ Dataset      : WGS SE 6.3G (ERR1044780_1)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz
+ Type         : SE
+ Threads      : 8
+ Wall time    : 79.226 s
+ reads_in     : 80314764
+ reads_out    : 77515798
+ vs_opengene  : N/A
+--- Resource usage ---
+ CPU avg/peak : 897.2% / 1671.3%
+ RSS peak     : 1423 MiB
+ GPU util a/p : 0.0% / 0.0%
+ GPU mem peak : 0 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_161527/resources/resource_WGS_SE_6.3G_d0bromir_cpu_T8_1791131000.csv
+--- Profiling output ---
+[16:23:20] fastp 1.3.3-d0bromir starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[16:23:32] [fastp 1.3.3-d0bromir] Stage: loading 
+[16:23:32] start to load data 
+[16:23:33] loaded 1M reads 
+[16:23:34] loaded 2M reads 
+[16:23:35] loaded 3M reads 
+[16:23:35] loaded 4M reads 
+[16:23:36] loaded 5M reads 
+[16:23:37] loaded 6M reads 
+[16:23:38] loaded 7M reads 
+[16:23:39] loaded 8M reads 
+[16:23:40] loaded 9M reads 
+[16:23:41] loaded 10M reads 
+[16:23:41] loaded 11M reads 
+[16:23:42] loaded 12M reads 
+[16:23:43] loaded 13M reads 
+[16:23:44] loaded 14M reads 
+[16:23:45] loaded 15M reads 
+[16:23:46] loaded 16M reads 
+[16:23:46] loaded 17M reads 
+[16:23:47] loaded 18M reads 
+[16:23:48] loaded 19M reads 
+[16:23:49] loaded 20M reads 
+[16:23:50] loaded 21M reads 
+[16:23:51] loaded 22M reads 
+[16:23:51] loaded 23M reads 
+[16:23:52] loaded 24M reads 
+[16:23:53] loaded 25M reads 
+[16:23:54] loaded 26M reads 
+[16:23:55] loaded 27M reads 
+[16:23:56] loaded 28M reads 
+[16:23:57] loaded 29M reads 
+[16:23:57] loaded 30M reads 
+[16:23:58] loaded 31M reads 
+[16:23:59] loaded 32M reads 
+[16:24:00] loaded 33M reads 
+[16:24:01] loaded 34M reads 
+[16:24:02] loaded 35M reads 
+[16:24:02] loaded 36M reads 
+[16:24:03] loaded 37M reads 
+[16:24:04] loaded 38M reads 
+[16:24:05] loaded 39M reads 
+[16:24:06] loaded 40M reads 
+[16:24:07] loaded 41M reads 
+[16:24:07] loaded 42M reads 
+[16:24:08] loaded 43M reads 
+[16:24:09] loaded 44M reads 
+[16:24:10] loaded 45M reads 
+[16:24:11] loaded 46M reads 
+[16:24:12] loaded 47M reads 
+[16:24:12] loaded 48M reads 
+[16:24:13] loaded 49M reads 
+[16:24:14] loaded 50M reads 
+[16:24:15] loaded 51M reads 
+[16:24:16] loaded 52M reads 
+[16:24:16] loaded 53M reads 
+[16:24:17] loaded 54M reads 
+[16:24:18] loaded 55M reads 
+[16:24:19] loaded 56M reads 
+[16:24:20] loaded 57M reads 
+[16:24:21] loaded 58M reads 
+[16:24:21] loaded 59M reads 
+[16:24:22] loaded 60M reads 
+[16:24:23] loaded 61M reads 
+[16:24:24] loaded 62M reads 
+[16:24:25] loaded 63M reads 
+[16:24:25] loaded 64M reads 
+[16:24:26] loaded 65M reads 
+[16:24:27] loaded 66M reads 
+[16:24:28] loaded 67M reads 
+[16:24:29] loaded 68M reads 
+[16:24:30] loaded 69M reads 
+[16:24:30] loaded 70M reads 
+[16:24:31] loaded 71M reads 
+[16:24:32] loaded 72M reads 
+[16:24:33] loaded 73M reads 
+[16:24:34] loaded 74M reads 
+[16:24:34] loaded 75M reads 
+[16:24:35] loaded 76M reads 
+[16:24:36] loaded 77M reads 
+[16:24:37] loaded 78M reads 
+[16:24:38] loaded 79M reads 
+[16:24:39] loaded 80M reads 
+[16:24:39] Loading completed with 9805 packs 
+[16:24:39] thread 3 data processing completed 
+[16:24:39] thread 3 finished 
+[16:24:39] thread 2 data processing completed 
+[16:24:39] thread 2 finished 
+[16:24:39] thread 6 data processing completed 
+[16:24:39] thread 6 finished 
+[16:24:39] [fastp 1.3.3-d0bromir] Stage: loading (66742 ms) 
+[16:24:39] [fastp 1.3.3-d0bromir] Stage: filtering 
+[16:24:39] thread 5 data processing completed 
+[16:24:39] thread 5 finished 
+[16:24:39] thread 7 data processing completed 
+[16:24:39] thread 7 finished 
+[16:24:39] thread 8 data processing completed 
+[16:24:39] thread 8 finished 
+[16:24:39] thread 4 data processing completed 
+[16:24:39] thread 4 finished 
+[16:24:39] thread 1 data processing completed 
+[16:24:39] thread 1 finished 
+[16:24:39] [fastp 1.3.3-d0bromir] Stage: filtering (19 ms) 
+[16:24:39] [fastp 1.3.3-d0bromir] Stage: writing 
+[16:24:39] /dev/shm/fastp_bench_6smJ8U_R1.fq.gz writer finished 
+[16:24:39] [fastp 1.3.3-d0bromir] Stage: writing (29 ms) 
+[16:24:39] start to generate reports
+ 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+JSON report: /dev/shm/fastp_bench_j2l13e.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu -w 8 -j /dev/shm/fastp_bench_j2l13e.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/shm/fastp_bench_6smJ8U_R1.fq.gz 
+fastp v1.3.3-d0bromir, time used: 79 seconds
+================================================================
+
+================================================================
+ Application  : d0bromir_gpu (/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp)
+ Dataset      : WGS SE 6.3G (ERR1044780_1)
+ Files        : R1=/home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz
+ Type         : SE
+ Threads      : 8
+ Wall time    : 79.672 s
+ reads_in     : 80314764
+ reads_out    : 77515798
+ vs_opengene  : N/A
+--- Resource usage ---
+ CPU avg/peak : 845.2% / 1617.2%
+ RSS peak     : 2151 MiB
+ GPU util a/p : 4.4% / 6.0%
+ GPU mem peak : 1360 MiB
+ Sample CSV   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_161527/resources/resource_WGS_SE_6.3G_d0bromir_gpu_T8_1791131080.csv
+--- Profiling output ---
+[16:24:40] fastp 1.3.3-d0bromir starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[16:24:52] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[16:24:53] [fastp 1.3.3-d0bromir] Stage: loading 
+[16:24:53] start to load data 
+[16:24:53] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[16:24:53] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[16:24:53] loaded 1M reads 
+[16:24:54] loaded 2M reads 
+[16:24:55] loaded 3M reads 
+[16:24:56] loaded 4M reads 
+[16:24:57] loaded 5M reads 
+[16:24:58] loaded 6M reads 
+[16:24:59] loaded 7M reads 
+[16:24:59] loaded 8M reads 
+[16:25:00] loaded 9M reads 
+[16:25:01] loaded 10M reads 
+[16:25:02] loaded 11M reads 
+[16:25:03] loaded 12M reads 
+[16:25:04] loaded 13M reads 
+[16:25:04] loaded 14M reads 
+[16:25:05] loaded 15M reads 
+[16:25:06] loaded 16M reads 
+[16:25:07] loaded 17M reads 
+[16:25:08] loaded 18M reads 
+[16:25:09] loaded 19M reads 
+[16:25:10] loaded 20M reads 
+[16:25:10] loaded 21M reads 
+[16:25:11] loaded 22M reads 
+[16:25:12] loaded 23M reads 
+[16:25:13] loaded 24M reads 
+[16:25:14] loaded 25M reads 
+[16:25:15] loaded 26M reads 
+[16:25:15] loaded 27M reads 
+[16:25:16] loaded 28M reads 
+[16:25:17] loaded 29M reads 
+[16:25:18] loaded 30M reads 
+[16:25:19] loaded 31M reads 
+[16:25:20] loaded 32M reads 
+[16:25:20] loaded 33M reads 
+[16:25:21] loaded 34M reads 
+[16:25:22] loaded 35M reads 
+[16:25:23] loaded 36M reads 
+[16:25:24] loaded 37M reads 
+[16:25:25] loaded 38M reads 
+[16:25:26] loaded 39M reads 
+[16:25:26] loaded 40M reads 
+[16:25:27] loaded 41M reads 
+[16:25:28] loaded 42M reads 
+[16:25:29] loaded 43M reads 
+[16:25:30] loaded 44M reads 
+[16:25:30] loaded 45M reads 
+[16:25:31] loaded 46M reads 
+[16:25:32] loaded 47M reads 
+[16:25:33] loaded 48M reads 
+[16:25:34] loaded 49M reads 
+[16:25:35] loaded 50M reads 
+[16:25:35] loaded 51M reads 
+[16:25:36] loaded 52M reads 
+[16:25:37] loaded 53M reads 
+[16:25:38] loaded 54M reads 
+[16:25:39] loaded 55M reads 
+[16:25:40] loaded 56M reads 
+[16:25:40] loaded 57M reads 
+[16:25:41] loaded 58M reads 
+[16:25:42] loaded 59M reads 
+[16:25:43] loaded 60M reads 
+[16:25:44] loaded 61M reads 
+[16:25:44] loaded 62M reads 
+[16:25:45] loaded 63M reads 
+[16:25:46] loaded 64M reads 
+[16:25:47] loaded 65M reads 
+[16:25:48] loaded 66M reads 
+[16:25:49] loaded 67M reads 
+[16:25:49] loaded 68M reads 
+[16:25:50] loaded 69M reads 
+[16:25:51] loaded 70M reads 
+[16:25:52] loaded 71M reads 
+[16:25:53] loaded 72M reads 
+[16:25:53] loaded 73M reads 
+[16:25:54] loaded 74M reads 
+[16:25:55] loaded 75M reads 
+[16:25:56] loaded 76M reads 
+[16:25:57] loaded 77M reads 
+[16:25:58] loaded 78M reads 
+[16:25:58] loaded 79M reads 
+[16:25:59] loaded 80M reads 
+[16:25:59] Loading completed with 9805 packs 
+[16:25:59] thread 7 data processing completed 
+[16:25:59] thread 7 finished 
+[16:25:59] thread 4 data processing completed 
+[16:25:59] thread 4 finished 
+[16:25:59] thread 8 data processing completed 
+[16:25:59] thread 8 finished 
+[16:25:59] [fastp 1.3.3-d0bromir] Stage: loading (66944 ms) 
+[16:25:59] [fastp 1.3.3-d0bromir] Stage: filtering 
+[16:25:59] thread 1 data processing completed 
+[16:25:59] thread 1 finished 
+[16:25:59] thread 5 data processing completed 
+[16:25:59] thread 5 finished 
+[16:25:59] thread 6 data processing completed 
+[16:25:59] thread 6 finished 
+[16:25:59] thread 3 data processing completed 
+[16:25:59] thread 3 finished 
+[16:25:59] thread 2 data processing completed 
+[16:25:59] thread 2 finished 
+[16:25:59] [fastp 1.3.3-d0bromir] Stage: filtering (16 ms) 
+[16:25:59] [fastp 1.3.3-d0bromir] Stage: writing 
+[16:25:59] /dev/shm/fastp_bench_RBD3jL_R1.fq.gz writer finished 
+[16:25:59] [fastp 1.3.3-d0bromir] Stage: writing (28 ms) 
+[16:25:59] [GPU] Device 0: batches=4903 reads=40157580 
+[16:25:59] [GPU] Device 1: batches=4902 reads=40157184 
+[16:25:59] start to generate reports
+ 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+JSON report: /dev/shm/fastp_bench_TBxfOX.json
+HTML report: /dev/null
+
+/home/mpiuser/bioauto_rev/fastp_d0bromir/fastp -w 8 -j /dev/shm/fastp_bench_TBxfOX.json -h /dev/null --verbose -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/shm/fastp_bench_RBD3jL_R1.fq.gz 
+fastp v1.3.3-d0bromir, time used: 80 seconds
+================================================================

@@ -1,0 +1,14 @@
+# Wall-clock time of upstream fastp v1.3.3 on WGS datasets at each thread count.
+# Derived from docs/publication/figures/fig5_thread_scaling.csv (opengene rows only).
+# These data directly evidence B1 and B3 from Section V of the TUS paper:
+#   B1 (decompression bottleneck): WGS SE curve is non-monotone — T=16 is
+#       SLOWER than T=4 because the single reader thread is starved by competing
+#       worker threads (no async decompressor in upstream fastp).
+#   B3 (single-threaded output gzip): WGS PE curves flatten or invert above
+#       T=8-16 because the serial writer becomes the critical path.
+# Empty cells mean no benchmark run exists for that (dataset, threads) pair.
+dataset,label,t1,t2,t4,t8,t16,t32
+WGS_SE_6.3G,WGS SE 6.3 GB,295.811,251.435,137.915,,200.896,189.416
+WGS_PE_12.8G,WGS PE 12.8 GB,451.014,521.724,263.773,138.233,116.057,118.085
+WGS_PE_18.2G,WGS PE 18.2 GB,635.866,750.289,383.029,197.647,166.992,173.710
+WGS_PE_40G,WGS PE 38.5 GB,,2727.412,1389.908,721.188,,741.566

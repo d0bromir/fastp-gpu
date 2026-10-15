@@ -1,0 +1,7 @@
+run_id,rep,binary,mode,dataset,compressors,wall_s,reads_out,correctness,notes
+comp1,1,fastp-cpu,cpu,WGS_PE_40G,1,1085.02,717214748,match,
+comp2,1,fastp-cpu,cpu,WGS_PE_40G,2,544.93,717214748,match,
+comp4,1,fastp-cpu,cpu,WGS_PE_40G,4,274.81,717214748,match,matches the old fixed cap-at-4 design's thread count
+comp8,1,fastp-cpu,cpu,WGS_PE_40G,8,233.04,717214748,match,
+comp16,1,fastp-cpu,cpu,WGS_PE_40G,16,233.58,717214748,match,
+comp32,1,fastp-cpu,cpu,WGS_PE_40G,32,234.38,717214748,match,FASTP_COMPRESSORS override; independent of -w's own w/M allocation

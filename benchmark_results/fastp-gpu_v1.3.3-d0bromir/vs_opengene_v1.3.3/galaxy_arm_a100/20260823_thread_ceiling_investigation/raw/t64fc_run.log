@@ -1,0 +1,75 @@
+[08:15:56] fastp 1.3.3-d0bromir starting 
+[08:15:57] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[08:15:57] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[08:15:57] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[09:21:54] [GPU] Device 0: batches=44102 reads=361281611 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[09:21:54] [GPU] Device 1: batches=44102 reads=361281611 total_gpu=0.000000ms pack=0.000000ms h2d=0.000000ms kernel=0.000000ms d2h=0.000000ms 
+[09:21:54] [PROFILE] Filter batches=44102 gpu_reads=722563222 cpu_reads=0 gpu_filter_time=194607.988920ms cpu_filter_time=0.000000ms 
+Read1 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 54123398100(99.873%)
+Q30 bases: 54123398100(99.873%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 361281611
+total bases: 54192241650
+Q20 bases: 53855170050(99.378%)
+Q30 bases: 53855170050(99.378%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 358607374
+total bases: 53574361382
+Q20 bases: 53574361382(100%)
+Q30 bases: 53574361382(100%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 717214748
+reads failed due to low quality: 5328396
+reads failed due to too many N: 20078
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 9627740
+bases trimmed due to adapters: 442711160
+
+Duplication rate: 5.60215%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:           3962970.4 ms                     ║
+║ Total reads:               361281611                        ║
+║ I/O bytes (compressed):   41315252885                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):               436.2 ms  (  0.0%)           ║
+║ Decompression:              446674.8 ms  ( 11.3%)           ║
+║ CPU trim+adapter:          2335941.9 ms  ( 58.9%)           ║
+║ CPU statRead:               592673.2 ms  ( 15.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ filter calls (incl. GPU):   194708.8 ms  (  4.9%)           ║
+║ CPU output format:          101552.2 ms  (  2.6%)           ║
+║ Output compression:        2387152.0 ms  ( 60.2%)           ║
+║ Output write (fwrite):       22643.4 ms  (  0.6%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,filter_calls_ms,cpu_output_ms,compress_ms,write_ms,reads,io_bytes
+[PROF_CSV] 3962970.4,436.2,446674.8,2335941.9,592673.2,0.0,194708.8,101552.2,2387152.0,22643.4,361281611,41315252885
+
+JSON report: /tmp/slots_test/t64fc.json
+HTML report: /dev/null
+
+./fastp -w 64 -i /home/mpiuser/FASTQ/WGS/DRR216653_1.fastq.gz -I /home/mpiuser/FASTQ/WGS/DRR216653_2.fastq.gz -o /tmp/slots_test/t64fc_R1.fq.gz -O /tmp/slots_test/t64fc_R2.fq.gz -j /tmp/slots_test/t64fc.json -h /dev/null 
+fastp v1.3.3-d0bromir, time used: 3963 seconds
