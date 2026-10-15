@@ -1,0 +1,655 @@
+case,status,detail,reads_in,passed
+SE/pass/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/pass/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/pass/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/poly_g/T1/cpu,FAIL,"/read1_after_filtering/content_curves/A[93],/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96]",20000,20000
+SE/pass/poly_g/T4/cpu,FAIL,"/read1_after_filtering/content_curves/A[93],/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96]",20000,20000
+SE/pass/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_reads/A",20000,20000
+SE/pass/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_reads/A",20000,20000
+SE/pass/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/pass/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/tail/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/tail/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/tail/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17222
+SE/tail/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17222
+SE/tail/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17036
+SE/tail/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17036
+SE/tail/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/tail/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/tail/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/poly_g/T1/cpu,FAIL,"/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96],/read1_after_filtering/content_curves/A[97]",20000,8063
+SE/tail/poly_g/T4/cpu,FAIL,"/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96],/read1_after_filtering/content_curves/A[97]",20000,8063
+SE/tail/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,8063
+SE/tail/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,8063
+SE/tail/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,3980
+SE/tail/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,3980
+SE/tail/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,11788
+SE/tail/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,11788
+SE/tail/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/tail/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,8063
+SE/lowq/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/lowq/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/lowq/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/lowq/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/lowq/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/poly_g/T1/cpu,FAIL,"/read1_after_filtering/content_curves/A[90],/read1_after_filtering/content_curves/A[91],/read1_after_filtering/content_curves/A[92],/read1_after_filtering/content_curves/A[93]",20000,13333
+SE/lowq/poly_g/T4/cpu,FAIL,"/read1_after_filtering/content_curves/A[90],/read1_after_filtering/content_curves/A[91],/read1_after_filtering/content_curves/A[92],/read1_after_filtering/content_curves/A[93]",20000,13333
+SE/lowq/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T,/polyx_trimming/polyx_trimmed_reads/C",20000,13333
+SE/lowq/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T,/polyx_trimming/polyx_trimmed_reads/C",20000,13333
+SE/lowq/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/lowq/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13333
+SE/nbase/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/nbase/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/nbase/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/nbase/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/nbase/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/poly_g/T1/cpu,FAIL,"/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96],/read1_after_filtering/content_curves/A[97]",20000,15000
+SE/nbase/poly_g/T4/cpu,FAIL,"/read1_after_filtering/content_curves/A[94],/read1_after_filtering/content_curves/A[95],/read1_after_filtering/content_curves/A[96],/read1_after_filtering/content_curves/A[97]",20000,15000
+SE/nbase/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,15000
+SE/nbase/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,15000
+SE/nbase/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15017
+SE/nbase/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15017
+SE/nbase/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/nbase/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,15000
+SE/short/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/short/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/short/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5056
+SE/short/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5056
+SE/short/poly_g/T1/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/read1_after_filtering/content_curves/A[0],/read1_after_filtering/content_curves/A[1]",20000,12441
+SE/short/poly_g/T4/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/read1_after_filtering/content_curves/A[0],/read1_after_filtering/content_curves/A[1]",20000,12441
+SE/short/poly_x/T1/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C",20000,12438
+SE/short/poly_x/T4/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C",20000,12438
+SE/short/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12442
+SE/short/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12423
+SE/short/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12423
+SE/varlen/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/varlen/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/varlen/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,578
+SE/varlen/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,578
+SE/varlen/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18716
+SE/varlen/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18716
+SE/varlen/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,3765
+SE/varlen/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,3765
+SE/varlen/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18152
+SE/varlen/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18152
+SE/varlen/poly_g/T1/cpu,FAIL,"/read1_after_filtering/content_curves/A[163],/read1_after_filtering/content_curves/A[164],/read1_after_filtering/content_curves/A[165],/read1_after_filtering/content_curves/A[166]",20000,18486
+SE/varlen/poly_g/T4/cpu,FAIL,"/read1_after_filtering/content_curves/A[163],/read1_after_filtering/content_curves/A[164],/read1_after_filtering/content_curves/A[165],/read1_after_filtering/content_curves/A[166]",20000,18486
+SE/varlen/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,18486
+SE/varlen/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C,/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T",20000,18486
+SE/varlen/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18486
+SE/varlen/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/varlen/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/varlen/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17705
+SE/varlen/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,17705
+SE/varlen/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18484
+SE/varlen/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,18484
+SE/adapter/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5498
+SE/adapter/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5498
+SE/adapter/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12799
+SE/adapter/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12799
+SE/adapter/poly_g/T1/cpu,FAIL,/adapter_cutting/adapter_trimmed_bases,20000,14621
+SE/adapter/poly_g/T4/cpu,FAIL,/adapter_cutting/adapter_trimmed_bases,20000,14621
+SE/adapter/poly_x/T1/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C",20000,14620
+SE/adapter/poly_x/T4/cpu,FAIL,"/filtering_result/passed_filter_reads,/filtering_result/too_short_reads,/polyx_trimming/polyx_trimmed_bases/A,/polyx_trimming/polyx_trimmed_bases/C",20000,14620
+SE/adapter/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/adapter/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,14621
+SE/polyg/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,420
+SE/polyg/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,420
+SE/polyg/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19982
+SE/polyg/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19982
+SE/polyg/poly_g/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/ACTATGGGGG,/adapter_cutting/read1_adapter_counts/ACTATGGGGGGGGGG",20000,19980
+SE/polyg/poly_g/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/ACTATGGGGG,/adapter_cutting/read1_adapter_counts/ACTATGGGGGGGGGG",20000,19980
+SE/polyg/poly_x/T1/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T,/polyx_trimming/polyx_trimmed_reads/G,/polyx_trimming/polyx_trimmed_reads/T",20000,19980
+SE/polyg/poly_x/T4/cpu,FAIL,"/polyx_trimming/polyx_trimmed_bases/G,/polyx_trimming/polyx_trimmed_bases/T,/polyx_trimming/polyx_trimmed_reads/G,/polyx_trimming/polyx_trimmed_reads/T",20000,19980
+SE/polyg/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19980
+SE/polyg/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/polyg/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/dup/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,0
+SE/dup/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/poly_g/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/poly_g/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/poly_x/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/poly_x/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/dup/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,20000
+SE/mixed/default/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/default/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19987
+SE/mixed/no_trim_window/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,19987
+SE/mixed/cut_right/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,9050
+SE/mixed/cut_right/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,9050
+SE/mixed/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13235
+SE/mixed/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,13235
+SE/mixed/len_filter/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,146
+SE/mixed/len_filter/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,146
+SE/mixed/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10980
+SE/mixed/front_tail_trim/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10980
+SE/mixed/poly_g/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/ACTATGGGGGATAAGCTTTAGATGATCCCAACGACTCATCNCTGATCGNTGGTATTCTTC,/adapter_cutting/read1_adapter_counts/ACTATGGGGGGGGGG",20000,11007
+SE/mixed/poly_g/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/ACTATGGGGGATAAGCTTTAGATGATCCCAACGACTCATCNCTGATCGNTGGTATTCTTC,/adapter_cutting/read1_adapter_counts/ACTATGGGGGGGGGG",20000,11007
+SE/mixed/poly_x/T1/cpu,FAIL,"/filtering_result/low_quality_reads,/filtering_result/passed_filter_reads,/filtering_result/too_many_N_reads,/polyx_trimming/polyx_trimmed_bases/A",20000,11016
+SE/mixed/poly_x/T4/cpu,FAIL,"/filtering_result/low_quality_reads,/filtering_result/passed_filter_reads,/filtering_result/too_many_N_reads,/polyx_trimming/polyx_trimmed_bases/A",20000,11016
+SE/mixed/dedup/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/dedup/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/complexity/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/complexity/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10885
+SE/mixed/n_limit/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5340
+SE/mixed/n_limit/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5340
+SE/mixed/qual_strict/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5620
+SE/mixed/qual_strict/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,5620
+SE/mixed/max_len/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12172
+SE/mixed/max_len/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,12172
+SE/mixed/adapter_given/T1/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10887
+SE/mixed/adapter_given/T4/cpu,PASS,known_diff:kmer_count(1024 keys),20000,10887
+PE/pass/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/default/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/cut_right/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/cut_front_tail/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/pass/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/pass/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/correction/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/pass/merge/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/pass/merge/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/tail/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/default/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/tail/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/tail/cut_right/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,29606
+PE/tail/cut_right/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,29606
+PE/tail/cut_front_tail/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,29000
+PE/tail/cut_front_tail/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,29000
+PE/tail/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/tail/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/tail/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6908
+PE/tail/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,6908
+PE/tail/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6572
+PE/tail/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,6572
+PE/tail/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,1630
+PE/tail/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,1630
+PE/tail/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,15232
+PE/tail/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,15232
+PE/tail/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6572
+PE/tail/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,6572
+PE/tail/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,6570
+PE/tail/correction/T4/cpu,FAIL,/insert_size/unknown,40000,6570
+PE/tail/merge/T1/cpu,FAIL,"/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len],/merged_and_filtered/content_curves/GC[len]",40000,6570
+PE/tail/merge/T4/cpu,FAIL,"/insert_size/unknown,/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len]",40000,6570
+PE/lowq/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/default/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/lowq/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/lowq/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/cut_right/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/cut_front_tail/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/lowq/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/lowq/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,21334
+PE/lowq/correction/T4/cpu,FAIL,/insert_size/unknown,40000,21334
+PE/lowq/merge/T1/cpu,FAIL,"/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len],/merged_and_filtered/content_curves/GC[len]",40000,21334
+PE/lowq/merge/T4/cpu,FAIL,"/insert_size/unknown,/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len]",40000,21334
+PE/nbase/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/default/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/nbase/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/nbase/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/cut_right/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/cut_front_tail/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/nbase/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/nbase/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25808
+PE/nbase/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,25808
+PE/nbase/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,25714
+PE/nbase/correction/T4/cpu,FAIL,/insert_size/unknown,40000,25714
+PE/nbase/merge/T1/cpu,FAIL,"/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len],/merged_and_filtered/content_curves/GC[len]",40000,25714
+PE/nbase/merge/T4/cpu,FAIL,"/insert_size/unknown,/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len]",40000,25714
+PE/short/default/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/default/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/no_trim_window/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/no_trim_window/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/cut_right/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATGCATTGGGAAGGTCACAGAGGGTCTAGGCTCAGGATAGACCACGGCCAGTGTATCGATCTGCACATACTATCCTTGATCAGGA,/adapter_cutting/read2_adapter_counts/others",40000,14968
+PE/short/cut_right/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATGCATTGGGAAGGTCACAGAGGGTCTAGGCTCAGGATAGACCACGGCCAGTGTATCGATCTGCACATACTATCCTTGATCAGGA,/adapter_cutting/read2_adapter_counts/others",40000,14968
+PE/short/cut_front_tail/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATGCATTGGGAAGGTCACAGAGGGTCTAGGCTCAGGATAGACCACGGCCAGTGTATCGATCTGCACATACTATCCTTGATCAGGA,/adapter_cutting/read2_adapter_counts/others",40000,14968
+PE/short/cut_front_tail/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATGCATTGGGAAGGTCACAGAGGGTCTAGGCTCAGGATAGACCACGGCCAGTGTATCGATCTGCACATACTATCCTTGATCAGGA,/adapter_cutting/read2_adapter_counts/others",40000,14968
+PE/short/len_filter/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,0
+PE/short/len_filter/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,0
+PE/short/front_tail_trim/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAATCCCTTCTGCACGTCCCTGATTTGTAAGATTTGGATAACTTCTAGTATAACGGTAAACTGAATTTGGGGGACTCACCCCG,/adapter_cutting/read2_adapter_counts/ACATAGACGCTAAGAAGCACCCGTTGGAGGGTAATTGCCACTATTTGGGAGCGGGGGTCGGCCCGACTGGGGTGAATCTCTA",40000,1970
+PE/short/front_tail_trim/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAATCCCTTCTGCACGTCCCTGATTTGTAAGATTTGGATAACTTCTAGTATAACGGTAAACTGAATTTGGGGGACTCACCCCG,/adapter_cutting/read2_adapter_counts/ACATAGACGCTAAGAAGCACCCGTTGGAGGGTAATTGCCACTATTTGGGAGCGGGGGTCGGCCCGACTGGGGTGAATCTCTA",40000,1970
+PE/short/poly_g/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14962
+PE/short/poly_g/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14962
+PE/short/poly_x/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14964
+PE/short/poly_x/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14964
+PE/short/dedup/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/dedup/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/complexity/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14964
+PE/short/complexity/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14964
+PE/short/n_limit/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/n_limit/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/qual_strict/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/qual_strict/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/max_len/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/max_len/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/adapter_given/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/AGATCGGAAGAGCACACGTCTGAACTCCA,/adapter_cutting/read1_adapter_counts/AGATCGGAAGAGCACACGTCTGAACTCCAG",40000,14922
+PE/short/adapter_given/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read1_adapter_counts/AGATCGGAAGAGCACACGTCTGAACTCCA,/adapter_cutting/read1_adapter_counts/AGATCGGAAGAGCACACGTCTGAACTCCAG",40000,14922
+PE/short/detect_pe/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/detect_pe/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/correction/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/correction/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14968
+PE/short/merge/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14980
+PE/short/merge/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,14980
+PE/varlen/default/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/default/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/no_trim_window/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,40000
+PE/varlen/no_trim_window/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,40000
+PE/varlen/cut_right/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATTTTTCGCACGTCTGGACTTATATCTCCTGATCAA,/filtering_result/adapter_dimer_reads",40000,54
+PE/varlen/cut_right/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/ATTTTTCGCACGTCTGGACTTATATCTCCTGATCAA,/filtering_result/adapter_dimer_reads",40000,54
+PE/varlen/cut_front_tail/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/AAATCTGAGAGCCGGCCCGCCGGGCTTTTCCCCCAGGTGCCGCCGTATACTCTACTTCATGATGTGTATGTGTTTTTTTCTCATCCGCCGAGTAGTCTAATGGCAGGTCACAATACGCAATGCTGGTTACTCTACCCACCAATATTTGATGTGCTGGTCGCTATCTAGTCAACGC",40000,34840
+PE/varlen/cut_front_tail/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/AAATCTGAGAGCCGGCCCGCCGGGCTTTTCCCCCAGGTGCCGCCGTATACTCTACTTCATGATGTGTATGTGTTTTTTTCTCATCCGCCGAGTAGTCTAATGGCAGGTCACAATACGCAATGCTGGTTACTCTACCCACCAATATTTGATGTGCTGGTCGCTATCTAGTCAACGC",40000,34840
+PE/varlen/len_filter/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,1354
+PE/varlen/len_filter/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,1354
+PE/varlen/front_tail_trim/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/GGGCTCCCGCAAGCAACGAACTAACCAAAGGATGTGTTGTAAACTGAAAACTTAAATATAGGAGGTGAGCTCCCCCAGGTGCGTGCCTATCGCGGTCTGCAGACTGGGGCCATCTCACATAGGTATGACTAGAGAGACCAAGGTTGCCCGCGGTGTCAT,/adapter_cutting/read2_adapter_counts/others",40000,32688
+PE/varlen/front_tail_trim/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/GGGCTCCCGCAAGCAACGAACTAACCAAAGGATGTGTTGTAAACTGAAAACTTAAATATAGGAGGTGAGCTCCCCCAGGTGCGTGCCTATCGCGGTCTGCAGACTGGGGCCATCTCACATAGGTATGACTAGAGAGACCAAGGTTGCCCGCGGTGTCAT,/adapter_cutting/read2_adapter_counts/others",40000,32688
+PE/varlen/poly_g/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/poly_g/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/poly_x/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33930
+PE/varlen/poly_x/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33930
+PE/varlen/dedup/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/dedup/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/complexity/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/complexity/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/n_limit/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/n_limit/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/qual_strict/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,0
+PE/varlen/qual_strict/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,0
+PE/varlen/max_len/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,30932
+PE/varlen/max_len/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,30932
+PE/varlen/adapter_given/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/adapter_given/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/detect_pe/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/detect_pe/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCAACCTTACCCCGATG",40000,33932
+PE/varlen/correction/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCATCCTTACCCCGATG",40000,33932
+PE/varlen/correction/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCATCCTTACCCCGATG",40000,33932
+PE/varlen/merge/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCATCCTTACCCCGATG",40000,33932
+PE/varlen/merge/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/AAAGATGATAAGAGAACGTGTAACCCTGCCCCTGGCTTATTTAGCCCTGCTGGGCCCAGAGCACTGCGGATTGTCGACTAGAGGTTATTGTATGAACAGCTGAGGACTCACATTATAGGGG,/adapter_cutting/read2_adapter_counts/CGGCTGCCCACGTTACTAAACGTTAGCCAGAGCATCCTTACCCCGATG",40000,33932
+PE/adapter/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/default/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/no_trim_window/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/cut_right/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/cut_front_tail/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,10906
+PE/adapter/len_filter/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,10906
+PE/adapter/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/front_tail_trim/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/poly_g/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/poly_x/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/dedup/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/complexity/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/n_limit/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/qual_strict/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/max_len/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,29084
+PE/adapter/adapter_given/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,29084
+PE/adapter/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,29084
+PE/adapter/detect_pe/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,29084
+PE/adapter/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/correction/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/adapter/merge/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/adapter/merge/T4/cpu,FAIL,"/insert_size/histogram[45],/insert_size/histogram[60],/insert_size/histogram[80],/insert_size/histogram[95]",40000,40000
+PE/polyg/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/default/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/cut_right/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/cut_front_tail/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/polyg/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/polyg/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,39930
+PE/polyg/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,39930
+PE/polyg/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/correction/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/polyg/merge/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/polyg/merge/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/onemate/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/default/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/onemate/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/onemate/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/cut_right/T4/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/cut_front_tail/T4/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/onemate/correction/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/onemate/merge/T1/cpu,FAIL,"/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len],/merged_and_filtered/content_curves/GC[len]",40000,0
+PE/onemate/merge/T4/cpu,FAIL,"/insert_size/unknown,/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len]",40000,0
+PE/dup/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/default/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/cut_right/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/cut_right/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/cut_front_tail/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/cut_front_tail/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/dup/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/dup/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,39952
+PE/dup/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,39952
+PE/dup/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/correction/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/dup/merge/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/dup/merge/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/mixed/default/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/default/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/no_trim_window/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,40000
+PE/mixed/no_trim_window/T4/cpu,FAIL,/insert_size/unknown,40000,40000
+PE/mixed/cut_right/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,8092
+PE/mixed/cut_right/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,8092
+PE/mixed/cut_front_tail/T1/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,17648
+PE/mixed/cut_front_tail/T4/cpu,FAIL,"/adapter_cutting/adapter_trimmed_bases,/adapter_cutting/adapter_trimmed_reads,/adapter_cutting/read2_adapter_counts/others,/filtering_result/adapter_dimer_reads",40000,17648
+PE/mixed/len_filter/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,0
+PE/mixed/len_filter/T4/cpu,FAIL,/insert_size/unknown,40000,0
+PE/mixed/front_tail_trim/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,12242
+PE/mixed/front_tail_trim/T4/cpu,FAIL,/insert_size/unknown,40000,12242
+PE/mixed/poly_g/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11906
+PE/mixed/poly_g/T4/cpu,FAIL,/insert_size/unknown,40000,11906
+PE/mixed/poly_x/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11920
+PE/mixed/poly_x/T4/cpu,FAIL,/insert_size/unknown,40000,11920
+PE/mixed/dedup/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/dedup/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/complexity/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/complexity/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/n_limit/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,2686
+PE/mixed/n_limit/T4/cpu,FAIL,/insert_size/unknown,40000,2686
+PE/mixed/qual_strict/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,3052
+PE/mixed/qual_strict/T4/cpu,FAIL,/insert_size/unknown,40000,3052
+PE/mixed/max_len/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,15410
+PE/mixed/max_len/T4/cpu,FAIL,/insert_size/unknown,40000,15410
+PE/mixed/adapter_given/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/adapter_given/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/detect_pe/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/detect_pe/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/correction/T1/cpu,PASS,known_diff:kmer_count(2048 keys),40000,11804
+PE/mixed/correction/T4/cpu,FAIL,/insert_size/unknown,40000,11804
+PE/mixed/merge/T1/cpu,FAIL,"/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len],/merged_and_filtered/content_curves/GC[len]",40000,11804
+PE/mixed/merge/T4/cpu,FAIL,"/insert_size/unknown,/merged_and_filtered/content_curves/A[len],/merged_and_filtered/content_curves/C[len],/merged_and_filtered/content_curves/G[len]",40000,11804

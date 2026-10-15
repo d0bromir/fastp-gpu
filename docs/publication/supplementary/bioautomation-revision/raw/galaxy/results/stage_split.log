@@ -1,0 +1,21 @@
+WGS/ERR1044780_1 rep=1 mode=0 seconds=2.477 compressed_bytes=6705013305 output_bytes=0 lines=0
+WGS/ERR1044780_1 rep=1 mode=1 seconds=67.007 compressed_bytes=6705013305 output_bytes=20630547498 lines=0
+WGS/ERR1044780_1 rep=1 mode=0 seconds=2.343 compressed_bytes=6705013305 output_bytes=0 lines=0
+WGS/ERR1044780_1 rep=1 mode=1 seconds=64.759 compressed_bytes=6705013305 output_bytes=20630547498 lines=0
+WGS/ERR1044780_1 rep=1 mode=2 seconds=70.170 compressed_bytes=6705013305 output_bytes=20630547498 lines=321259056
+WGS/ERR1044780_1 rep=2 mode=0 seconds=2.439 compressed_bytes=6705013305 output_bytes=0 lines=0
+WGS/ERR1044780_1 rep=2 mode=1 seconds=67.224 compressed_bytes=6705013305 output_bytes=20630547498 lines=0
+WGS/ERR1044780_1 rep=2 mode=2 seconds=70.099 compressed_bytes=6705013305 output_bytes=20630547498 lines=321259056
+WGS/ERR1044780_1 rep=3 mode=0 seconds=2.487 compressed_bytes=6705013305 output_bytes=0 lines=0
+WGS/ERR1044780_1 rep=3 mode=1 seconds=67.127 compressed_bytes=6705013305 output_bytes=20630547498 lines=0
+WGS/ERR1044780_1 rep=3 mode=2 seconds=70.072 compressed_bytes=6705013305 output_bytes=20630547498 lines=321259056
+missing /home/mpiuser/FASTQ/WGS/ERR1044319_1.fastq.gz
+WGS/DRR216653_1 rep=1 mode=0 seconds=7.753 compressed_bytes=20660963031 output_bytes=0 lines=0
+WGS/DRR216653_1 rep=1 mode=1 seconds=212.467 compressed_bytes=20660963031 output_bytes=132287879272 lines=0
+WGS/DRR216653_1 rep=1 mode=2 seconds=229.645 compressed_bytes=20660963031 output_bytes=132287879272 lines=1445126444
+WGS/DRR216653_1 rep=2 mode=0 seconds=7.921 compressed_bytes=20660963031 output_bytes=0 lines=0
+WGS/DRR216653_1 rep=2 mode=1 seconds=212.270 compressed_bytes=20660963031 output_bytes=132287879272 lines=0
+WGS/DRR216653_1 rep=2 mode=2 seconds=229.416 compressed_bytes=20660963031 output_bytes=132287879272 lines=1445126444
+WGS/DRR216653_1 rep=3 mode=0 seconds=7.782 compressed_bytes=20660963031 output_bytes=0 lines=0
+WGS/DRR216653_1 rep=3 mode=1 seconds=212.317 compressed_bytes=20660963031 output_bytes=132287879272 lines=0
+WGS/DRR216653_1 rep=3 mode=2 seconds=229.728 compressed_bytes=20660963031 output_bytes=132287879272 lines=1445126444
