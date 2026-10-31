@@ -1,0 +1,5 @@
+=== Validation Log: Sun Oct  4 11:21:07 UTC 2026 ===
+
+  [KILLED] opengene WGS_PE_40G T=16 — IDLE_TIMEOUT after 732.161s (HANG_DETECTED output_idle=300s out_size=42148609410B)
+[SKIP] d0bromir_cpu WGS_PE_40G T=16 — no valid opengene baseline (og timed out or missing)
+[SKIP] d0bromir_gpu WGS_PE_40G T=16 — no valid opengene baseline (og timed out or missing)

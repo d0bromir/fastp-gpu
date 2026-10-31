@@ -1,0 +1,67 @@
+timestamp:        2026-08-25 00:24 UTC -- 00:49 UTC
+platform:         galaxy_arm_a100 (see ../hardware.txt: Neoverse N1, 128 cores, dual A100 80GB)
+fastp-gpu version: v1.3.3-d0bromir, galaxy host's long-lived benchmarking
+                   working tree (/home/mpiuser/tools/src/fastp_d0bromir).
+                   No code changes -- FASTP_COMPRESSORS is an existing
+                   environment-variable override in the shipped source
+                   (added specifically for benchmarking this kind of
+                   question), used as-is.
+dataset:          WGS_PE_40G (DRR216653_1/2.fastq.gz, ~40 GB paired-end,
+                   the same dataset used for the JCB paper's largest
+                   headline benchmark).
+sweep:            CPU build (fastp-cpu), -w 32 fixed, FASTP_COMPRESSORS
+                   varied over {1, 2, 4, 8, 16, 32}. One run per value (no
+                   repetition -- runs range from ~4 min to ~18 min at this
+                   dataset size, and the claim being tested is the shape of
+                   the speedup curve, not sub-percent precision at any one
+                   point).
+
+What this run set is:
+  Motivated by JCB Reviewer 2's Comment/Question 3 ("Why cap compressor
+  threads at [the manuscript's stated] 4?"), which had already surfaced a
+  real manuscript inaccuracy independent of this sweep: the described
+  min(w,4) fixed cap no longer matches the shipped code, which now uses a
+  fairness-based processorThreads/mainWriters allocation. That correction
+  was made from git design history alone (see reply-to-reviewer-2.md,
+  Comment 3). An external collaborator review (Prof. Simeonov) suggested
+  the design-history answer would be stronger backed by an actual
+  measurement across compressor-thread counts; this is that measurement.
+
+  reads_out (passed-filter read count, 717,214,748) was identical across
+  all six runs, confirming correctness was unaffected by the compressor-
+  thread count at either extreme (1 or 32).
+
+Result: wall-clock time (external process timing around each run):
+
+    compressors   wall (s)    speedup vs. 1 thread
+    1             1085.02     1.00x
+    2              544.93     1.99x
+    4              274.81     3.95x
+    8              233.04     4.66x
+    16             233.58     4.65x
+    32             234.38     4.63x
+
+  Speedup is near-linear from 1 to 4 threads (1.99x, 3.95x -- essentially
+  matching the thread count), diminishes sharply by 8 threads (4.66x, well
+  short of 8x), then is flat from 8 through 32 (within 0.6%, no directional
+  trend) as some other pipeline stage (I/O, decompression, CPU trim/stat --
+  not measured further here) becomes the bottleneck instead of compression.
+
+Interpretation for R2 Comment 3 / the "Parallel output compression"
+  paragraph: this validates both directions of the actual design-history
+  answer. The old fixed cap of 4 compressor threads left real throughput on
+  the table relative to 8 threads (4.66x achievable vs. 3.95x at the old
+  cap point, a ~15% opportunity cost). The current w/M-proportional
+  allocation does not need an explicit further cap either -- other stages
+  saturate before compressor-thread count becomes the bottleneck again, so
+  scaling indefinitely past ~8 threads would not have helped further even
+  without any cap at all.
+
+Files:
+  summary.csv          -- one row per run: config, wall time, reads, notes
+  raw/comp*_run.log     -- captured stdout/stderr for each timed run,
+                           includes the PROF_CSV line
+  raw/sweep_results.csv -- the orchestration script's own running log
+                           (superset of summary.csv's data, kept verbatim)
+  (raw/*.json full fastp reports are gitignored, local-only, not part of
+  this commit)

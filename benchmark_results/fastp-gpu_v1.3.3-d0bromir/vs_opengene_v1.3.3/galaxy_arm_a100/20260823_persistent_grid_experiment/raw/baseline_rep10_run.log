@@ -1,0 +1,75 @@
+[16:42:50] fastp 1.3.3-d0bromir starting 
+[16:42:50] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated (slots=8) 
+[16:42:50] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated (slots=8) 
+[16:42:51] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+[16:42:53] [GPU] Device 0: batches=184 reads=1381894 
+[16:42:53] [GPU] Device 1: batches=184 reads=1381894 
+[16:42:53] [PROFILE] Filter batches=184 gpu_reads=2763788 cpu_reads=0 gpu_filter_time=626.493473ms cpu_filter_time=0.000000ms 
+Read1 before filtering:
+total reads: 1381894
+total bases: 208665994
+Q20 bases: 197000126(94.4093%)
+Q30 bases: 194261258(93.0967%)
+Q40 bases: 245896(0.117842%)
+
+Read2 before filtering:
+total reads: 1381894
+total bases: 208665994
+Q20 bases: 190729002(91.404%)
+Q30 bases: 187203500(89.7144%)
+Q40 bases: 157403(0.075433%)
+
+Read1 after filtering:
+total reads: 1380622
+total bases: 196369521
+Q20 bases: 187657842(95.5636%)
+Q30 bases: 185591533(94.5114%)
+Q40 bases: 245660(0.125101%)
+
+Read2 after filtering:
+total reads: 1380622
+total bases: 196369521
+Q20 bases: 182745838(93.0622%)
+Q30 bases: 180221709(91.7768%)
+Q40 bases: 157403(0.0801565%)
+
+Filtering result:
+reads passed filter: 2761244
+reads failed due to low quality: 2544
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 580240
+bases trimmed due to adapters: 24208824
+
+Duplication rate: 76.789%
+
+Insert size peak (evaluated by paired-end reads): 170
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:              3499.5 ms                     ║
+║ Total reads:                 1381894                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):              3308.4 ms  ( 94.5%)           ║
+║ Decompression:                4176.1 ms  (119.3%)           ║
+║ CPU trim+adapter:             2838.2 ms  ( 81.1%)           ║
+║ CPU statRead:                 2364.9 ms  ( 67.6%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ filter calls (incl. GPU):      626.9 ms  ( 17.9%)           ║
+║ CPU output format:             533.6 ms  ( 15.2%)           ║
+║ Output compression:          11794.6 ms  (337.0%)           ║
+║ Output write (fwrite):         122.0 ms  (  3.5%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,filter_calls_ms,cpu_output_ms,compress_ms,write_ms,reads,io_bytes
+[PROF_CSV] 3499.5,3308.4,4176.1,2838.2,2364.9,0.0,626.9,533.6,11794.6,122.0,1381894,0
+
+JSON report: /tmp/persistent_bench/baseline_rep10.json
+HTML report: /dev/null
+
+./fastp -w 8 -i /home/mpiuser/FASTQ/Panel_private/S1A_S1_L001_R1_001.fastq.gz -I /home/mpiuser/FASTQ/Panel_private/S1A_S1_L001_R2_001.fastq.gz -o /tmp/persistent_bench/baseline_rep10_R1.fq.gz -O /tmp/persistent_bench/baseline_rep10_R2.fq.gz -j /tmp/persistent_bench/baseline_rep10.json -h /dev/null 
+fastp v1.3.3-d0bromir, time used: 4 seconds

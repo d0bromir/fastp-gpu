@@ -1,0 +1,99 @@
+# Fix metadata on an already-published Zenodo deposition, in place --
+# no new version, no new DOI. Use this when a published record's metadata
+# (creators, affiliation, keywords, etc.) needs correcting after the fact;
+# for a routine new-release archive, use zenodo-archive.yml instead.
+#
+# Required repository secret: ZENODO_TOKEN (same as zenodo-archive.yml).
+
+name: zenodo fix metadata
+
+on:
+  workflow_dispatch:
+    inputs:
+      record_id:
+        description: 'Zenodo deposition id to fix (e.g. 22090957)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  fix-metadata:
+    runs-on: ubuntu-24.04
+    environment: PROD
+    env:
+      ZENODO_BASE_URL: ${{ vars.ZENODO_BASE_URL || 'https://zenodo.org/api' }}
+      ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+      RECORD_ID: ${{ inputs.record_id }}
+    steps:
+      - name: Verify Zenodo token is configured
+        run: |
+          if [[ -z "${ZENODO_TOKEN}" ]]; then
+            echo "::error::ZENODO_TOKEN secret is not set."
+            exit 1
+          fi
+
+      - name: Unlock the published record for editing
+        run: |
+          set -euo pipefail
+          api="${ZENODO_BASE_URL%/}"
+          curl -fsSL -X POST \
+            -H "Authorization: Bearer ${ZENODO_TOKEN}" \
+            "${api}/deposit/depositions/${RECORD_ID}/actions/edit" >/dev/null
+
+      - name: Fetch current metadata (preserve everything but creators)
+        id: current
+        run: |
+          set -euo pipefail
+          api="${ZENODO_BASE_URL%/}"
+          curl -fsSL \
+            -H "Authorization: Bearer ${ZENODO_TOKEN}" \
+            "${api}/deposit/depositions/${RECORD_ID}" > current.json
+          jq '.metadata' current.json > current_metadata.json
+          cat current_metadata.json
+
+      - name: Patch creators, resubmit metadata
+        run: |
+          set -euo pipefail
+          api="${ZENODO_BASE_URL%/}"
+          jq '{
+            metadata: (. + {
+              creators: [
+                { name: "Panchev, Dobromir", affiliation: "Department of Computer Systems and Technologies, Burgas State University \"Prof. Dr. Assen Zlatarov\", Burgas, Bulgaria" },
+                { name: "Gueorguiev, Vesselin", affiliation: "Faculty of Computer Systems and Control, Technical University of Sofia, Sofia, Bulgaria" },
+                { name: "Gabrovska, Katya", affiliation: "Department of Computer Systems and Technologies, Burgas State University \"Prof. Dr. Assen Zlatarov\", Burgas, Bulgaria" },
+                { name: "Simeonov, Stanislav", affiliation: "Department of Computer Systems and Technologies, Burgas State University \"Prof. Dr. Assen Zlatarov\", Burgas, Bulgaria" }
+              ]
+            })
+          }' current_metadata.json > metadata.json
+          cat metadata.json
+
+          curl -fsSL -X PUT \
+            -H "Authorization: Bearer ${ZENODO_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d @metadata.json \
+            "${api}/deposit/depositions/${RECORD_ID}" >/dev/null
+
+      - name: Re-publish (same DOI, same version, no new files)
+        id: publish
+        run: |
+          set -euo pipefail
+          api="${ZENODO_BASE_URL%/}"
+          resp=$(curl -fsSL -X POST \
+            -H "Authorization: Bearer ${ZENODO_TOKEN}" \
+            "${api}/deposit/depositions/${RECORD_ID}/actions/publish")
+          doi=$(echo "${resp}" | jq -r '.doi')
+          html=$(echo "${resp}" | jq -r '.links.record_html // .links.html')
+          echo "doi=${doi}" >> "$GITHUB_OUTPUT"
+          echo "html=${html}" >> "$GITHUB_OUTPUT"
+
+      - name: Summarise
+        run: |
+          {
+            echo "### Zenodo metadata fix"
+            echo ""
+            echo "- Record id: \`${RECORD_ID}\`"
+            echo "- DOI: \`${{ steps.publish.outputs.doi }}\`"
+            echo "- Record: ${{ steps.publish.outputs.html }}"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,21 @@
+Windows 11 laptop running WSL2 (Ubuntu 24.04.4 LTS), kernel 6.6.87.2
+
+CPU
+
+Intel Core i7-11370H (11th Gen Tiger Lake-H35)
+4 cores / 8 threads @ 3.30 GHz
+1 socket
+RAM
+
+~14 GB total (13 GiB usable in WSL2)
+No swap configured
+GPU
+
+NVIDIA GeForce RTX 3050 Laptop GPU
+4 GB VRAM
+Driver: 591.74 (Windows) / 590.52.01 (WSL)
+CUDA 13.1
+Storage (virtual disks visible in WSL2)
+
+1 TB primary virtual disk (sdc)
+Two smaller virtual disks (~389 MB, ~186 MB
