@@ -1,0 +1,4 @@
+dataset,type,tool,threads,rep,walltime_s,reads_in,reads_out,pct_vs_opengene,validation,attempts,cpu_avg_pct,cpu_peak_pct,rss_peak_mib,gpu_util_avg_pct,gpu_util_peak_pct,gpu_mem_peak_mib,scenario
+WGS_SE_6.3G,SE,opengene,8,1,430.075,0,0,baseline,IDLE_TIMEOUT,1,586.9,1442.3,1304,0.0,0.0,0,default
+WGS_SE_6.3G,SE,d0bromir_cpu,8,1,79.237,80314764,77515798,N/A,SKIP,1,824.3,1473.3,1421,0.0,0.0,0,default
+WGS_SE_6.3G,SE,d0bromir_gpu,8,1,79.662,80314764,77515798,N/A,SKIP,1,751.9,1502.2,2180,7.8,48.0,1360,default

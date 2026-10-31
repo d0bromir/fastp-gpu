@@ -25,13 +25,20 @@ public:
     int lowQualCount(int qual=20);
     int length();
     string toString();
-    string toStringWithTag(const char* tag);
+    string toStringWithTag(string tag);
     void appendToString(string* target);
-    void appendToStringWithTag(string* target, const char* tag);
+    void appendToStringWithTag(string* target, string tag);
     void resize(int len);
     void convertPhred64To33();
     void trimFront(int len);
     bool fixMGI();
+    
+    // Strategy 1: Lazy trimming helpers
+    void setLazyTrim(int offset, int length);
+    int getEffectiveLength() const;
+    int getLazyTrimOffset() const { return mLazyTrimOffset; }
+    int getLazyTrimLength() const { return mLazyTrimLength; }
+    void clearLazyTrim() { mLazyTrimOffset = 0; mLazyTrimLength = 0; }
 
 public:
     static bool test();
@@ -44,6 +51,10 @@ public:
 	string* mSeq;
 	string* mStrand;
 	string* mQuality;
+	
+	// Strategy 1: Lazy trimming fields - store trim offsets without actual string modification
+	int mLazyTrimOffset;  // Offset into sequence where actual read starts (0 = no lazy trim)
+	int mLazyTrimLength;  // Length of actual sequence (0 = use full from offset to end)
 };
 
 class ReadPair{
@@ -66,6 +77,12 @@ public:
 struct ReadPack {
     Read** data;
     int count;
+    // Global pack sequence number, assigned by the reader in strictly
+    // increasing order. Only meaningful on the shared-work-queue path
+    // (non-split output): it lets WriterThread reorder output correctly
+    // even though packs are no longer processed by a fixed worker thread.
+    // Unused (left default-initialized) on the --split path.
+    long seqno = 0;
 };
 
 typedef struct ReadPack ReadPack;

@@ -1,0 +1,86 @@
+timestamp:        2026-08-22 21:00 UTC -- 2026-08-23 10:36 UTC
+platform:         galaxy_arm_a100 (see ../hardware.txt: Neoverse N1, 128 cores, dual A100 80GB)
+fastp-gpu version: v1.3.3-d0bromir (this run set spans both the pre-fix and the
+                   packInMemLimit-fixed builds; see "phase" column in summary.csv)
+opengene baseline: not applicable -- this run set is an internal fastp-gpu-vs-fastp-gpu
+                   thread-scaling investigation, not a fastp-gpu-vs-OpenGene comparison.
+                   No OpenGene rows are included.
+dataset:          WGS_PE_40G (DRR216653_1/2.fastq.gz, ~40 GB paired-end WGS)
+thread sweep:     8, 16, 32, 64 (-w)
+hard timeout:     none set explicitly; t64s8v3/t64s32/t64fc were left to run to
+                   completion (~66 min each) to get an exact pre-fix wall time.
+
+What this run set is:
+  An investigation triggered by a routine GPU-SM/warp-utilisation check
+  ("does raising -w or FASTP_GPU_SLOTS increase GPU utilisation?"), which led to
+  testing the tool's actual thread ceiling (-w is hard-capped at 64) for the
+  first time -- the paper's main benchmark suite had only gone up to T=32.
+  At T=64, WGS_PE_40G collapsed to ~16x the T=32 wall time (3,969s vs 245s),
+  with GPU utilisation falling to 1.6% (from 26.5% at T=32).
+
+  Three explanations were ruled out directly rather than by inspection alone:
+  GPU slot pool size (FASTP_GPU_SLOTS 8 vs 32: t64s8v3 vs t64s32, identical
+  3,969s), compressor thread count (FASTP_COMPRESSORS=8: t64fc, no material
+  change), and NUMA topology (this node is single-socket / single-NUMA-node,
+  not applicable, no dedicated run needed). A live gdb thread backtrace of the
+  stalled process (not machine-capturable as a file; see the paper's
+  Limitations text / reply-to-reviewer-1.md for the transcript excerpt) showed
+  the great majority of worker threads parked in usleep() inside
+  PairEndProcessor::processorTask, polling their own round-robin-fed input
+  queue on a 100us cycle with no backpressure or work-stealing -- i.e. worker
+  starvation, not GPU contention.
+
+  Root cause: src/common.h's PACK_IN_MEM_LIMIT (=64) bounds the number of
+  in-flight packs *globally*, shared across all -w round-robin-fed per-worker
+  queues rather than per-worker. That gives each worker only
+  PACK_IN_MEM_LIMIT/threads packs of buffering headroom on average --
+  comfortable at threads=8 (8 packs/worker), tight at 32 (2/worker), and at
+  64, barely more than 1 pack/worker: the reader can never build a lead over
+  consumption, forcing near-lockstep handoff and collapsing the pipeline's
+  overlap.
+
+  Fix (this commit's source changes, also in the accompanying src/ sync):
+    - src/common.h: packInMemLimit(threads) = max(PACK_IN_MEM_LIMIT, threads*4),
+      applied at the throttle sites in peprocessor.cpp / seprocessor.cpp in
+      place of the bare PACK_IN_MEM_LIMIT constant. Unchanged at threads<=16
+      (max(64, threads*4) == 64), so memory footprint at the thread counts the
+      constant was originally tuned for is untouched.
+    - src/singleproducersingleconsumerlist.h: replaced the usleep(100)-based
+      polling wait in the consumer with a condition-variable-based blocking
+      wait (waitForData()), notified from produce()/setProducerFinished().
+      Secondary fix: reduces wake/sleep churn at high -w; verified NOT to be
+      the primary fix by itself (an earlier attempt with only this change
+      still showed a multi-thousand-second trajectory at T=64).
+
+  Result: T=64 CPU 3,969s -> 238s (t64fix2), T=64 GPU >3,600s (timed out
+  before completing, pre-fix) -> 240s (t64gpufix), both now matching T=32
+  (234s CPU / 236s GPU-build-at-T=32). T=32 itself shows no regression from
+  the fix (234s vs the original paper baseline of 241.289s, within
+  run-to-run noise). T=8 spot-checked post-fix (564s) to confirm the fix is
+  a no-op there, as packInMemLimit(8) == PACK_IN_MEM_LIMIT == 64 by
+  construction.
+
+  Correctness: every run in this set (pre-fix and post-fix, CPU and GPU,
+  every thread count and every rule-out configuration) produced identical
+  read counts -- 722,563,222 reads in, 717,214,748 reads out after filtering
+  -- confirming the collapse and its fix are purely a throughput/liveness
+  issue, never a correctness issue.
+
+Files:
+  summary.csv           -- one row per run: config, wall time, read counts, notes
+  raw/<run_id>.json      -- full fastp JSON report for each run
+  raw/<run_id>_run.log   -- captured stdout/stderr (includes fastp's own
+                            "time used: N seconds" line, GPU init banner where
+                            applicable, and the final summary block)
+
+Notes / known issues:
+  - Two earlier attempts at t64s8v3 (informally "t64s8" and "t64s8_v2") were
+    invalidated by disk-space exhaustion on the test host's /dev/md0 (filled
+    by this investigation's own accumulated output files) partway through the
+    ~66-minute run; this was a testing-methodology artifact, not a code
+    finding, and is not included in this directory. t64s8v3 is the clean
+    rerun with disk-space monitoring in place.
+  - wall_s in summary.csv is measured via a shell-level `date +%s` wrapper
+    around the fastp invocation; reported_wall_s is fastp's own printed
+    "time used" line. The two agree to within 1-2s in every run (rounding /
+    process-startup overhead), as expected.

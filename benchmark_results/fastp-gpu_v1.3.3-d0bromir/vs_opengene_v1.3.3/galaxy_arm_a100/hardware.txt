@@ -1,0 +1,9 @@
+Host: galaxy
+OS: Ubuntu 25.10 (aarch64), Linux 6.17.0
+CPU: ARM Neoverse N1, 128 cores
+RAM: 256 GB
+GPU: 2x NVIDIA A100 80GB PCIe
+GPU driver: 595.71.05
+CUDA (build toolchain): 12.6 (release used to build fastp-gpu binaries)
+CUDA (driver-reported max): 13.x
+Toolchain: GCC 15.2.0
