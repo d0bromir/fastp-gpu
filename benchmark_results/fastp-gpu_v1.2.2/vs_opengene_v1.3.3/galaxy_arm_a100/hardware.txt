@@ -1,0 +1,8 @@
+Host: galaxy
+OS: Ubuntu 25.10 (aarch64), Linux 6.17.0
+CPU: ARM Neoverse N1, 128 cores
+RAM: 256 GB
+GPU: 2x NVIDIA A100 80GB PCIe
+GPU driver: 590.48.01
+CUDA: 12.6 / 13.x
+Toolchain: GCC 15.2.0

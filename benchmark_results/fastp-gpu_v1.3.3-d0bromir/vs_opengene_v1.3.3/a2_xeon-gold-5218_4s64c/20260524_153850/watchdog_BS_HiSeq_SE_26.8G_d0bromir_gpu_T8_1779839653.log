@@ -1,0 +1,24 @@
+[23:54:13] WATCHDOG START pid=548654 fastp=879684 hard=3600 cpu_idle=300s out_idle=120s
+[23:55:13] WATCHDOG ALIVE elapsed=60s cpu_idle=0s out_idle=0s out_size=1253257216B
+[23:56:13] WATCHDOG ALIVE elapsed=120s cpu_idle=0s out_idle=0s out_size=2655846400B
+[23:57:14] WATCHDOG ALIVE elapsed=181s cpu_idle=0s out_idle=0s out_size=4072189952B
+[23:58:13] WATCHDOG ALIVE elapsed=240s cpu_idle=0s out_idle=0s out_size=5356945408B
+[23:59:13] WATCHDOG ALIVE elapsed=300s cpu_idle=0s out_idle=0s out_size=6671966208B
+[00:00:14] WATCHDOG ALIVE elapsed=361s cpu_idle=0s out_idle=0s out_size=8008658944B
+[00:01:14] WATCHDOG ALIVE elapsed=421s cpu_idle=0s out_idle=0s out_size=9322598400B
+[00:02:13] WATCHDOG ALIVE elapsed=480s cpu_idle=0s out_idle=0s out_size=10545856512B
+[00:03:14] WATCHDOG ALIVE elapsed=541s cpu_idle=0s out_idle=0s out_size=11821056000B
+[00:04:14] WATCHDOG ALIVE elapsed=601s cpu_idle=0s out_idle=0s out_size=13077848064B
+[00:05:13] WATCHDOG ALIVE elapsed=660s cpu_idle=0s out_idle=0s out_size=14300733440B
+[00:06:13] WATCHDOG ALIVE elapsed=720s cpu_idle=0s out_idle=0s out_size=15534325760B
+[00:07:14] WATCHDOG ALIVE elapsed=781s cpu_idle=0s out_idle=0s out_size=16774844416B
+[00:08:13] WATCHDOG ALIVE elapsed=840s cpu_idle=0s out_idle=0s out_size=18005368832B
+[00:09:13] WATCHDOG ALIVE elapsed=900s cpu_idle=0s out_idle=0s out_size=19309043712B
+[00:10:14] WATCHDOG ALIVE elapsed=961s cpu_idle=0s out_idle=0s out_size=20634570752B
+[00:11:14] WATCHDOG ALIVE elapsed=1021s cpu_idle=0s out_idle=0s out_size=21901737984B
+[00:12:13] WATCHDOG ALIVE elapsed=1080s cpu_idle=0s out_idle=0s out_size=23057707008B
+[00:13:14] WATCHDOG ALIVE elapsed=1141s cpu_idle=0s out_idle=0s out_size=24260575232B
+[00:14:14] WATCHDOG ALIVE elapsed=1201s cpu_idle=0s out_idle=0s out_size=25460244480B
+[00:15:13] WATCHDOG ALIVE elapsed=1260s cpu_idle=0s out_idle=0s out_size=26616786944B
+[00:16:13] WATCHDOG ALIVE elapsed=1320s cpu_idle=0s out_idle=0s out_size=27860054016B
+[00:16:57] WATCHDOG EXIT line=1 rc=0 elapsed=1363 idle=0 out_idle=0

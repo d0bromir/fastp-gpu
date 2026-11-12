@@ -1,0 +1,69 @@
+timestamp:        2026-08-23 12:53 UTC -- 13:02 UTC
+platform:         galaxy_arm_a100 (see ../hardware.txt: Neoverse N1, 128 cores, dual A100 80GB)
+fastp-gpu version: v1.3.3-d0bromir, post-T=64-fix build (same binaries used for
+                   ../20260823_slots_sweep_postfix/)
+dataset:          DRR346892 (RNA-Seq NextSeq PE, 1.2GB, 26,567,344 read pairs),
+                   freshly re-downloaded from ENA
+                   (https://ftp.sra.ebi.ac.uk/vol1/fastq/DRR346/DRR346892/) and
+                   recompressed to BGZF via `bgzip -@ 16` (htslib 1.21). Verified
+                   BGZF magic (1f8b, flag 0x04/FEXTRA) on both files before use.
+                   Same accession used for the BGZF investigation in
+                   ../../../../../optimization_attempts/2026-05-17_bgzf-*.md, but
+                   that data was not retained on this host -- re-fetched fresh
+                   rather than reused.
+sweep:            fastp-cpu vs. fastp (GPU) on the identical BGZF file, -w 16
+                   (the thread-count sweet spot identified in
+                   optimization_attempts/2026-05-17_bgzf-thread-sweep.md), 3 reps
+                   each, same command line, same host, back-to-back.
+
+What this run set is:
+  A direct, same-file, same-thread-count A/B test motivated by a reviewer
+  question (JCB Reviewer 2, "GPUDirect Storage for compressed file I/O") whose
+  underlying premise -- that feeding compressed bytes straight to the GPU and
+  decompressing there could be a meaningful win -- is exactly what BGZF-via-nvCOMP
+  already does for the one input format where GPU decompression is actually
+  parallelizable (fixed 64KB independent blocks). The manuscript already reports
+  that GPU decompression of plain (non-block) gzip is ~97x slower than CPU ISA-L
+  (src/fastqreader.cpp decompression benchmarks cited in
+  sec:impl/"BGZF decompression via nvCOMP"), but no prior data in this repository
+  directly compared CPU-only and GPU builds on the *same* BGZF file at the *same*
+  thread count -- the earlier BGZF investigation
+  (optimization_attempts/2026-05-17_bgzf-*.md) only swept the GPU build across
+  thread counts, never against a CPU-only build on the identical input.
+
+  Important implementation fact established while designing this test (see
+  src/fastqreader.cpp: readToBufBgzfGpu() is only compiled under
+  HAVE_CUDA && HAVE_NVCOMP): CPU-only builds have no BGZF-aware fast path at all.
+  A CPU build decodes a BGZF file exactly the same way it decodes plain gzip --
+  single-threaded ISA-L inflate, oblivious to the independent-block structure.
+  So this comparison is a fair test of "does GPU-side parallel decompression of
+  a genuinely parallelizable container beat single-threaded CPU decompression of
+  the same bytes" -- the best case for the reviewer's proposed approach.
+
+Result: statistically indistinguishable, GPU marginally slower on average.
+  CPU:  10.84 / 10.97 / 10.90 s  (mean 10.90 s)
+  GPU:  10.95 / 10.90 / 11.37 s  (mean 11.07 s)
+  Delta: GPU +1.6% on average, smaller than GPU's own rep-to-rep spread (10.90 to
+  11.37 s). Reads-out identical across all 6 runs (51,860,270), confirming
+  correctness. GPU run logs confirm dual-GPU nvCOMP BGZF decode was active
+  (not a silent CPU fallback) via the "[GPU] Dual-GPU mode: Device 0 + Device 1
+  active" banner and non-zero gpu_filter_time.
+
+Interpretation for the GPUDirect Storage reply: even in the single most
+favourable case for GPU-side decompression -- a format designed for exactly
+this kind of parallelism -- GPU decompression does not win; it ties or loses
+slightly to single-threaded CPU decompression on this hardware. This is
+consistent with, and now backed by measurement rather than just the ~97x plain-
+gzip figure, the position taken in the existing GPUDirect Storage paragraph:
+GDS would move *where* the compressed bytes land (device memory vs. host), but
+the decompression step itself is not the thing GPU execution accelerates here,
+even for the parallel-friendly container.
+
+Files:
+  summary.csv           -- one row per run: config, wall time, reads, notes
+  raw/<run_id>.json      -- full fastp JSON report for each run (gitignored,
+                            local-only)
+  raw/<run_id>_run.log   -- captured stdout/stderr, includes the PROF_CSV line
+                            and (GPU only) the dual-GPU banner
+  raw/sweep.log          -- concatenated one-line-per-run summary as captured
+                            during the run

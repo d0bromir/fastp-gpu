@@ -1,0 +1,23 @@
+Folder: 20260417/  (canonical analysis input)
+Platform: galaxy_arm_a100 (see ../hardware.txt)
+fastp-gpu version: v1.2.2
+opengene fastp version: v1.1.0 (paper baseline)
+
+Contents:
+  full_benchmark_20260417.csv   — 96 data rows, full dataset × threads × tools matrix
+  full_profiling_20260417.log   — accompanying [PROF_CSV] blocks
+  full_validation_20260417.log  — diff-vs-opengene checks
+
+Date convention: 20260417 = last date of the source raw runs. This dataset is
+                 a merge of raw runs spanning 2026-04-15 through 2026-04-17.
+
+Status: Canonical input for paper figures and tables. Curated from earlier
+        raw runs (pre-dating the 20260426_114535 sweep, which used a different
+        opengene baseline v1.3.3). Do NOT regenerate this file from the
+        v1.3.3 sweep — they are not equivalent.
+
+Consumers:
+  - scripts/generate_figures.py
+  - scripts/apply_t32_results.py
+  - docs/publication/tables/extract_tables.py
+  - docs/publication/tables/verify_tables.py

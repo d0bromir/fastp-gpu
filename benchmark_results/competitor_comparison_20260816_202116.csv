@@ -1,0 +1,11 @@
+dataset,tool,threads,walltime_s,max_rss_kb,exit_code
+Panel_PDAC_PE_1M,fastp_cpu,8,1.95,1570456,0
+Panel_PDAC_PE_1M,fastp_gpu,8,2.38,2307420,0
+Panel_PDAC_PE_1M,fastqc,2,10.33,880588,0
+Panel_PDAC_PE_1M,falco_r1,8,1.15,113744,0
+Panel_PDAC_PE_1M,falco_r2,8,1.14,113752,0
+Panel_PDAC_PE_1.5M,fastp_cpu,8,2.54,1739720,0
+Panel_PDAC_PE_1.5M,fastp_gpu,8,2.95,2461288,0
+Panel_PDAC_PE_1.5M,fastqc,2,14.28,872040,0
+Panel_PDAC_PE_1.5M,falco_r1,8,1.6,134220,0
+Panel_PDAC_PE_1.5M,falco_r2,8,1.71,147548,0

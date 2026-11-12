@@ -1,0 +1,4 @@
+=== Validation Log: Sat Oct  3 20:35:39 UTC 2026 ===
+
+[PASS] d0bromir_cpu WGS_PE_40G T=16  reads_in=722563222  reads_out=717214748
+[PASS] d0bromir_gpu WGS_PE_40G T=16  reads_in=722563222  reads_out=717214748
