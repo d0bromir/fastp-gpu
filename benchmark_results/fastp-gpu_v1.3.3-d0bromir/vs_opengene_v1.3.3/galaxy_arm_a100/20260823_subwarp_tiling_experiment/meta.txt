@@ -1,0 +1,93 @@
+timestamp:        2026-08-23 (session date)
+platform:         galaxy_arm_a100 (Neoverse N1, 128 cores, dual A100 80GB) for
+                   the A100 benchmark; also built and unit-tested locally on an
+                   x86_64 laptop with an NVIDIA GeForce RTX 3050 Laptop GPU.
+fastp-gpu version: v1.3.3-d0bromir, built on top of the T=64-fix / post-JCB-
+                   revision codebase, plus this experiment's kernel addition
+                   (src/cuda_stats.cu: filter_and_stats_subwarp_kernel<TILE>).
+dataset:          Panel_private/S1A_S1_L001_R{1,2}_001.fastq.gz (real PE
+                   panel-scale short-read data, 151 bp reads, 2,761,244 passing
+                   read pairs after filtering) -- short reads are exactly the
+                   regime the reviewer's suggestion targets (manuscript
+                   sec:limits:short, "GPU underutilisation on short reads").
+
+What this experiment is:
+  JCB Reviewer 2, Comment 8 ("Sub-warp workers and ld.vec4 loads for
+  Algorithm 2") was answered in the original revision qualitatively only
+  ("a plausible further optimisation... not implemented here"). This
+  experiment actually implements and measures it rather than leaving it as
+  speculation, matching the verification standard applied to every other
+  reviewer comment in this revision.
+
+  Implementation (src/cuda_stats.cu): a new templated kernel
+  filter_and_stats_subwarp_kernel<TILE> mirrors the production
+  filter_and_stats_warp_kernel (Algorithm 2) exactly, but at TILE-lane
+  granularity (TILE=8 or 16) instead of full-warp (32-lane) granularity, so
+  one physical warp processes 32/TILE reads concurrently instead of one --
+  more independent scheduling units per SM, which should help hide memory
+  latency specifically on short reads where the full-warp stride loop only
+  runs a handful of iterations per lane. Sub-warp shuffles use the raw
+  __shfl_*_sync(..., width=TILE) intrinsics rather than
+  cooperative_groups::tiled_partition -- the latter pulls in libcu++ headers
+  that require C++17 on CUDA 13.1 (galaxy's toolkit), while this file
+  compiles as C++14; raw intrinsics with a width argument give identical
+  semantics without the dependency. The Phase-1/Phase-3 stride loops also
+  opportunistically use uchar4 (ld.vec4-equivalent) loads when a lane's
+  starting offset happens to be 4-byte aligned -- the packed read buffer has
+  no per-read alignment guarantee (reads are packed back-to-back with no
+  padding), so this is a partial rather than universal vectorisation; a full
+  version would need a host-side packing change (padding every read to a
+  4-byte boundary in cuda_stats_wrapper.cpp) not attempted here to keep this
+  experiment's blast radius to one file.
+
+  Selection: an environment variable, FASTP_GPU_SUBWARP_TILE (8 or 16),
+  read once in cuda_filter_and_stats_device (the host launcher). Unset
+  (default): zero change, the original filter_and_stats_warp_kernel runs
+  exactly as before -- confirmed via `./fastp test` (all PASS, both
+  machines) and a bit-exact real-data run before touching anything.
+
+Correctness verification:
+  - `./fastp test` (unit tests, including CudaStatsWrapper::
+    processBatchFilterAndStats) PASSED with FASTP_GPU_SUBWARP_TILE unset,
+    =8, and =16, on both the RTX 3050 laptop and the A100 node.
+  - Real-data run (Panel_private PE, -w 4, RTX 3050): decompressed output
+    FASTQ md5-identical and JSON filtering/duplication/quality fields
+    identical across baseline/tile8/tile16.
+  - All 19 A100 benchmark runs below (baseline, tile8, tile16, all thread
+    counts, all 5 reps) produced identical passed-filter read counts
+    (2,761,244).
+
+Results:
+  Whole-process wall time (1 rep per config, T in {1,4,8}): no consistent
+  improvement -- deltas were within +/-2.5% in either direction and not
+  monotonic across thread counts (see summary.csv, "sweep" rows). This is
+  expected: gpu_filter_time is only ~15-20% of total wall time on this
+  dataset (dominated by CPU-side decompression/compression, matching the
+  paper's own "CPU-side batch packing" and gzip-floor findings elsewhere) --
+  even a real per-kernel improvement would be largely invisible at the
+  whole-process level.
+
+  gpu_filter_time (the profiling counter that isolates GPU dispatch +
+  kernel + sync time, excluding I/O/(de)compression) at T=8, 5 reps each
+  (see summary.csv, "5rep" rows):
+    baseline (TILE=32): 626.4 / 634.0 / 629.7 / 624.7 / 624.8 ms -- mean 627.9 ms
+    tile8    (TILE=8):  609.8 / 613.3 / 617.4 / 621.2 / 619.7 ms -- mean 616.3 ms
+  Delta: -1.85% (tile8 faster), and the two five-run ranges do not overlap
+  (baseline min 624.7 ms > tile8 max 621.2 ms) -- a small but real and
+  reproducible effect at the kernel level, not noise.
+
+Interpretation:
+  The reviewer's mechanism is real and measurable: sub-warp tiling does
+  reduce GPU filter-kernel time on short reads, as hypothesised. The effect
+  size is modest (~1.85%) and does not move end-to-end wall time on this
+  dataset, because the kernel is a small slice of the total pipeline cost
+  here. This is a genuine answer to the reviewer's question (implemented
+  and measured rather than left as speculation) but not, on this evidence,
+  a case for changing the shipped default -- see the accompanying
+  optimization_attempts entry for the KEEP/PARK/REJECT-style disposition
+  and the reply-to-reviewer-2.md update.
+
+Files:
+  summary.csv           -- one row per run: config, gpu_filter_time, reads, notes
+  raw/<run_id>_run.log  -- captured stdout/stderr, includes the fastp
+                           [PROFILE]/[PROF_CSV] lines used for gpu_filter_time

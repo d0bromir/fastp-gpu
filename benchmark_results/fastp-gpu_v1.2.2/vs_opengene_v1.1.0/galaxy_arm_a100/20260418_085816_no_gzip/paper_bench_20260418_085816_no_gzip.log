@@ -1,0 +1,317 @@
+Starting paper benchmarks at Sat Apr 18 08:58:16 UTC 2026
+CSV: /home/mpiuser/tools/src/fastp_d0bromir/benchmark_results/paper_bench_20260418_085816.csv
+
+=== Panel_SE_148M | opengene | T=8 ===
+Detecting adapter sequence for read1...
+>RNA_PCR_Primer_Index_1_(RPI1)_2,9
+TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG
+No adapter detected for read1
+
+Read1 before filtering:
+total reads: 1381894
+total bases: 208665994
+Q20 bases: 197000126(94.4093%)
+Q30 bases: 194261258(93.0967%)
+Q40 bases: 245896(0.117842%)
+
+Read1 after filtering:
+total reads: 1381299
+total bases: 208576149
+Q20 bases: 196957008(94.4293%)
+Q30 bases: 194231848(93.1228%)
+Q40 bases: 245896(0.117893%)
+
+Filtering result:
+reads passed filter: 1381299
+reads failed due to low quality: 595
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 84.3283%
+
+JSON report: /tmp/fastp_bench_mpBZM7.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_opengene/fastp -w 8 -j /tmp/fastp_bench_mpBZM7.json -h /dev/null -i /home/mpiuser/FASTQ/S1A_S1_L001_R1_001.fastq.gz -o /dev/null 
+fastp v1.1.0, time used: 4 seconds
+  -> wall=3.902s reads_in=1381894 reads_out=1381299
+
+=== Panel_SE_148M | d0bromir_cpu | T=8 ===
+[08:58:20] fastp 1.2.2 starting 
+Detecting adapter sequence for read1...
+>RNA_PCR_Primer_Index_1_(RPI1)_2,9
+TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG
+No adapter detected for read1
+
+Read1 before filtering:
+total reads: 1381894
+total bases: 208665994
+Q20 bases: 197000126(94.4093%)
+Q30 bases: 194261258(93.0967%)
+Q40 bases: 245896(0.117842%)
+
+Read1 after filtering:
+total reads: 1381299
+total bases: 208576149
+Q20 bases: 196957008(94.4293%)
+Q30 bases: 194231848(93.1228%)
+Q40 bases: 245896(0.117893%)
+
+Filtering result:
+reads passed filter: 1381299
+reads failed due to low quality: 595
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 84.3283%
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:              2470.3 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):              1689.1 ms  ( 68.4%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:               55.1 ms  (  2.2%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                   1554.2 ms  ( 62.9%)           ║
+║ CPU output format:             267.9 ms  ( 10.8%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 2470.3,1689.1,0.0,55.1,0.0,0.0,1554.2,267.9,0,0
+
+JSON report: /tmp/fastp_bench_th7f9N.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp-cpu-profile -w 8 -j /tmp/fastp_bench_th7f9N.json -h /dev/null -i /home/mpiuser/FASTQ/S1A_S1_L001_R1_001.fastq.gz -o /dev/null 
+fastp v1.2.2, time used: 4 seconds
+  -> wall=3.648s reads_in=1381894 reads_out=1381299
+
+=== Panel_SE_148M | d0bromir_gpu | T=8 ===
+[08:58:24] fastp 1.2.2 starting 
+Detecting adapter sequence for read1...
+>RNA_PCR_Primer_Index_1_(RPI1)_2,9
+TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG
+No adapter detected for read1
+
+[08:58:28] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated 
+[08:58:28] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated 
+[08:58:29] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+Read1 before filtering:
+total reads: 1381894
+total bases: 208665994
+Q20 bases: 197000126(94.4093%)
+Q30 bases: 194261258(93.0967%)
+Q40 bases: 245896(0.117842%)
+
+Read1 after filtering:
+total reads: 1381299
+total bases: 208576149
+Q20 bases: 196957008(94.4293%)
+Q30 bases: 194231848(93.1228%)
+Q40 bases: 245896(0.117893%)
+
+Filtering result:
+reads passed filter: 1381299
+reads failed due to low quality: 595
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 84.3283%
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:              5011.7 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):              1435.0 ms  ( 28.6%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:               52.4 ms  (  1.0%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                  23458.7 ms  (468.1%)           ║
+║ CPU output format:             257.3 ms  (  5.1%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 5011.7,1435.0,0.0,52.4,0.0,0.0,23458.7,257.3,0,0
+
+JSON report: /tmp/fastp_bench_kzi6H4.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp -w 8 -j /tmp/fastp_bench_kzi6H4.json -h /dev/null -i /home/mpiuser/FASTQ/S1A_S1_L001_R1_001.fastq.gz -o /dev/null 
+fastp v1.2.2, time used: 6 seconds
+  -> wall=7.079s reads_in=1381894 reads_out=1381299
+
+=== WGS_SE_6.3G | opengene | T=8 ===
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81534%
+
+JSON report: /tmp/fastp_bench_EoFiRF.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_opengene/fastp -w 8 -j /tmp/fastp_bench_EoFiRF.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/null 
+fastp v1.1.0, time used: 114 seconds
+  -> wall=113.572s reads_in=80314764 reads_out=77515798
+
+=== WGS_SE_6.3G | d0bromir_cpu | T=8 ===
+[09:00:25] fastp 1.2.2 starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:             67145.6 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             48043.1 ms  ( 71.6%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:             3213.0 ms  (  4.8%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                  61171.8 ms  ( 91.1%)           ║
+║ CPU output format:           13416.8 ms  ( 20.0%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 67145.6,48043.1,0.0,3213.0,0.0,0.0,61171.8,13416.8,0,0
+
+JSON report: /tmp/fastp_bench_F3fuxO.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp-cpu-profile -w 8 -j /tmp/fastp_bench_F3fuxO.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/null 
+fastp v1.2.2, time used: 79 seconds
+  -> wall=79.066s reads_in=80314764 reads_out=77515798
+
+=== WGS_SE_6.3G | d0bromir_gpu | T=8 ===
+[09:01:45] fastp 1.2.2 starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[09:02:00] [GPU] CUDA GPU available (Device 0) - statistics GPU-accelerated 
+[09:02:00] [GPU] CUDA GPU available (Device 1) - statistics GPU-accelerated 
+[09:02:00] [GPU] Dual-GPU mode: Device 0 + Device 1 active 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:             69855.4 ms                     ║
+║ Total reads:                       0                        ║
+║ I/O bytes (compressed):            0                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             51493.5 ms  ( 73.7%)           ║
+║ Decompression:                   0.0 ms  (  0.0%)           ║
+║ CPU trim+adapter:             3267.3 ms  (  4.7%)           ║
+║ CPU statRead:                    0.0 ms  (  0.0%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ CPU filter:                  35643.8 ms  ( 51.0%)           ║
+║ CPU output format:           10250.7 ms  ( 14.7%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,cpu_filter_ms,cpu_output_ms,reads,io_bytes
+[PROF_CSV] 69855.4,51493.5,0.0,3267.3,0.0,0.0,35643.8,10250.7,0,0
+
+JSON report: /tmp/fastp_bench_e0F5EO.json
+HTML report: /dev/null
+
+/home/mpiuser/tools/src/fastp_d0bromir/fastp -w 8 -j /tmp/fastp_bench_e0F5EO.json -h /dev/null -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /dev/null 
+fastp v1.2.2, time used: 81 seconds
+  -> wall=83.434s reads_in=80314764 reads_out=77515798
+
+=== WGS_PE_12.8G | opengene | T=8 ===
+ERROR: read1 output (--out1) and read2 output (--out2) should be different

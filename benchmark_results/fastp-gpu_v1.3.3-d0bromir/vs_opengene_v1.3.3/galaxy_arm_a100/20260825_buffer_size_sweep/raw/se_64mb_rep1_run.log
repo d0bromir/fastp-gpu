@@ -1,0 +1,57 @@
+[00:01:09] fastp 1.3.3-d0bromir starting 
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+[00:02:26] [PROFILE] Filter batches=9805 gpu_reads=0 cpu_reads=80314764 gpu_filter_time=0.000000ms cpu_filter_time=54215.583603ms 
+Read1 before filtering:
+total reads: 80314764
+total bases: 8031476400
+Q20 bases: 7618398149(94.8568%)
+Q30 bases: 7189780467(89.52%)
+Q40 bases: 1372019(0.017083%)
+
+Read1 after filtering:
+total reads: 77515798
+total bases: 7751579800
+Q20 bases: 7501957244(96.7797%)
+Q30 bases: 7095114113(91.5312%)
+Q40 bases: 1364356(0.017601%)
+
+Filtering result:
+reads passed filter: 77515798
+reads failed due to low quality: 2793133
+reads failed due to too many N: 5833
+reads failed due to too short: 0
+reads failed due to adapter dimer: 0
+reads with adapter trimmed: 0
+bases trimmed due to adapters: 0
+
+Duplication rate (may be overestimated since this is SE data): 3.81535%
+
+╔══════════════════════════════════════════════════════════════╗
+║              PROFILING SUMMARY (FASTP_PROFILING)            ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total wall time:             64714.3 ms                     ║
+║ Total reads:                80314764                        ║
+║ I/O bytes (compressed):   6713401913                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ I/O (disk read):             45989.7 ms  ( 71.1%)           ║
+║ Decompression:               63465.4 ms  ( 98.1%)           ║
+║ CPU trim+adapter:             3282.9 ms  (  5.1%)           ║
+║ CPU statRead:                49495.1 ms  ( 76.5%)           ║
+║ CPU unstatRead:                  0.0 ms  (  0.0%)           ║
+║ filter calls (incl. GPU):    54234.3 ms  ( 83.8%)           ║
+║ CPU output format:           11842.4 ms  ( 18.3%)           ║
+║ Output compression:         294525.1 ms  (455.1%)           ║
+║ Output write (fwrite):        2450.8 ms  (  3.8%)           ║
+╠══════════════════════════════════════════════════════════════╣
+║ (GPU breakdown printed by CudaStatsWrapper above)          ║
+╚══════════════════════════════════════════════════════════════╝
+[PROF_CSV] wall_ms,io_ms,decomp_ms,cpu_trim_ms,cpu_stat_ms,cpu_unstat_ms,filter_calls_ms,cpu_output_ms,compress_ms,write_ms,reads,io_bytes
+[PROF_CSV] 64714.3,45989.7,63465.4,3282.9,49495.1,0.0,54234.3,11842.4,294525.1,2450.8,80314764,6713401913
+
+JSON report: /tmp/bufsweep/se_64mb_rep1.json
+HTML report: /dev/null
+
+./fastp-cpu -w 16 -i /home/mpiuser/FASTQ/WGS/ERR1044780_1.fastq.gz -o /tmp/bufsweep/se_64mb_rep1_R1.fq.gz -j /tmp/bufsweep/se_64mb_rep1.json -h /dev/null 
+fastp v1.3.3-d0bromir, time used: 77 seconds
