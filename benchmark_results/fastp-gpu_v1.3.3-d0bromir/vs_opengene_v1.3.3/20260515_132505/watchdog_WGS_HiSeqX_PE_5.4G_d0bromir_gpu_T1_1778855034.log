@@ -1,0 +1,8 @@
+[14:23:54] WATCHDOG START pid=2212128 fastp=2250165 hard=3600 cpu_idle=300s out_idle=600s
+[14:24:55] WATCHDOG ALIVE elapsed=61s cpu_idle=0s out_idle=0s out_size=833224704B
+[14:25:54] WATCHDOG ALIVE elapsed=120s cpu_idle=0s out_idle=0s out_size=1700163584B
+[14:26:55] WATCHDOG ALIVE elapsed=181s cpu_idle=0s out_idle=0s out_size=2606788608B
+[14:27:55] WATCHDOG ALIVE elapsed=241s cpu_idle=0s out_idle=0s out_size=3484844032B
+[14:28:54] WATCHDOG ALIVE elapsed=300s cpu_idle=0s out_idle=0s out_size=4353048576B
+[14:29:55] WATCHDOG ALIVE elapsed=361s cpu_idle=0s out_idle=0s out_size=5254979584B
+[14:30:09] WATCHDOG EXIT line=1 rc=0 elapsed=374 idle=0 out_idle=0

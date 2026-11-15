@@ -7,12 +7,13 @@
 ReadPool::ReadPool(Options* opt){
     mOptions = opt;
     initBufferLists();
-    mLimit = PACK_SIZE * PACK_IN_MEM_LIMIT;
+    mLimit = MAX_PACK_SIZE * PACK_IN_MEM_LIMIT;
     if(mOptions->interleavedInput)
         mLimit *= 2;
     mIsFull = false;
     mProduced = 0;
     mConsumed = 0;
+    mScanIdx = 0;
 }
 
 ReadPool::~ReadPool() {
@@ -62,14 +63,20 @@ size_t ReadPool::size() {
 }
 
 Read* ReadPool::getOne() {
-    for(int t=0; t<mOptions->thread; t++) {
+    // Round-robin scan: start from last hit to improve cache locality
+    // and avoid always checking cold lists first
+    int n = mOptions->thread;
+    for(int i=0; i<n; i++) {
+        int t = (mScanIdx + i) % n;
         if(mBufferLists[t]->canBeConsumed()) {
             Read* r = mBufferLists[t]->consume();
+            mScanIdx = t;  // start here next time (hot list)
             mConsumed++;
             if((mConsumed & 0xFF) == 0)
                 updateFullStatus();
             return r;
         }
     }
+    mScanIdx = (mScanIdx + 1) % n;
     return NULL;
 }

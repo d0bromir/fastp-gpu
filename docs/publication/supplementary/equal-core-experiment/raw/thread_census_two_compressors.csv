@@ -1,0 +1,2 @@
+mode,w,wall_s,cpu_s,mean_cores,threads_created,threads_busy5pct,per_thread_cpu_s_sorted
+cpu,8,130.5,1282,9.8,19,14,"128 128 128 128 86 85 73 72 72 72 72 72 71 71 6 6 6 6 1"

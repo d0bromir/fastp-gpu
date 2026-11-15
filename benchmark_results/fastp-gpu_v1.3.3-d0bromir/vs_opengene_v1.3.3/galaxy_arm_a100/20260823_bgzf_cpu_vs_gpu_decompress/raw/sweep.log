@@ -1,0 +1,7 @@
+cpu_bgzf,rep1,binary=fastp-cpu,wall_s=10.84,reads_out=51860270
+cpu_bgzf,rep2,binary=fastp-cpu,wall_s=10.97,reads_out=51860270
+cpu_bgzf,rep3,binary=fastp-cpu,wall_s=10.90,reads_out=51860270
+gpu_bgzf,rep1,binary=fastp,wall_s=10.95,reads_out=51860270
+gpu_bgzf,rep2,binary=fastp,wall_s=10.90,reads_out=51860270
+gpu_bgzf,rep3,binary=fastp,wall_s=11.37,reads_out=51860270
+=== DONE ===

@@ -1,0 +1,11 @@
+dataset,tool,threads,walltime_s,loading_ms,filtering_ms,writing_ms,loading_pct,filtering_pct,writing_pct,note
+Panel_SE_148M,d0bromir_cpu,8,3.817,2235,40,78,58.6%,1.0%,2.0%,
+Panel_SE_148M,d0bromir_gpu,8,3.996,2498,32,83,62.5%,0.8%,2.1%,
+Panel_PE_304M,d0bromir_cpu,8,3.365,2154,111,104,64.0%,3.3%,3.1%,
+Panel_PE_304M,d0bromir_gpu,8,3.330,3412,85,117,102.5%,2.6%,3.5%,loading_ms>walltime_ms: reader thread runs across pipeline stages
+WGS_PE_12.8G,d0bromir_cpu,8,86.722,84175,929,103,97.1%,1.1%,0.1%,
+WGS_PE_12.8G,d0bromir_gpu,8,78.619,74271,826,78,94.5%,1.1%,0.1%,
+WGS_PE_18.2G,d0bromir_cpu,8,117.166,114782,812,80,98.0%,0.7%,0.1%,
+WGS_PE_18.2G,d0bromir_gpu,8,102.416,98862,496,112,96.5%,0.5%,0.1%,
+WGS_PE_40G,d0bromir_cpu,8,555.854,552926,1443,102,99.5%,0.3%,0.0%,
+WGS_PE_40G,d0bromir_gpu,8,488.014,483193,1219,104,99.0%,0.2%,0.0%,

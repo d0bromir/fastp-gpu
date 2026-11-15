@@ -1,0 +1,6 @@
+dataset,size,mode,threads,opengene_s,d0bromir_cpu_s,d0bromir_gpu_s,cpu_vs_opengene,gpu_vs_opengene,gpu_vs_cpu
+Panel_SE_148M,148 MB,SE,8,2.885,3.975,7.118,-37.8%,-146.7%,-79.1%
+Panel_PE_304M,304 MB,PE,8,3.868,3.293,6.137,+14.9%,-58.7%,-86.4%
+WGS_PE_12.8G,12.7 GB,PE,8,138.449,87.098,79.767,+37.1%,+42.4%,+8.4%
+WGS_PE_18.2G,18.1 GB,PE,8,198.496,118.277,105.980,+40.4%,+46.6%,+10.4%
+WGS_PE_40G,38.5 GB,PE,8,721.466,561.405,492.682,+22.2%,+31.7%,+12.2%

@@ -1,0 +1,6 @@
+=== Validation Log: Mon Oct  5 04:14:21 UTC 2026 ===
+
+[SIZE] d0bromir_cpu WGS_SE_6.3G T=16 R1 compressed: 6688151119B vs opengene 6626121859B  delta=0.9%
+[PASS+FQ] d0bromir_cpu WGS_SE_6.3G T=16  md5(R1)=b9eab0b00381508a24d17df717c80ca2  + 14 JSON fields equal
+[SIZE] d0bromir_gpu WGS_SE_6.3G T=16 R1 compressed: 6688151119B vs opengene 6626121859B  delta=0.9%
+[PASS+FQ] d0bromir_gpu WGS_SE_6.3G T=16  md5(R1)=b9eab0b00381508a24d17df717c80ca2  + 14 JSON fields equal

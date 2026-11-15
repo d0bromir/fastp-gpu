@@ -1,0 +1,11 @@
+# Speedup ratio: upstream fastp wall-time / fastp-gpu CPU-mode wall-time.
+# Derived from docs/publication/figures/fig5_thread_scaling.csv.
+# speedup > 1.0 means fastp-gpu is faster; speedup < 1.0 means it is slower.
+# At T=1, the async-decompressor thread adds overhead without benefit on small
+# datasets, so speedup can be below 1.0 for those thread counts.
+# Cells with value "" mean no matching (dataset, threads) pair in both tools.
+dataset,label,t1,t2,t4,t8,t16,t32
+WGS_SE_6.3G,WGS SE 6.3 GB,1.045,1.699,1.713,,2.508,2.388
+WGS_PE_12.8G,WGS PE 12.8 GB,0.717,1.612,1.602,1.594,1.637,1.651
+WGS_PE_18.2G,WGS PE 18.2 GB,0.753,1.739,1.733,1.687,1.675,1.741
+WGS_PE_40G,WGS PE 38.5 GB,,1.263,1.267,1.297,,3.072
