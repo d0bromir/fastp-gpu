@@ -1,0 +1,11 @@
+============================================================
+ BENCHMARK STATUS — 2026-10-04 10:44:51
+ Progress : 0 / 2 runs
+ Datasets : WGS_PE_18.2G
+ Threads  : 8
+ CSV      : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_benchmark_20261004_103551.csv
+============================================================
+
+  (no runs completed yet)
+
+--- Last profiling entries (tail) ---

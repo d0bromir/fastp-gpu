@@ -1,0 +1,5 @@
+epoch_s,cpu_pct,rss_mib,gpu_util_pct,gpu_mem_mib,input_file
+1778434304,156.2,742,1,0,S1A_S1_L001_R1_001.fastq.gz
+1778434307,360.2,2754,8,1360,S1A_S1_L001_R1_001.fastq.gz
+1778434308,524.4,2972,8,1360,S1A_S1_L001_R1_001.fastq.gz
+1778434309,1376.3,1850,0,1360,S1A_S1_L001_R1_001.fastq.gz

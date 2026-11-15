@@ -1,0 +1,16 @@
+run_id,rep,binary,mode,dataset,buf_mb,wall_s,reads_out,correctness,notes
+se_4mb_rep1,1,fastp-cpu,cpu,WGS_SE_6.3G,4,69.112,77515798,match,
+se_4mb_rep2,2,fastp-cpu,cpu,WGS_SE_6.3G,4,67.412,77515798,match,
+bgzf_4mb_rep1,1,fastp,gpu,DRR346892_BGZF_PE,4,9.014,51860270,match,
+se_8mb_rep1,1,fastp-cpu,cpu,WGS_SE_6.3G,8,69.752,77515798,match,
+se_8mb_rep2,2,fastp-cpu,cpu,WGS_SE_6.3G,8,69.756,77515798,match,
+bgzf_8mb_rep1,1,fastp,gpu,DRR346892_BGZF_PE,8,8.136,51860270,match,
+se_16mb_rep1,1,fastp-cpu,cpu,WGS_SE_6.3G,16,64.806,77515798,match,current shipped default
+se_16mb_rep2,2,fastp-cpu,cpu,WGS_SE_6.3G,16,64.855,77515798,match,current shipped default
+bgzf_16mb_rep1,1,fastp,gpu,DRR346892_BGZF_PE,16,7.485,51860270,match,current shipped default
+se_32mb_rep1,1,fastp-cpu,cpu,WGS_SE_6.3G,32,64.716,77515798,match,
+se_32mb_rep2,2,fastp-cpu,cpu,WGS_SE_6.3G,32,64.717,77515798,match,
+bgzf_32mb_rep1,1,fastp,gpu,DRR346892_BGZF_PE,32,7.785,51860270,match,
+se_64mb_rep1,1,fastp-cpu,cpu,WGS_SE_6.3G,64,64.714,77515798,match,
+se_64mb_rep2,2,fastp-cpu,cpu,WGS_SE_6.3G,64,64.65,77515798,match,
+bgzf_64mb_rep1,1,fastp,gpu,DRR346892_BGZF_PE,64,7.463,51860270,match,

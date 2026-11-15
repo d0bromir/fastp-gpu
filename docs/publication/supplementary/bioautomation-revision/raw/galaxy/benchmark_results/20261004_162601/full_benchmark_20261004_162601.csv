@@ -1,0 +1,4 @@
+dataset,type,tool,threads,rep,walltime_s,reads_in,reads_out,pct_vs_opengene,validation,attempts,cpu_avg_pct,cpu_peak_pct,rss_peak_mib,gpu_util_avg_pct,gpu_util_peak_pct,gpu_mem_peak_mib,scenario
+WGS_PE_40G,PE,opengene,16,1,752.682,0,0,baseline,IDLE_TIMEOUT,1,1707.2,2502.3,1458,0.0,0.0,0,default
+WGS_PE_40G,PE,d0bromir_cpu,16,1,240.805,722563222,717214748,N/A,SKIP,1,3036.2,3630.5,2240,1.4,44.0,0,default
+WGS_PE_40G,PE,d0bromir_gpu,16,1,241.985,722563222,717214748,N/A,SKIP,1,2823.9,3455.5,2963,30.2,62.0,1360,default

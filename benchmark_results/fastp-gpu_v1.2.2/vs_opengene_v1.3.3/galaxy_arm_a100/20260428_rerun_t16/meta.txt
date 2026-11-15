@@ -1,0 +1,11 @@
+Run timestamp: 2026-04-28
+Platform: galaxy_arm_a100 (see ../hardware.txt)
+Purpose: Supplementary rerun of WGS_PE_12.8G PE T=16 opengene baseline
+         (the 20260426_114535 run hit the 1800s timeout at T=16).
+opengene fastp version: 1.3.3 (same baseline as ../20260426_114535/)
+fastp-gpu version: not run in this batch
+Result: WGS_PE_12.8G PE opengene-v1.3.3 T=16 → 113.635s (vs 1800.893s timeout
+        in 20260426_114535).
+Status: MERGED into ../20260426_114535/full_benchmark_20260426_114535.csv
+        on 2026-04-28; row replaces the 1800.893s timeout entry.
+        This folder is retained for provenance.

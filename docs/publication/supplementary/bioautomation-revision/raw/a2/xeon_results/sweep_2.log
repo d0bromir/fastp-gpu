@@ -1,0 +1,128 @@
+============================================================
+ Full Benchmark — Three-tool fastp comparison
+ Started   : Sun Oct  4 10:28:34 AM UTC 2026
+ Datasets  : WGS_PE_18.2G
+ Threads   : 32
+ Scenario  : default  opts=''
+ CPU-only  : 1  (GPU build/tests/runs skipped when 1)
+ Total runs: 2
+ CSV       : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_benchmark_20261004_102834.csv
+ Profile   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_profiling_20261004_102834.log
+ Validation: /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_validation_20261004_102834.log
+ Status    : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_status_20261004_102834.txt
+ Validation: read-count at every T; full FASTQ+JSON at T=8
+ WARNING   : VALIDATE_THREADS=8 not in selected threads (32);
+             deep validation will be SKIPPED. Re-run with -t 8 to enable.
+============================================================
+
+Binary check:
+  [OK] opengene  11M Oct 3 10:52  /home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp
+  [OK] d0bromir_cpu  9.1M Oct 4 07:14  /home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu
+  [SKIP] d0bromir_gpu  (--cpu-only)
+
+Dataset check:
+  [OK] WGS_PE_18.2G  PE  R1=ERR1044319_1.fastq.gz (9.2G)
+
+All checks passed. Starting 2 runs...
+
+
+=== Dataset: WGS_PE_18.2G (PE) — WGS PE 18.2G (ERR1044319 R1+R2) ===
+--- Threads: 32 ---
+  [ 1/ 2] opengene        WGS_PE_18.2G           T=32  274.166s  reads_in=234238034  reads_out=217840930
+  [ 2/ 2] d0bromir_cpu    WGS_PE_18.2G           T=32  [PASS] d0bromir_cpu WGS_PE_18.2G T=32  reads_in=234238034  reads_out=217840930
+157.797s  vs_opengene=-42.4%  PASS  attempts=1
+
+============================================================
+ BENCHMARK COMPLETE — Sun Oct  4 10:35:51 AM UTC 2026
+ CSV       : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_benchmark_20261004_102834.csv
+ Profile   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_profiling_20261004_102834.log
+ Validation: /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_validation_20261004_102834.log
+ Status    : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_102834/full_status_20261004_102834.txt
+============================================================
+
+dataset                 type  tool                 T      wall_s      reads_in     reads_out   vs_opengene  valid
+---------------------------------------------------------------------------------------------------------
+WGS_PE_18.2G            PE    opengene            32       274.2     234238034     217840930      baseline  baseline
+WGS_PE_18.2G            PE    d0bromir_cpu        32       157.8     234238034     217840930        -42.4%  PASS
+
+Done.
+============================================================
+ Full Benchmark — Three-tool fastp comparison
+ Started   : Sun Oct  4 10:35:51 AM UTC 2026
+ Datasets  : WGS_PE_18.2G
+ Threads   : 8
+ Scenario  : default  opts=''
+ CPU-only  : 1  (GPU build/tests/runs skipped when 1)
+ Total runs: 2
+ CSV       : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_benchmark_20261004_103551.csv
+ Profile   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_profiling_20261004_103551.log
+ Validation: /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_validation_20261004_103551.log
+ Status    : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_status_20261004_103551.txt
+ Validation: read-count at every T; full FASTQ+JSON at T=8
+============================================================
+
+Binary check:
+  [OK] opengene  11M Oct 3 10:52  /home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp
+  [OK] d0bromir_cpu  9.1M Oct 4 07:14  /home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu
+  [SKIP] d0bromir_gpu  (--cpu-only)
+
+Dataset check:
+  [OK] WGS_PE_18.2G  PE  R1=ERR1044319_1.fastq.gz (9.2G)
+
+All checks passed. Starting 2 runs...
+
+
+=== Dataset: WGS_PE_18.2G (PE) — WGS PE 18.2G (ERR1044319 R1+R2) ===
+--- Threads: 8 ---
+  [ 1/ 2] opengene        WGS_PE_18.2G           T=8     [KILLED] opengene WGS_PE_18.2G T=8 — IDLE_TIMEOUT after 584.386s (HANG_DETECTED output_idle=300s out_size=18471939967B)
+  [IDLE_TIMEOUT]
+./scripts/run_benchmark.sh: line 1675: _RUN_OUT1: unbound variable
+Benchmark interrupted (CSV preserved at /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_103551/full_benchmark_20261004_103551.csv; rerun with --resume to continue).
+============================================================
+ Full Benchmark — Three-tool fastp comparison
+ Started   : Sun Oct  4 10:45:38 AM UTC 2026
+ Datasets  : WGS_PE_18.2G
+ Threads   : 16
+ Scenario  : default  opts=''
+ CPU-only  : 1  (GPU build/tests/runs skipped when 1)
+ Total runs: 2
+ CSV       : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_benchmark_20261004_104538.csv
+ Profile   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_profiling_20261004_104538.log
+ Validation: /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_validation_20261004_104538.log
+ Status    : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_status_20261004_104538.txt
+ Validation: read-count at every T; full FASTQ+JSON at T=8
+ WARNING   : VALIDATE_THREADS=8 not in selected threads (16);
+             deep validation will be SKIPPED. Re-run with -t 8 to enable.
+============================================================
+
+Binary check:
+  [OK] opengene  11M Oct 3 10:52  /home/mpiuser/bioauto_rev/fastp_d0bromir/../fastp_opengene/fastp
+  [OK] d0bromir_cpu  9.1M Oct 4 07:14  /home/mpiuser/bioauto_rev/fastp_d0bromir/fastp-cpu
+  [SKIP] d0bromir_gpu  (--cpu-only)
+
+Dataset check:
+  [OK] WGS_PE_18.2G  PE  R1=ERR1044319_1.fastq.gz (9.2G)
+
+All checks passed. Starting 2 runs...
+
+
+=== Dataset: WGS_PE_18.2G (PE) — WGS PE 18.2G (ERR1044319 R1+R2) ===
+--- Threads: 16 ---
+  [ 1/ 2] opengene        WGS_PE_18.2G           T=16  237.217s  reads_in=234238034  reads_out=217840930
+  [ 2/ 2] d0bromir_cpu    WGS_PE_18.2G           T=16  [PASS] d0bromir_cpu WGS_PE_18.2G T=16  reads_in=234238034  reads_out=217840930
+164.874s  vs_opengene=-30.5%  PASS  attempts=1
+
+============================================================
+ BENCHMARK COMPLETE — Sun Oct  4 10:52:25 AM UTC 2026
+ CSV       : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_benchmark_20261004_104538.csv
+ Profile   : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_profiling_20261004_104538.log
+ Validation: /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_validation_20261004_104538.log
+ Status    : /home/mpiuser/bioauto_rev/fastp_d0bromir/benchmark_results/20261004_104538/full_status_20261004_104538.txt
+============================================================
+
+dataset                 type  tool                 T      wall_s      reads_in     reads_out   vs_opengene  valid
+---------------------------------------------------------------------------------------------------------
+WGS_PE_18.2G            PE    opengene            16       237.2     234238034     217840930      baseline  baseline
+WGS_PE_18.2G            PE    d0bromir_cpu        16       164.9     234238034     217840930        -30.5%  PASS
+
+Done.

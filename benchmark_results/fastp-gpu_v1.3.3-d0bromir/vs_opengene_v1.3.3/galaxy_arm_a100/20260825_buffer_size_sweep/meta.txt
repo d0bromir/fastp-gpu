@@ -1,0 +1,109 @@
+timestamp:        2026-08-24 19:32 UTC -- 2026-08-25 00:04 UTC
+platform:         galaxy_arm_a100 (see ../hardware.txt: Neoverse N1, 128 cores, dual A100 80GB)
+fastp-gpu version: v1.3.3-d0bromir, galaxy host's long-lived benchmarking
+                   working tree (/home/mpiuser/tools/src/fastp_d0bromir,
+                   kept separately from the primary work-repo clone).
+                   src/fastqreader.cpp / src/fastqreader.h were edited in
+                   place for this sweep only, then reverted to the shipped
+                   defaults and re-verified (unit tests + a final rebuild)
+                   before being left clean -- no permanent code change
+                   resulted from this experiment.
+datasets:
+  - WGS_SE_6.3G (ERR1044780_1.fastq.gz, plain gzip, single-end, the same
+    dataset used for the JCB paper's headline SE benchmark) -- CPU build
+    (fastp-cpu), -w 16, 2 repetitions per buffer size.
+  - DRR346892_BGZF_PE -- RNA-Seq NextSeq paired-end, freshly re-downloaded
+    from ENA (https://ftp.sra.ebi.ac.uk/vol1/fastq/DRR346/DRR346892/) and
+    recompressed to BGZF via `bgzip -@16` (same accession/method as
+    ../20260823_bgzf_cpu_vs_gpu_decompress/, but re-fetched fresh -- the
+    temp files from that run were not retained on this host). GPU build
+    (fastp), -w 16, 1 repetition per buffer size (exercises the GPU/nvCOMP
+    BGZF decompression path specifically).
+
+sweep:            FQ_BUF_SIZE (src/fastqreader.cpp) swept over
+                   {4, 8, 16, 32, 64} MB. BGZF_READER_BATCH
+                   (src/fastqreader.h) scaled in lockstep at every point
+                   (mb * 16) to preserve the invariant
+                   BGZF_READER_BATCH * BGZF_DECOMP_BYTES(65536) <=
+                   FQ_BUF_SIZE -- violating it does not error, it silently
+                   truncates GPU-decompressed BGZF data (see the defensive
+                   clamp comment in src/fastqreader.cpp). 16 MB / 256 is the
+                   shipped default and is included as one of the five sweep
+                   points, not treated specially otherwise.
+
+What this run set is:
+  Motivated by JCB Reviewer 1's Comment 7 ("There needs more explanation of
+  how the buffer size is determined. Is the buffer size dependent on the
+  data size and hardware architecture?"), and by a follow-up suggestion from
+  an external collaborator review (Prof. Simeonov) that the existing answer
+  -- "16 MB, empirically tuned from an earlier 8 MB, no closed-form rule" --
+  was qualitative only and would be stronger with an actual sweep. This is
+  that sweep: five buffer sizes, both a plain-gzip (CPU-path) and a BGZF
+  (GPU-path) dataset, each rebuilt from source and unit-tested
+  (`./fastp[-cpu] test`) at every point before the timed run.
+
+  Full clean object rebuilds (`rm -rf obj/*.o`) were used before every
+  WITH_CUDA=0/WITH_CUDA=1 alternation -- the Makefile does not track
+  compiler flags as a Make dependency, so skipping this can silently relink
+  flag-mismatched objects into the "wrong" binary (a previously-documented
+  project bug, see action-plan.md item 2.6). reads_out (passed-filter read
+  count) was verified identical across every buffer size within each
+  dataset (77,515,798 for SE; 51,860,270 for BGZF), confirming this never
+  affected correctness, only timing, at either extreme (4 MB or 64 MB).
+
+  Two build/environment issues were hit and fixed while setting this sweep
+  up, both orthogonal to the buffer-size question itself: the GPU build's
+  Makefile invocation needs an explicit NVCOMP_LIB (auto-probing only fires
+  when NVCOMP_INC is left unset, and this sweep sets it explicitly), and the
+  resulting binary needs LD_LIBRARY_PATH set at runtime to find
+  libnvcomp.so.5 (its runtime SONAME lives in a separate OS package/directory
+  from the -dev- package used at link time). Neither issue affects the
+  shipped build instructions in docs/BUILD_WITH_CUDA.md, which don't set
+  NVCOMP_INC explicitly and so hit the working auto-probe path; it only
+  surfaced here because this sweep pins NVCOMP_INC to select a specific
+  nvCOMP install.
+
+Result: wall-clock time (PROF_CSV wall_ms, converted to seconds) drops
+  measurably from 4/8 MB to 16 MB and then plateaus:
+
+    buf_mb   SE mean (s, n=2)   vs 16MB    BGZF (s, n=1)   vs 16MB
+    4        68.262             +5.3%      9.014           +20.4%
+    8        69.754             +7.6%      8.136           +8.7%
+    16       64.831             --         7.485           --
+    32       64.716             -0.2%      7.785           +4.0%
+    64       64.682             -0.2%      7.463           -0.3%
+
+  SE reps agree tightly at every point (largest spread: 4 MB's two reps
+  differ by 1.7 s / 2.5%; every other point's two reps agree within ~0.1 s).
+  BGZF is single-rep per point, so its 32 MB reading (+4.0% vs. 16 MB,
+  the only non-monotonic point in either series) should be read as
+  consistent with run-to-run noise rather than a confirmed real effect --
+  a genuine limitation of this sweep's design (wall-clock budget), noted
+  explicitly in optimization_attempts/2026-08-25_buffer-size-sweep.md.
+
+Interpretation for R1 Comment 7 / the "Buffer-size determination"
+  paragraph: below 16 MB, wall-clock time is measurably worse (5-8% gzip,
+  9-20% BGZF); from 16 MB through 64 MB it is flat to within measurement
+  noise. This confirms the shipped 16 MB default sits at (or past) the
+  point of diminishing returns for both datasets tested, upgrading the
+  existing tuning anecdote to an actual measurement.
+
+Files:
+  summary.csv            -- one row per run: config, wall time, reads, notes
+  raw/*_run.log           -- captured stdout/stderr for each timed run,
+                             includes the PROF_CSV line
+  raw/build_{cpu,gpu}_*.log -- full build logs for every rebuild in the
+                             sweep (including the two restore-to-defaults
+                             builds at the end)
+  raw/sweep_results.csv   -- the orchestration script's own running log
+                             (superset of summary.csv's data, kept verbatim)
+  raw/main_stdout.log, raw/resume_stdout.log, raw/resume2_stdout.log --
+                             orchestration script stdout across three
+                             consecutive runs (the first two were interrupted
+                             by the NVCOMP_LIB/LD_LIBRARY_PATH issues above
+                             and resumed in place; the sweep's actual timed
+                             data points are unaffected -- interruptions
+                             only occurred at GPU build/link steps, never
+                             mid-measurement)
+  (raw/*.json full fastp reports are gitignored, local-only, not part of
+  this commit)

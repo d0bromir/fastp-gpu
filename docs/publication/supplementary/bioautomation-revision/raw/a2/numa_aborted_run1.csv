@@ -1,0 +1,4 @@
+rep,tool,threads,policy,wall_s,exit,reads_in,reads_out
+1,opengene,8,bind0,286.085914945,0,234236034,217777420
+1,cpu,8,default,168.974079266,0,234238034,217840930
+1,opengene,16,interleave,236.554546198,0,234238034,217840930

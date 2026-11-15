@@ -17,6 +17,8 @@
 #include "writerthread.h"
 #include "duplicate.h"
 #include "readpool.h"
+#include "contaminant_db.h"
+#include "packqueue.h"
 
 
 using namespace std;
@@ -46,9 +48,12 @@ private:
 private:
     atomic_bool mLeftReaderFinished;
     atomic_bool mRightReaderFinished;
-    alignas(128) atomic_int mFinishedThreads;
+    atomic_int mFinishedThreads;
     Options* mOptions;
+    int mEffectiveThreads;  // adaptive worker count (≤ mOptions->thread) based on input size
+    int mEffectivePackSize; // adaptive pack size (≤ MAX_PACK_SIZE) based on input size / threads
     Filter* mFilter;
+    ContaminantDB* mContaminantDB;
     UmiProcessor* mUmiProcessor;
     atomic_long* mInsertSizeHist;
     WriterThread* mLeftWriter;
@@ -59,17 +64,21 @@ private:
     WriterThread* mFailedWriter;
     WriterThread* mOverlappedWriter;
     Duplicate* mDuplicate;
+    // --split path only; see PackQueue's comment in packqueue.h.
     SingleProducerSingleConsumerList<ReadPack*>** mLeftInputLists;
     SingleProducerSingleConsumerList<ReadPack*>** mRightInputLists;
+    // Default (non-split) path: shared, load-balanced pack-pair queue.
+    PairedPackQueue* mPackQueue;
+    // Counts reader threads that have finished, so the (non-interleaved)
+    // dual-reader-thread case only signals mPackQueue finished once both
+    // R1 and R2 readers are done.
+    atomic_int mReadersFinishedCount;
     size_t mLeftPackReadCounter;
     size_t mRightPackReadCounter;
-    alignas(128) atomic_long mPackProcessedCounter;
-    long mPackInMemLimit;
+    atomic_long mPackProcessedCounter;
     ReadPool* mLeftReadPool;
     ReadPool* mRightReadPool;
     atomic_bool shouldStopReading;
-    std::mutex mBackpressureMtx;
-    std::condition_variable mBackpressureCV;
 };
 
 
